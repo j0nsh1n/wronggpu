@@ -182,7 +182,9 @@ The kernels are deterministic for a given DXC / HIP SDK version and do not depen
 - `out\runtime\dx12\manifest.json` and the DXIL files next to it: file by file.
 - The code objects `out\runtime\*.co` and `out\runtime\gfx1200\*.co`: file by file. Release 0.6.0 was built before
   the compilation-unit id was fixed (`-cuid`), so its code objects differ from a new build in one symbol name
-  (`__hip_cuid_...`) and the symbol tables; for 0.6.0 compare the `.text`, `.rodata` and `.note` sections.
+  (`__hip_cuid_...`) and the symbol tables; for 0.6.0 compare the `.text` and `.note` sections. Their `.rodata`
+  holds the kernel descriptors: where the shorter symbol table moves `.rodata`, each descriptor's offset to its code
+  changes by the same amount and nothing else does.
 
 ## 7. GPU steps (optional; not needed to build)
 
