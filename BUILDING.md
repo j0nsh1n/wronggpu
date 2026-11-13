@@ -175,9 +175,14 @@ repository (the synthetic converter library stand-ins `WGC_SYNTH_BINS`, a model 
 
 ### Comparing kernels with a release
 
-The kernels are deterministic for a given DXC / HIP SDK version: `out\rr-rt\kernels.json` (name, arguments, SHA-256 of
-each DXIL), `out\runtime\dx12\manifest.json` (SHA-256 of each DXIL) and the code objects `out\runtime\*.co` can be
-compared file by file with another build of the same source.
+The kernels are deterministic for a given DXC / HIP SDK version and do not depend on the folder you build in:
+
+- `out\rr-rt\kernels.json`: compare each kernel's `nargs` and `sha256`. The DXIL file names in it end in a cache key
+  of the source folders and can differ between builds of the same source.
+- `out\runtime\dx12\manifest.json` and the DXIL files next to it: file by file.
+- The code objects `out\runtime\*.co` and `out\runtime\gfx1200\*.co`: file by file. Release 0.6.0 was built before
+  the compilation-unit id was fixed (`-cuid`), so its code objects differ from a new build in one symbol name
+  (`__hip_cuid_...`) and the symbol tables; for 0.6.0 compare the `.text`, `.rodata` and `.note` sections.
 
 ## 7. GPU steps (optional; not needed to build)
 

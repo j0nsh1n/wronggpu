@@ -17,6 +17,7 @@ Each kernel source is compiled with the command given in spec 90:
 """
 import argparse
 import json
+import re
 import os
 import shutil
 import subprocess
@@ -96,8 +97,11 @@ def find_clang(rocm):
 
 
 def device_command(clang, rocm, src, out, device_libs=True, report=False, extra=(), soft_fp8=False, defines=None):
+    # a fixed compilation-unit id: without it clang derives the id from the source's path, and a code object built in
+    # another folder differs in one symbol name (__hip_cuid_...) although its code is the same
+    cuid = "wg_" + re.sub(r"[^A-Za-z0-9_]", "_", os.path.splitext(os.path.basename(out))[0])
     cmd = [clang, "-x", "hip", f"--offload-arch={ARCH}", "--cuda-device-only", "-nogpuinc", "-O3",
-           "--no-gpu-bundle-output"]
+           "--no-gpu-bundle-output", f"-cuid={cuid}"]
     if device_libs:
         cmd += [f"--rocm-path={rocm}", f"--rocm-device-lib-path={os.path.join(rocm, 'amdgcn', 'bitcode')}"]
     else:
