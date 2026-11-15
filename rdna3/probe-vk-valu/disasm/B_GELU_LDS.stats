@@ -1,0 +1,28 @@
+subgroup_size 32
+stat Driver pipeline hash: 4699298313398537654
+stat SGPRs: 108
+stat VGPRs: 96
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 2252
+stat LDS size: 16384
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 3321218437
+stat Instructions: 356
+stat Copies: 10
+stat Branches: 3
+stat Latency: 4223
+stat Inverse Throughput: 2824
+stat VMEM Clause: 4
+stat SMEM Clause: 3
+stat Pre-Sched SGPRs: 9
+stat Pre-Sched VGPRs: 24
+stat VALU: 215
+stat SALU: 9
+stat VMEM: 18
+stat SMEM: 3
+stat VOPD: 11
+rep 0 gpu_ns 2800

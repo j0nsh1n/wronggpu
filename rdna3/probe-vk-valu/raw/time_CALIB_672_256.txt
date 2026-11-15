@@ -1,0 +1,39 @@
+# kernel CALIB wgs 672 iters 256 before: sclk=36Mhz mclk=1249Mhz busy=0%
+subgroup_size 32
+stat Driver pipeline hash: 2483009898743564742
+stat SGPRs: 108
+stat VGPRs: 24
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 1744
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 1850927329
+stat Instructions: 277
+stat Copies: 5
+stat Branches: 2
+stat Latency: 1876
+stat Inverse Throughput: 2230
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 7
+stat Pre-Sched VGPRs: 19
+stat VALU: 219
+stat SALU: 7
+stat VMEM: 17
+stat SMEM: 2
+stat VOPD: 8
+rep 0 gpu_ns 696280
+rep 1 gpu_ns 695880
+rep 2 gpu_ns 695360
+rep 3 gpu_ns 695360
+rep 4 gpu_ns 695440
+rep 5 gpu_ns 695000
+rep 6 gpu_ns 694560
+rep 7 gpu_ns 695080
+rep 8 gpu_ns 694560
+rep 9 gpu_ns 693800
+# after: sclk=1491Mhz mclk=1249Mhz busy=0%

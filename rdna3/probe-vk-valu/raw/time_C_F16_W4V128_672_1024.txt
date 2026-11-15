@@ -1,0 +1,39 @@
+# kernel C_F16_W4V128 wgs 672 iters 1024 before: sclk=66Mhz mclk=1249Mhz busy=0%
+subgroup_size 32
+stat Driver pipeline hash: 1066833235469055279
+stat SGPRs: 108
+stat VGPRs: 72
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 2116
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 2667106621
+stat Instructions: 335
+stat Copies: 49
+stat Branches: 2
+stat Latency: 2965
+stat Inverse Throughput: 4392
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 7
+stat Pre-Sched VGPRs: 67
+stat VALU: 280
+stat SALU: 7
+stat VMEM: 17
+stat SMEM: 2
+stat VOPD: 21
+rep 0 gpu_ns 5700520
+rep 1 gpu_ns 5685320
+rep 2 gpu_ns 5036600
+rep 3 gpu_ns 3343760
+rep 4 gpu_ns 3093920
+rep 5 gpu_ns 3237320
+rep 6 gpu_ns 3474280
+rep 7 gpu_ns 3448920
+rep 8 gpu_ns 3446680
+rep 9 gpu_ns 3423000
+# after: sclk=2547Mhz mclk=1249Mhz busy=0%

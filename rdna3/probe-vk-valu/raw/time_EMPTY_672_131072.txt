@@ -1,0 +1,39 @@
+# kernel EMPTY wgs 672 iters 131072 before: sclk=354Mhz mclk=1249Mhz busy=0%
+subgroup_size 32
+stat Driver pipeline hash: 6789094344366747739
+stat SGPRs: 108
+stat VGPRs: 24
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 116
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 1917422767
+stat Instructions: 24
+stat Copies: 3
+stat Branches: 2
+stat Latency: 733
+stat Inverse Throughput: 92
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 7
+stat Pre-Sched VGPRs: 2
+stat VALU: 6
+stat SALU: 5
+stat VMEM: 2
+stat SMEM: 2
+stat VOPD: 0
+rep 0 gpu_ns 6418440
+rep 1 gpu_ns 6381240
+rep 2 gpu_ns 6438520
+rep 3 gpu_ns 6423320
+rep 4 gpu_ns 6381320
+rep 5 gpu_ns 6341400
+rep 6 gpu_ns 6396120
+rep 7 gpu_ns 6352600
+rep 8 gpu_ns 6355840
+rep 9 gpu_ns 6285640
+# after: sclk=2914Mhz mclk=1249Mhz busy=16%

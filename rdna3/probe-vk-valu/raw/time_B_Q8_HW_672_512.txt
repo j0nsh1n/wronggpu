@@ -1,0 +1,39 @@
+# kernel B_Q8_HW wgs 672 iters 512 before: sclk=190Mhz mclk=1249Mhz busy=6%
+subgroup_size 32
+stat Driver pipeline hash: 1038811490174117381
+stat SGPRs: 108
+stat VGPRs: 96
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 4136
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 2846554080
+stat Instructions: 799
+stat Copies: 19
+stat Branches: 2
+stat Latency: 7927
+stat Inverse Throughput: 9240
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 13
+stat Pre-Sched VGPRs: 25
+stat VALU: 659
+stat SALU: 16
+stat VMEM: 17
+stat SMEM: 2
+stat VOPD: 52
+rep 0 gpu_ns 6082240
+rep 1 gpu_ns 6064960
+rep 2 gpu_ns 4409320
+rep 3 gpu_ns 3327080
+rep 4 gpu_ns 3358760
+rep 5 gpu_ns 3856600
+rep 6 gpu_ns 3953520
+rep 7 gpu_ns 3769920
+rep 8 gpu_ns 3702080
+rep 9 gpu_ns 3703440
+# after: sclk=2499Mhz mclk=1249Mhz busy=34%

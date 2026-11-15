@@ -1,0 +1,469 @@
+#version 450
+// Shader-throughput kernels for the RX 7900 XT. One kernel per compile, chosen with glslc -DK_<name>.
+// Every kernel: 256 invocations (8 waves of 32), a loop of pc.iters iterations whose trip count the compiler cannot
+// know, a body of fixed work per lane, and one dword written per invocation so nothing is dead code.
+// Inputs come from binding 0 (random state), tables / weights from binding 2.
+#extension GL_EXT_shader_explicit_arithmetic_types : require
+#extension GL_EXT_control_flow_attributes : require
+#extension GL_KHR_shader_subgroup_basic : require
+#extension GL_KHR_shader_subgroup_shuffle : require
+#extension GL_EXT_integer_dot_product : enable
+#extension GL_KHR_cooperative_matrix : enable
+#extension GL_KHR_memory_scope_semantics : enable
+#extension GL_EXT_shader_16bit_storage : require
+
+layout(local_size_x = 256) in;
+layout(push_constant) uniform PC { uint iters; } pc;
+layout(std430, binding = 0) readonly buffer BI { uint inp[]; };
+layout(std430, binding = 1) writeonly buffer BO { uint outp[]; };
+layout(std430, binding = 2) readonly buffer BX { uint aux[]; };
+
+#define GID gl_GlobalInvocationID.x
+#define LANE gl_SubgroupInvocationID
+// 16 dwords of random state per invocation, from a 256 KiB input block (65536 dwords): the input block stays small.
+uint ld(uint j) { return inp[(GID * 16u + j) & 65535u]; }
+float ldf(uint j, float scale) { return float(int(ld(j))) * scale; }
+
+// ---------------------------------------------------------------------------------------------------------------------
+// E4M3 helpers: GLSL ports of wg_e4m3_hw / wg_e4m3_sat (clean/dx12/hlsl/wg_math.hlsli:153-175). HLSL round() is
+// v_rndne (round to nearest even) there; roundEven is the same here.
+uint e4m3_hw(float f)
+{
+    uint b = floatBitsToUint(f), s = (b >> 24) & 0x80u, a = b & 0x7fffffffu;
+    uint sub = uint(roundEven(min(uintBitsToFloat(a), 0.015625) * 512.0));
+    uint nrm = ((a + 0x7ffffu + ((a >> 20) & 1u)) >> 20) - (120u << 3);
+    uint code = a < 0x3c800000u ? sub : nrm;
+    code = a > 0x43e80000u ? 0x7fu : code;
+    return a > 0x7f800000u ? 0xffu : s | code;
+}
+uint e4m3_sat(float f)
+{
+    uint b = floatBitsToUint(f), s = (b >> 24) & 0x80u, a = b & 0x7fffffffu;
+    uint sub = uint(roundEven(min(uintBitsToFloat(a), 0.015625) * 512.0));
+    uint nrm = ((a + 0x7ffffu + ((a >> 20) & 1u)) >> 20) - (120u << 3);
+    uint code = a < 0x3c800000u ? sub : nrm;
+    code = a >= 0x43e00000u ? 0x7eu : code;
+    return a > 0x7f800000u ? 0xffu : s | code;
+}
+#ifndef QFN
+#define QFN e4m3_hw
+#endif
+uint pack4q(float a, float b, float c, float d) { return QFN(a) | (QFN(b) << 8) | (QFN(c) << 16) | (QFN(d) << 24); }
+
+// E4M3 codes (bytes 0 and 1 of p) -> two F16 bit patterns (low, high half), cheap bit form: value x 2^-8.
+uint e4_to_h2_bits(uint p)
+{
+    uint t = (p & 0xffu) | ((p << 8) & 0xff0000u);              // byte 0 -> bits 0..7, byte 1 -> bits 16..23
+    return ((t & 0x007f007fu) << 7) | ((t & 0x00800080u) << 8);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+#if defined(K_EMPTY)
+void main()
+{
+    uint acc = ld(0);
+    for (uint i = 0u; i < pc.iters; ++i) acc += i;
+    outp[GID] = acc;
+}
+
+#elif defined(K_CALIB)
+// 16 independent v_fma_f32 chains: x = fma(x, a, b). VOP3 form (the destination is not the addend), so no VOPD pairing.
+void main()
+{
+    float x[16]; float a = ldf(1, 1e-12) + 0.999, b = ldf(2, 1e-12);
+    [[unroll]] for (uint j = 0u; j < 16u; ++j) x[j] = ldf(j, 1e-9);
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint r = 0u; r < 8u; ++r)
+            [[unroll]] for (uint j = 0u; j < 16u; ++j) x[j] = fma(x[j], a, b);
+    float s = 0.0;
+    [[unroll]] for (uint j = 0u; j < 16u; ++j) s += x[j];
+    outp[GID] = floatBitsToUint(s);
+}
+
+// ===================================== A: 16-term dot products, 4096 products per wave per iteration ================
+#elif defined(K_A_FMA32)
+// 128 FP32 fused multiply-adds per lane per iteration (8 accumulators x 16 terms).
+void main()
+{
+    float a[16], b[16], acc[8];
+    [[unroll]] for (uint k = 0u; k < 16u; ++k) { a[k] = ldf(k, 1e-12); b[k] = float(int(ld(k) ^ 0x9e3779b9u)) * 3e-13; }
+    [[unroll]] for (uint j = 0u; j < 8u; ++j) acc[j] = 0.0;
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint k = 0u; k < 16u; ++k)
+            [[unroll]] for (uint j = 0u; j < 8u; ++j) acc[j] = fma(a[k], b[(k + j) & 15u], acc[j]);
+    float s = 0.0;
+    [[unroll]] for (uint j = 0u; j < 8u; ++j) s += acc[j];
+    outp[GID] = floatBitsToUint(s);
+}
+
+#elif defined(K_A_F16MIX) || defined(K_A_F16DOT16) || defined(K_A_F16PK)
+// FP16 pairs: 8 dwords of a, 8 of b (16 halves each), 8 accumulators: 64 pair-steps = 128 products per lane.
+//   F16MIX   : acc32 = fma(f32(a.x), f32(b.x), fma(f32(a.y), f32(b.y), acc32))  (hoped: v_dot2_f32_f16 or v_fma_mix_f32)
+//   F16DOT16 : acc16 += dot(a, b) on f16vec2                                     (v_dot2_f16_f16, FP16 accumulate)
+//   F16PK    : acc16x2 = fma(a, b, acc16x2)                                      (v_pk_fma_f16, FP16 accumulate)
+void main()
+{
+    f16vec2 a[8], b[8];
+    [[unroll]] for (uint k = 0u; k < 8u; ++k) {
+        a[k] = unpackFloat2x16((ld(k) & 0x3bff3bffu));  b[k] = unpackFloat2x16((ld(8u + k) & 0x3bff3bffu) ^ 0x00010001u);
+    }
+#if defined(K_A_F16MIX)
+    float acc[8];
+    [[unroll]] for (uint j = 0u; j < 8u; ++j) acc[j] = 0.0;
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint k = 0u; k < 8u; ++k)
+            [[unroll]] for (uint j = 0u; j < 8u; ++j) {
+                f16vec2 x = a[k], y = b[(k + j) & 7u];
+                acc[j] = fma(float(x.x), float(y.x), fma(float(x.y), float(y.y), acc[j]));
+            }
+    float s = 0.0;
+    [[unroll]] for (uint j = 0u; j < 8u; ++j) s += acc[j];
+#elif defined(K_A_F16DOT16)
+    float16_t acc[8];
+    [[unroll]] for (uint j = 0u; j < 8u; ++j) acc[j] = float16_t(0.0);
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint k = 0u; k < 8u; ++k)
+            [[unroll]] for (uint j = 0u; j < 8u; ++j) acc[j] = dot(a[k], b[(k + j) & 7u]) + acc[j];
+    float s = 0.0;
+    [[unroll]] for (uint j = 0u; j < 8u; ++j) s += float(acc[j]);
+#else
+    f16vec2 acc[4];
+    [[unroll]] for (uint j = 0u; j < 4u; ++j) acc[j] = f16vec2(0.0);
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint k = 0u; k < 8u; ++k)
+            [[unroll]] for (uint j = 0u; j < 8u; ++j) acc[j & 3u] = fma(a[k], b[(k + j) & 7u], acc[j & 3u]);
+    float s = 0.0;
+    [[unroll]] for (uint j = 0u; j < 4u; ++j) s += float(acc[j].x) + float(acc[j].y);
+#endif
+    outp[GID] = floatBitsToUint(s);
+}
+
+#elif defined(K_A_I8DOT) || defined(K_A_I8DOTSAT) || defined(K_A_U8DOT)
+// Packed int8 dot products (GL_EXT_integer_dot_product): 4 dwords of a, 4 of b (16 bytes each), 8 accumulators,
+// 32 dot4 per lane per iteration = 128 products.
+void main()
+{
+    uint a[4], b[4];
+    [[unroll]] for (uint k = 0u; k < 4u; ++k) { a[k] = ld(k); b[k] = ld(4u + k); }
+    int acc[8];
+    [[unroll]] for (uint j = 0u; j < 8u; ++j) acc[j] = int(ld(8u + j) & 0xffu);
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint k = 0u; k < 4u; ++k)
+            [[unroll]] for (uint j = 0u; j < 8u; ++j) {
+#if defined(K_A_I8DOT)
+                acc[j] = acc[j] + dotPacked4x8EXT(int(a[k]), int(b[(k + j) & 3u]));
+#elif defined(K_A_I8DOTSAT)
+                acc[j] = dotPacked4x8AccSatEXT(int(a[k]), int(b[(k + j) & 3u]), acc[j]);
+#else
+                acc[j] = int(uint(acc[j]) + dotPacked4x8EXT(a[k], b[(k + j) & 3u]));
+#endif
+            }
+    int s = 0;
+    [[unroll]] for (uint j = 0u; j < 8u; ++j) s ^= acc[j];
+    outp[GID] = uint(s);
+}
+
+#elif defined(K_A_I32MAD) || defined(K_A_I24MAD)
+// Plain integer multiply-add, 128 per lane per iteration. I32: full 32-bit operands. I24: operands sign-extended from
+// bytes, so the compiler may know they fit 24 bits.
+void main()
+{
+    int a[16], b[16], acc[8];
+    [[unroll]] for (uint k = 0u; k < 16u; ++k) {
+#if defined(K_A_I32MAD)
+        a[k] = int(ld(k)); b[k] = int(ld(k) ^ 0x9e3779b9u);
+#else
+        a[k] = bitfieldExtract(int(ld(k)), 0, 8); b[k] = bitfieldExtract(int(ld(k)), 8, 8);
+#endif
+    }
+    [[unroll]] for (uint j = 0u; j < 8u; ++j) acc[j] = 0;
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint k = 0u; k < 16u; ++k)
+            [[unroll]] for (uint j = 0u; j < 8u; ++j) acc[j] += a[k] * b[(k + j) & 15u];
+    int s = 0;
+    [[unroll]] for (uint j = 0u; j < 8u; ++j) s ^= acc[j];
+    outp[GID] = uint(s);
+}
+
+// ===================================== B: glue around a matrix multiply, 8 values per lane per step =================
+// Each iteration processes U steps of 8 values. Fresh inputs: x[k] + t (one v_add per value; t changes per iteration),
+// results folded into acc with xor so nothing is dead. Those harness instructions are counted from the disassembly.
+#elif defined(K_B_BASE)
+// Harness only: x + t, then fold the 8 FP32 bit patterns.
+void main()
+{
+    float x[8]; uint acc = 0u; float t = 0.0;
+    [[unroll]] for (uint k = 0u; k < 8u; ++k) x[k] = ldf(k, 1e-7);
+    for (uint i = 0u; i < pc.iters; ++i) {
+        t += 1.0;
+        [[unroll]] for (uint u = 0u; u < 4u; ++u)
+            [[unroll]] for (uint k = 0u; k < 8u; ++k) acc ^= floatBitsToUint(x[k] + (t + float(u)));
+    }
+    outp[GID] = acc;
+}
+
+#elif defined(K_B_E4H_BITS) || defined(K_B_E4H_EXACT) || defined(K_B_E4H_LDS)
+// E4M3 codes -> F16 operands. 8 codes per lane per step arrive as 2 dwords; output 4 dwords of packed F16 (one lane's
+// A or B operand half for the gfx11 WMMA). Fresh codes: p + i (one v_add per 4 codes).
+//   BITS : cheap bit form, F16 value = E4M3 value x 2^-8
+//   EXACT: bit form, then v_pk_mul_f16 by 2^8 (exact: the true E4M3 value as F16)
+//   LDS  : table of 256 F16 bit patterns in shared memory, one ds_load_u16 per code
+#if defined(K_B_E4H_LDS)
+shared uint16_t tab16[256];
+#endif
+void main()
+{
+#if defined(K_B_E4H_LDS)
+    tab16[gl_LocalInvocationID.x] = uint16_t(aux[gl_LocalInvocationID.x] & 0xffffu);
+    barrier();
+#endif
+    uint p[2]; uint acc = 0u;
+    p[0] = ld(0); p[1] = ld(1);
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint u = 0u; u < 4u; ++u) {
+            uint h[4];
+            [[unroll]] for (uint k = 0u; k < 2u; ++k) {
+                uint q = p[k] + (i * 4u + u) * 0x01010101u;
+#if defined(K_B_E4H_LDS)
+                h[2u * k] = uint(tab16[q & 0xffu]) | (uint(tab16[(q >> 8) & 0xffu]) << 16);
+                h[2u * k + 1u] = uint(tab16[(q >> 16) & 0xffu]) | (uint(tab16[q >> 24]) << 16);
+#else
+                h[2u * k] = e4_to_h2_bits(q);
+                h[2u * k + 1u] = e4_to_h2_bits(q >> 16);
+#endif
+            }
+#if defined(K_B_E4H_EXACT)
+            [[unroll]] for (uint k = 0u; k < 4u; ++k) h[k] = packFloat2x16(unpackFloat2x16(h[k]) * float16_t(256.0));
+#endif
+            acc ^= h[0] ^ h[1] ^ h[2] ^ h[3];
+        }
+    outp[GID] = acc;
+}
+
+#elif defined(K_B_Q8)
+// FP32 -> E4M3 code (QFN = e4m3_hw or e4m3_sat), 8 values -> 2 packed dwords, as wg_pack_q8_nc / wg_pack_q8.
+void main()
+{
+    float x[8]; uint acc = 0u; float t = 0.0;
+    [[unroll]] for (uint k = 0u; k < 8u; ++k) x[k] = uintBitsToFloat((ld(k) & 0x807fffffu) | ((112u + (ld(8u + k) % 24u)) << 23));
+    for (uint i = 0u; i < pc.iters; ++i) {
+        t += 1.0;
+        [[unroll]] for (uint u = 0u; u < 4u; ++u) {
+            float y[8];
+            [[unroll]] for (uint k = 0u; k < 8u; ++k) y[k] = x[k] * (t + float(u));
+            acc ^= pack4q(y[0], y[1], y[2], y[3]) ^ pack4q(y[4], y[5], y[6], y[7]);
+        }
+    }
+    outp[GID] = acc;
+}
+
+#elif defined(K_B_F2H) || defined(K_B_F2H_SW)
+// FP32 -> FP16, 8 values -> 4 packed dwords. F2H: the hardware conversion (f16vec2 constructor, round to nearest
+// even under Vulkan's default rounding). F2H_SW: wg_f2h's software form, for comparison with the D3D12 path.
+uint f2h_sw(float f)
+{
+    uint u = floatBitsToUint(f), s = (u >> 16) & 0x8000u, a = u & 0x7fffffffu;
+    uint nrm = (a + 0xC8000FFFu + ((a >> 13) & 1u)) >> 13;
+    uint den = floatBitsToUint(uintBitsToFloat(a) + uintBitsToFloat(0x3F000000u)) - 0x3F000000u;
+    uint r = a < 0x38800000u ? den : nrm;
+    r = a >= 0x47800000u ? (a > 0x7f800000u ? (0x7e00u | ((a >> 13) & 0x3ffu)) : 0x7c00u) : r;
+    return s | r;
+}
+void main()
+{
+    float x[8]; uint acc = 0u; float t = 0.0;
+    [[unroll]] for (uint k = 0u; k < 8u; ++k) x[k] = ldf(k, 1e-7);
+    for (uint i = 0u; i < pc.iters; ++i) {
+        t += 1.0;
+        [[unroll]] for (uint u = 0u; u < 4u; ++u) {
+            float y[8];
+            [[unroll]] for (uint k = 0u; k < 8u; ++k) y[k] = x[k] + (t + float(u));
+            [[unroll]] for (uint k = 0u; k < 8u; k += 2u)
+#if defined(K_B_F2H)
+                acc ^= packFloat2x16(f16vec2(y[k], y[k + 1u]));
+#else
+                acc ^= f2h_sw(y[k]) | (f2h_sw(y[k + 1u]) << 16);
+#endif
+        }
+    }
+    outp[GID] = acc;
+}
+
+#elif defined(K_B_RQ_F32) || defined(K_B_RQ_MAGIC)
+// int32 accumulator -> int8: multiply by a scale, round to nearest even, clamp to [-128, 127], 4 bytes per dword.
+//   RQ_F32  : cvt, mul, roundEven, cvt, clamp, pack (the textbook form)
+//   RQ_MAGIC: fma(float(a), scale, 1.5 * 2^23) puts the rounded integer in the low mantissa bits; clamp in that domain
+//             (med3), then the low byte is the two's-complement int8 code
+void main()
+{
+    int x[8]; uint acc = 0u; float sc = ldf(9, 1e-15) + 0.0013;
+    [[unroll]] for (uint k = 0u; k < 8u; ++k) x[k] = int(ld(k)) >> 8;
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint u = 0u; u < 4u; ++u) {
+            uint q[8];
+            [[unroll]] for (uint k = 0u; k < 8u; ++k) {
+                int a = x[k] + int(i * 4u + u);
+#if defined(K_B_RQ_F32)
+                q[k] = uint(clamp(int(roundEven(float(a) * sc)), -128, 127)) & 0xffu;
+#else
+                float m = fma(float(a), sc, 12582912.0);
+                q[k] = floatBitsToUint(clamp(m, 12582912.0 - 128.0, 12582912.0 + 127.0)) & 0xffu;
+#endif
+            }
+            acc ^= (q[0] | (q[1] << 8) | (q[2] << 16) | (q[3] << 24)) ^ (q[4] | (q[5] << 8) | (q[6] << 16) | (q[7] << 24));
+        }
+    outp[GID] = acc;
+}
+
+#elif defined(K_B_GELU_LDS)
+// GELU by table (wg_gelu_lut.hlsli's scheme): w = fma(h, S, B); c = F16 bits of w (round toward zero, packed pair);
+// slot = c >> 5 (2048 slots); (a, b) = table[slot] from shared memory (8 bytes); y = fma(h, a, b). Quantizing y is B_Q8.
+shared uvec2 gtab[2048];
+void main()
+{
+    for (uint e = gl_LocalInvocationID.x; e < 2048u; e += 256u) gtab[e] = uvec2(aux[2u * e], aux[2u * e + 1u]);
+    barrier();
+    float x[8]; uint acc = 0u; float t = 0.0;
+    [[unroll]] for (uint k = 0u; k < 8u; ++k) x[k] = ldf(k, 1e-9);
+    for (uint i = 0u; i < pc.iters; ++i) {
+        t += 1.0;
+        [[unroll]] for (uint u = 0u; u < 4u; ++u) {
+            float h[8], y[8];
+            [[unroll]] for (uint k = 0u; k < 8u; ++k) h[k] = x[k] + (t + float(u));
+            [[unroll]] for (uint k = 0u; k < 8u; k += 2u) {
+                uint c = packHalf2x16(vec2(fma(h[k], 1.8277686834335327, 0.0007425600779242814),
+                                           fma(h[k + 1u], 1.8277686834335327, 0.0007425600779242814)));
+                uvec2 e0 = gtab[(c & 0xffffu) >> 5], e1 = gtab[c >> 21];
+                y[k] = fma(h[k], uintBitsToFloat(e0.x), uintBitsToFloat(e0.y));
+                y[k + 1u] = fma(h[k + 1u], uintBitsToFloat(e1.x), uintBitsToFloat(e1.y));
+            }
+            [[unroll]] for (uint k = 0u; k < 8u; ++k) acc ^= floatBitsToUint(y[k]);
+        }
+    }
+    outp[GID] = acc;
+}
+
+#elif defined(K_B_XOR16) || defined(K_B_BPERM)
+// Half-wave exchange of 8 values per lane: XOR16 = subgroupShuffleXor(v, 16); BPERM = subgroupShuffle with the index
+// lane ^ 16 computed at run time (what HLSL WaveReadLaneAt(v, lane ^ 16) becomes). The exchanged values are the next
+// iteration's inputs, so no extra instruction is needed.
+void main()
+{
+    uint v[8];
+    [[unroll]] for (uint k = 0u; k < 8u; ++k) v[k] = ld(k);
+    uint src = LANE ^ (16u | (ld(12) & 0x80000000u));   // the top bit of the stored word is 0: opaque to the compiler
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint u = 0u; u < 4u; ++u)
+            [[unroll]] for (uint k = 0u; k < 8u; ++k) {
+#if defined(K_B_XOR16)
+                v[k] = subgroupShuffleXor(v[k], 16u);
+#else
+                v[k] = subgroupShuffle(v[k], src);
+#endif
+            }
+    uint acc = 0u;
+    [[unroll]] for (uint k = 0u; k < 8u; ++k) acc ^= v[k];
+    outp[GID] = acc;
+}
+
+#elif defined(K_B_W_GLOBAL) || defined(K_B_W_LDS)
+// Weight reads: per lane one 16-byte load per step (16 E4M3 codes = one lane's B column for K = 16; lanes 16-31 read
+// the same addresses as lanes 0-15, the gfx11 replication), 4 steps per iteration, from a 32 KiB weight block that
+// every wave shares: GLOBAL = storage buffer (cache-resident), LDS = copied once into shared memory.
+#if defined(K_B_W_LDS)
+shared uvec4 wl[2048];
+#endif
+void main()
+{
+#if defined(K_B_W_LDS)
+    for (uint e = gl_LocalInvocationID.x; e < 2048u; e += 256u) wl[e] = uvec4(aux[4u * e], aux[4u * e + 1u], aux[4u * e + 2u], aux[4u * e + 3u]);
+    barrier();
+#endif
+    uint acc = 0u, base = (LANE & 15u) + (gl_SubgroupID & 7u) * 16u;
+    for (uint i = 0u; i < pc.iters; ++i)
+        [[unroll]] for (uint u = 0u; u < 4u; ++u) {
+            uint e = (base + (i * 4u + u) * 128u) & 2047u;
+#if defined(K_B_W_LDS)
+            uvec4 w = wl[e];
+#else
+            uvec4 w = uvec4(aux[4u * e], aux[4u * e + 1u], aux[4u * e + 2u], aux[4u * e + 3u]);
+#endif
+            acc ^= w.x ^ w.y ^ w.z ^ w.w;
+        }
+    outp[GID] = acc;
+}
+
+// ===================================== C: matrix instruction with and without vector work ===========================
+#elif defined(K_C)
+// NW matrix multiplies per iteration (independent accumulators NA, chained across iterations) and NV v_fma_f32
+// (VOP3 form, 16 chains) per iteration. TA / TC: element types (float16_t / float or int8_t / int32_t).
+#ifndef NW
+#define NW 4
+#endif
+#ifndef NV
+#define NV 0
+#endif
+#define NA 4
+#if NW < 0 || NV < 0 || NV > 512
+#error "K_C needs 0 <= NW and 0 <= NV <= 512"
+#endif
+#if NW > 0
+#if NV % NW != 0
+#error "K_C needs NV to be a multiple of NW"
+#endif
+#endif
+void main()
+{
+    uint p = gl_SubgroupID;
+    coopmat<TA, gl_ScopeSubgroup, 16, 16, gl_MatrixUseA> ma = coopmat<TA, gl_ScopeSubgroup, 16, 16, gl_MatrixUseA>(TA(ld(0) & 3u));
+    coopmat<TA, gl_ScopeSubgroup, 16, 16, gl_MatrixUseB> mb = coopmat<TA, gl_ScopeSubgroup, 16, 16, gl_MatrixUseB>(TA(ld(1) & 3u));
+    coopmat<TC, gl_ScopeSubgroup, 16, 16, gl_MatrixUseAccumulator> mc[NA];
+    [[unroll]] for (uint j = 0u; j < NA; ++j) mc[j] = coopmat<TC, gl_ScopeSubgroup, 16, 16, gl_MatrixUseAccumulator>(TC(ld(2u + j) & 1u));
+    float x[16]; float a = ldf(1, 1e-12) + 0.999, b = ldf(2, 1e-12);
+    [[unroll]] for (uint j = 0u; j < 16u; ++j) x[j] = ldf(j, 1e-9);
+    for (uint i = 0u; i < pc.iters; ++i) {
+#if NW > 0
+        // NV / NW is only formed when NW > 0: with NW = 0, glslang folds 128 / 0 to 2147483647 and the [[unroll]] loop
+        // below makes RADV's compiler unroll 2^31 bodies (the 16 GB blow-up of the first attempt).
+        [[unroll]] for (uint w = 0u; w < NW; ++w) {
+            mc[w % NA] = coopMatMulAdd(ma, mb, mc[w % NA]);
+            [[unroll]] for (uint v = 0u; v < NV / NW; ++v) x[v & 15u] = fma(x[v & 15u], a, b);
+        }
+#else
+        [[unroll]] for (uint v = 0u; v < NV; ++v) x[v & 15u] = fma(x[v & 15u], a, b);
+#endif
+    }
+    float s = 0.0;
+    [[unroll]] for (uint j = 0u; j < 16u; ++j) s += x[j];
+    uint r = floatBitsToUint(s);
+    [[unroll]] for (uint j = 0u; j < NA; ++j) r ^= uint(mc[j][0]) ^ uint(mc[j][1]);
+    outp[GID] = r;
+}
+
+// ===================================== verification kernels (no loop) =================================================
+#elif defined(K_VERIFY_Q8)
+// out = e4m3_hw(x) | e4m3_sat(x) << 8 for x = the FP32 bit pattern inp[gid]
+void main() { float x = uintBitsToFloat(inp[GID]); outp[GID] = e4m3_hw(x) | (e4m3_sat(x) << 8); }
+
+#elif defined(K_VERIFY_E4H)
+// For code c = gid & 255: out = bit form F16 (low half) | exact F16 (high half)
+void main()
+{
+    uint c = GID & 255u, h = e4_to_h2_bits(c) & 0xffffu;
+    uint ex = packFloat2x16(unpackFloat2x16(h) * float16_t(256.0)) & 0xffffu;
+    outp[GID] = h | (ex << 16);
+}
+
+#elif defined(K_VERIFY_RQ)
+// int32 inp[gid] with scale 2^-7 * 1.37: out = RQ_F32 byte | RQ_MAGIC byte << 8
+void main()
+{
+    int a = int(inp[GID]); float sc = 0.0107421875;
+    uint q0 = uint(clamp(int(roundEven(float(a) * sc)), -128, 127)) & 0xffu;
+    float m = fma(float(a), sc, 12582912.0);
+    uint q1 = floatBitsToUint(clamp(m, 12582912.0 - 128.0, 12582912.0 + 127.0)) & 0xffu;
+    outp[GID] = q0 | (q1 << 8);
+}
+#else
+#error "no kernel selected"
+#endif

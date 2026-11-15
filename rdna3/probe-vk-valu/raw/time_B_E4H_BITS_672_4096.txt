@@ -1,0 +1,39 @@
+# kernel B_E4H_BITS wgs 672 iters 4096 before: sclk=53Mhz mclk=1249Mhz busy=0%
+subgroup_size 32
+stat Driver pipeline hash: 7226346226480529796
+stat SGPRs: 108
+stat VGPRs: 48
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 1008
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 2361197564
+stat Instructions: 175
+stat Copies: 7
+stat Branches: 2
+stat Latency: 1939
+stat Inverse Throughput: 2194
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 8
+stat Pre-Sched VGPRs: 9
+stat VALU: 145
+stat SALU: 9
+stat VMEM: 3
+stat SMEM: 2
+stat VOPD: 0
+rep 0 gpu_ns 6435160
+rep 1 gpu_ns 7199640
+rep 2 gpu_ns 7054160
+rep 3 gpu_ns 7010400
+rep 4 gpu_ns 7056840
+rep 5 gpu_ns 6978480
+rep 6 gpu_ns 7031080
+rep 7 gpu_ns 6944640
+rep 8 gpu_ns 6924280
+rep 9 gpu_ns 6869840
+# after: sclk=2541Mhz mclk=1249Mhz busy=19%

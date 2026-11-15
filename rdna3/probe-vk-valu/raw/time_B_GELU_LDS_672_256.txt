@@ -1,0 +1,39 @@
+# kernel B_GELU_LDS wgs 672 iters 256 before: sclk=162Mhz mclk=1249Mhz busy=0%
+subgroup_size 32
+stat Driver pipeline hash: 4699298313398537654
+stat SGPRs: 108
+stat VGPRs: 96
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 2252
+stat LDS size: 16384
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 3321218437
+stat Instructions: 356
+stat Copies: 10
+stat Branches: 3
+stat Latency: 4223
+stat Inverse Throughput: 2824
+stat VMEM Clause: 4
+stat SMEM Clause: 3
+stat Pre-Sched SGPRs: 9
+stat Pre-Sched VGPRs: 24
+stat VALU: 215
+stat SALU: 9
+stat VMEM: 18
+stat SMEM: 3
+stat VOPD: 11
+rep 0 gpu_ns 1095280
+rep 1 gpu_ns 1095200
+rep 2 gpu_ns 1094160
+rep 3 gpu_ns 1093240
+rep 4 gpu_ns 1093000
+rep 5 gpu_ns 1092400
+rep 6 gpu_ns 1091040
+rep 7 gpu_ns 1090920
+rep 8 gpu_ns 1090080
+rep 9 gpu_ns 1089320
+# after: sclk=1536Mhz mclk=1249Mhz busy=0%

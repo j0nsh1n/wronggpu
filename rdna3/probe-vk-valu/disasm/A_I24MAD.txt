@@ -1,0 +1,1142 @@
+=== executable 0: compute (Vulkan Compute Shader), subgroup size 32
+--- NIR Shader(s): The optimized NIR shader(s)
+shader: MESA_SHADER_COMPUTE
+source_blake3: {0x4efd08e8, 0xc1b7e7fe, 0xd2f70522, 0x61e4ddd2, 0x53286523, 0xec5110fc, 0x3bcc9073, 0x40791093}
+name: 
+workgroup_size: 256, 1, 1
+num_ssbos: 3
+system_values_read: 0x00000000'00000000'00008400'00000000
+api_subgroup_size: 32
+max_subgroup_size: 32
+min_subgroup_size: 32
+bit_sizes_int: 0x21
+separate_shader: true
+flrp_lowered: true
+writes_memory: true
+uniforms: 4
+decl_var push_const INTERP_MODE_NONE none PC pc
+decl_var ssbo INTERP_MODE_NONE restrict readonly BI #0 (~0, 0, 0)
+decl_var ssbo INTERP_MODE_NONE restrict writeonly BO #1 (~0, 0, 1)
+decl_var ssbo INTERP_MODE_NONE restrict readonly writeonly BX #2 (~0, 0, 2)
+decl_function main () (entrypoint)
+
+impl main {
+    con block b0:        // preds:
+    con 32      %0 = @load_scalar_arg_amd (base=2)
+    div 32      %1 = @load_vector_arg_amd (base=3, arg_upper_bound_u32_amd=255)
+    con 32      %2 = load_const (0x00000008)
+    con 32      %3 = ishl %0, %2 (0x8)
+    div 32      %4 = iadd %3, %1
+    con 32      %5 = @load_scalar_arg_amd (base=0, arg_num_lsb_zero=2)
+    con 32      %6 = load_const (0xffff8000 = -32768 = 4294934528)
+    con 64      %7 = pack_64_2x32_split %5, %6 (0xffff8000)
+    con 32      %8 = load_const (0x00000000)
+    con 32x4    %9 = @load_global_amd (%7, %8 (0x0)) (base=0, access=readonly|reorderable|smem-amd, align_mul=4, align_offset=0)
+    con 32     %10 = load_const (0x00000004)
+    div 32     %11 = ishl %4, %10 (0x4)
+    div 32     %12 = extract_u16 %11, %8 (0x0)
+    con 32     %13 = load_const (0x00000002)
+    div 32     %14 = ishl %12, %13 (0x2)
+    div 32     %15 = @load_ssbo (%9, %14) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %16 = load_const (0x00000001)
+    div 32     %17 = iadd %11, %16 (0x1)
+    div 32     %18 = extract_u16 %17, %8 (0x0)
+    div 32     %19 = ishl %18, %13 (0x2)
+    div 32     %20 = @load_ssbo (%9, %19) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    div 32     %21 = iadd %11, %13 (0x2)
+    div 32     %22 = extract_u16 %21, %8 (0x0)
+    div 32     %23 = ishl %22, %13 (0x2)
+    div 32     %24 = @load_ssbo (%9, %23) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %25 = load_const (0x00000003)
+    div 32     %26 = iadd %11, %25 (0x3)
+    div 32     %27 = extract_u16 %26, %8 (0x0)
+    div 32     %28 = ishl %27, %13 (0x2)
+    div 32     %29 = @load_ssbo (%9, %28) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    div 32     %30 = iadd %11, %10 (0x4)
+    div 32     %31 = extract_u16 %30, %8 (0x0)
+    div 32     %32 = ishl %31, %13 (0x2)
+    div 32     %33 = @load_ssbo (%9, %32) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %34 = load_const (0x00000005)
+    div 32     %35 = iadd %11, %34 (0x5)
+    div 32     %36 = extract_u16 %35, %8 (0x0)
+    div 32     %37 = ishl %36, %13 (0x2)
+    div 32     %38 = @load_ssbo (%9, %37) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %39 = load_const (0x00000006)
+    div 32     %40 = iadd %11, %39 (0x6)
+    div 32     %41 = extract_u16 %40, %8 (0x0)
+    div 32     %42 = ishl %41, %13 (0x2)
+    div 32     %43 = @load_ssbo (%9, %42) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %44 = load_const (0x00000007)
+    div 32     %45 = iadd %11, %44 (0x7)
+    div 32     %46 = extract_u16 %45, %8 (0x0)
+    div 32     %47 = ishl %46, %13 (0x2)
+    div 32     %48 = @load_ssbo (%9, %47) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    div 32     %49 = iadd %11, %2 (0x8)
+    div 32     %50 = extract_u16 %49, %8 (0x0)
+    div 32     %51 = ishl %50, %13 (0x2)
+    div 32     %52 = @load_ssbo (%9, %51) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %53 = load_const (0x00000009)
+    div 32     %54 = iadd %11, %53 (0x9)
+    div 32     %55 = extract_u16 %54, %8 (0x0)
+    div 32     %56 = ishl %55, %13 (0x2)
+    div 32     %57 = @load_ssbo (%9, %56) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %58 = load_const (0x0000000a = 10)
+    div 32     %59 = iadd %11, %58 (0xa)
+    div 32     %60 = extract_u16 %59, %8 (0x0)
+    div 32     %61 = ishl %60, %13 (0x2)
+    div 32     %62 = @load_ssbo (%9, %61) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %63 = load_const (0x0000000b = 11)
+    div 32     %64 = iadd %11, %63 (0xb)
+    div 32     %65 = extract_u16 %64, %8 (0x0)
+    div 32     %66 = ishl %65, %13 (0x2)
+    div 32     %67 = @load_ssbo (%9, %66) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %68 = load_const (0x0000000c = 12)
+    div 32     %69 = iadd %11, %68 (0xc)
+    div 32     %70 = extract_u16 %69, %8 (0x0)
+    div 32     %71 = ishl %70, %13 (0x2)
+    div 32     %72 = @load_ssbo (%9, %71) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %73 = load_const (0x0000000d = 13)
+    div 32     %74 = iadd %11, %73 (0xd)
+    div 32     %75 = extract_u16 %74, %8 (0x0)
+    div 32     %76 = ishl %75, %13 (0x2)
+    div 32     %77 = @load_ssbo (%9, %76) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %78 = load_const (0x0000000e = 14)
+    div 32     %79 = iadd %11, %78 (0xe)
+    div 32     %80 = extract_u16 %79, %8 (0x0)
+    div 32     %81 = ishl %80, %13 (0x2)
+    div 32     %82 = @load_ssbo (%9, %81) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %83 = load_const (0x0000000f = 15)
+    div 32     %84 = iadd %11, %83 (0xf)
+    div 32     %85 = extract_u16 %84, %8 (0x0)
+    div 32     %86 = ishl %85, %13 (0x2)
+    div 32     %87 = @load_ssbo (%9, %86) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %88 = @load_scalar_arg_amd (base=1)
+    div 32     %89 = extract_i8 %15, %8 (0x0)
+    div 32     %90 = extract_i8 %15, %16 (0x1)
+    div 32     %91 = extract_i8 %20, %8 (0x0)
+    div 32     %92 = extract_i8 %20, %16 (0x1)
+    div 32     %93 = extract_i8 %24, %8 (0x0)
+    div 32     %94 = extract_i8 %24, %16 (0x1)
+    div 32     %95 = extract_i8 %29, %8 (0x0)
+    div 32     %96 = extract_i8 %29, %16 (0x1)
+    div 32     %97 = extract_i8 %33, %8 (0x0)
+    div 32     %98 = extract_i8 %33, %16 (0x1)
+    div 32     %99 = extract_i8 %38, %8 (0x0)
+    div 32    %100 = extract_i8 %38, %16 (0x1)
+    div 32    %101 = extract_i8 %43, %8 (0x0)
+    div 32    %102 = extract_i8 %43, %16 (0x1)
+    div 32    %103 = extract_i8 %48, %8 (0x0)
+    div 32    %104 = extract_i8 %48, %16 (0x1)
+    div 32    %105 = extract_i8 %52, %8 (0x0)
+    div 32    %106 = extract_i8 %52, %16 (0x1)
+    div 32    %107 = extract_i8 %57, %8 (0x0)
+    div 32    %108 = extract_i8 %57, %16 (0x1)
+    div 32    %109 = extract_i8 %62, %8 (0x0)
+    div 32    %110 = extract_i8 %62, %16 (0x1)
+    div 32    %111 = extract_i8 %67, %8 (0x0)
+    div 32    %112 = extract_i8 %67, %16 (0x1)
+    div 32    %113 = extract_i8 %72, %8 (0x0)
+    div 32    %114 = extract_i8 %72, %16 (0x1)
+    div 32    %115 = extract_i8 %77, %8 (0x0)
+    div 32    %116 = extract_i8 %77, %16 (0x1)
+    div 32    %117 = extract_i8 %82, %8 (0x0)
+    div 32    %118 = extract_i8 %82, %16 (0x1)
+    div 32    %119 = extract_i8 %87, %8 (0x0)
+    div 32    %120 = extract_i8 %87, %16 (0x1)
+                     // succs: b1
+    con loop {
+        con block b1:        // preds: b0 b4
+        div 32    %121 = phi b0: %8 (0x0), b4: %386
+        div 32    %122 = phi b0: %8 (0x0), b4: %384
+        div 32    %123 = phi b0: %8 (0x0), b4: %382
+        div 32    %124 = phi b0: %8 (0x0), b4: %380
+        div 32    %125 = phi b0: %8 (0x0), b4: %378
+        div 32    %126 = phi b0: %8 (0x0), b4: %376
+        div 32    %127 = phi b0: %8 (0x0), b4: %374
+        div 32    %128 = phi b0: %8 (0x0), b4: %372
+        con 32    %129 = phi b0: %8 (0x0), b4: %387
+        con 1     %130 = uge %129, %88
+                         // succs: b2 b3
+        if %130 {
+            con block b2:// preds: b1
+            break
+            // succs: b5
+        } else {
+            con block b3:  // preds: b1, succs: b4
+        }
+        con block b4:        // preds: b3
+        div 32    %131 = imul %89, %90
+        div 32    %132 = iadd %128, %131
+        div 32    %133 = imul %89, %92
+        div 32    %134 = iadd %127, %133
+        div 32    %135 = imul %89, %94
+        div 32    %136 = iadd %126, %135
+        div 32    %137 = imul %89, %96
+        div 32    %138 = iadd %125, %137
+        div 32    %139 = imul %89, %98
+        div 32    %140 = iadd %124, %139
+        div 32    %141 = imul %89, %100
+        div 32    %142 = iadd %123, %141
+        div 32    %143 = imul %89, %102
+        div 32    %144 = iadd %122, %143
+        div 32    %145 = imul %89, %104
+        div 32    %146 = iadd %121, %145
+        div 32    %147 = imul %91, %92
+        div 32    %148 = iadd %132, %147
+        div 32    %149 = imul %91, %94
+        div 32    %150 = iadd %134, %149
+        div 32    %151 = imul %91, %96
+        div 32    %152 = iadd %136, %151
+        div 32    %153 = imul %91, %98
+        div 32    %154 = iadd %138, %153
+        div 32    %155 = imul %91, %100
+        div 32    %156 = iadd %140, %155
+        div 32    %157 = imul %91, %102
+        div 32    %158 = iadd %142, %157
+        div 32    %159 = imul %91, %104
+        div 32    %160 = iadd %144, %159
+        div 32    %161 = imul %91, %106
+        div 32    %162 = iadd %146, %161
+        div 32    %163 = imul %93, %94
+        div 32    %164 = iadd %148, %163
+        div 32    %165 = imul %93, %96
+        div 32    %166 = iadd %150, %165
+        div 32    %167 = imul %93, %98
+        div 32    %168 = iadd %152, %167
+        div 32    %169 = imul %93, %100
+        div 32    %170 = iadd %154, %169
+        div 32    %171 = imul %93, %102
+        div 32    %172 = iadd %156, %171
+        div 32    %173 = imul %93, %104
+        div 32    %174 = iadd %158, %173
+        div 32    %175 = imul %93, %106
+        div 32    %176 = iadd %160, %175
+        div 32    %177 = imul %93, %108
+        div 32    %178 = iadd %162, %177
+        div 32    %179 = imul %95, %96
+        div 32    %180 = iadd %164, %179
+        div 32    %181 = imul %95, %98
+        div 32    %182 = iadd %166, %181
+        div 32    %183 = imul %95, %100
+        div 32    %184 = iadd %168, %183
+        div 32    %185 = imul %95, %102
+        div 32    %186 = iadd %170, %185
+        div 32    %187 = imul %95, %104
+        div 32    %188 = iadd %172, %187
+        div 32    %189 = imul %95, %106
+        div 32    %190 = iadd %174, %189
+        div 32    %191 = imul %95, %108
+        div 32    %192 = iadd %176, %191
+        div 32    %193 = imul %95, %110
+        div 32    %194 = iadd %178, %193
+        div 32    %195 = imul %97, %98
+        div 32    %196 = iadd %180, %195
+        div 32    %197 = imul %97, %100
+        div 32    %198 = iadd %182, %197
+        div 32    %199 = imul %97, %102
+        div 32    %200 = iadd %184, %199
+        div 32    %201 = imul %97, %104
+        div 32    %202 = iadd %186, %201
+        div 32    %203 = imul %97, %106
+        div 32    %204 = iadd %188, %203
+        div 32    %205 = imul %97, %108
+        div 32    %206 = iadd %190, %205
+        div 32    %207 = imul %97, %110
+        div 32    %208 = iadd %192, %207
+        div 32    %209 = imul %97, %112
+        div 32    %210 = iadd %194, %209
+        div 32    %211 = imul %99, %100
+        div 32    %212 = iadd %196, %211
+        div 32    %213 = imul %99, %102
+        div 32    %214 = iadd %198, %213
+        div 32    %215 = imul %99, %104
+        div 32    %216 = iadd %200, %215
+        div 32    %217 = imul %99, %106
+        div 32    %218 = iadd %202, %217
+        div 32    %219 = imul %99, %108
+        div 32    %220 = iadd %204, %219
+        div 32    %221 = imul %99, %110
+        div 32    %222 = iadd %206, %221
+        div 32    %223 = imul %99, %112
+        div 32    %224 = iadd %208, %223
+        div 32    %225 = imul %99, %114
+        div 32    %226 = iadd %210, %225
+        div 32    %227 = imul %101, %102
+        div 32    %228 = iadd %212, %227
+        div 32    %229 = imul %101, %104
+        div 32    %230 = iadd %214, %229
+        div 32    %231 = imul %101, %106
+        div 32    %232 = iadd %216, %231
+        div 32    %233 = imul %101, %108
+        div 32    %234 = iadd %218, %233
+        div 32    %235 = imul %101, %110
+        div 32    %236 = iadd %220, %235
+        div 32    %237 = imul %101, %112
+        div 32    %238 = iadd %222, %237
+        div 32    %239 = imul %101, %114
+        div 32    %240 = iadd %224, %239
+        div 32    %241 = imul %101, %116
+        div 32    %242 = iadd %226, %241
+        div 32    %243 = imul %103, %104
+        div 32    %244 = iadd %228, %243
+        div 32    %245 = imul %103, %106
+        div 32    %246 = iadd %230, %245
+        div 32    %247 = imul %103, %108
+        div 32    %248 = iadd %232, %247
+        div 32    %249 = imul %103, %110
+        div 32    %250 = iadd %234, %249
+        div 32    %251 = imul %103, %112
+        div 32    %252 = iadd %236, %251
+        div 32    %253 = imul %103, %114
+        div 32    %254 = iadd %238, %253
+        div 32    %255 = imul %103, %116
+        div 32    %256 = iadd %240, %255
+        div 32    %257 = imul %103, %118
+        div 32    %258 = iadd %242, %257
+        div 32    %259 = imul %105, %106
+        div 32    %260 = iadd %244, %259
+        div 32    %261 = imul %105, %108
+        div 32    %262 = iadd %246, %261
+        div 32    %263 = imul %105, %110
+        div 32    %264 = iadd %248, %263
+        div 32    %265 = imul %105, %112
+        div 32    %266 = iadd %250, %265
+        div 32    %267 = imul %105, %114
+        div 32    %268 = iadd %252, %267
+        div 32    %269 = imul %105, %116
+        div 32    %270 = iadd %254, %269
+        div 32    %271 = imul %105, %118
+        div 32    %272 = iadd %256, %271
+        div 32    %273 = imul %105, %120
+        div 32    %274 = iadd %258, %273
+        div 32    %275 = imul %107, %108
+        div 32    %276 = iadd %260, %275
+        div 32    %277 = imul %107, %110
+        div 32    %278 = iadd %262, %277
+        div 32    %279 = imul %107, %112
+        div 32    %280 = iadd %264, %279
+        div 32    %281 = imul %107, %114
+        div 32    %282 = iadd %266, %281
+        div 32    %283 = imul %107, %116
+        div 32    %284 = iadd %268, %283
+        div 32    %285 = imul %107, %118
+        div 32    %286 = iadd %270, %285
+        div 32    %287 = imul %107, %120
+        div 32    %288 = iadd %272, %287
+        div 32    %289 = imul %107, %90
+        div 32    %290 = iadd %274, %289
+        div 32    %291 = imul %109, %110
+        div 32    %292 = iadd %276, %291
+        div 32    %293 = imul %109, %112
+        div 32    %294 = iadd %278, %293
+        div 32    %295 = imul %109, %114
+        div 32    %296 = iadd %280, %295
+        div 32    %297 = imul %109, %116
+        div 32    %298 = iadd %282, %297
+        div 32    %299 = imul %109, %118
+        div 32    %300 = iadd %284, %299
+        div 32    %301 = imul %109, %120
+        div 32    %302 = iadd %286, %301
+        div 32    %303 = imul %109, %90
+        div 32    %304 = iadd %288, %303
+        div 32    %305 = imul %109, %92
+        div 32    %306 = iadd %290, %305
+        div 32    %307 = imul %111, %112
+        div 32    %308 = iadd %292, %307
+        div 32    %309 = imul %111, %114
+        div 32    %310 = iadd %294, %309
+        div 32    %311 = imul %111, %116
+        div 32    %312 = iadd %296, %311
+        div 32    %313 = imul %111, %118
+        div 32    %314 = iadd %298, %313
+        div 32    %315 = imul %111, %120
+        div 32    %316 = iadd %300, %315
+        div 32    %317 = imul %111, %90
+        div 32    %318 = iadd %302, %317
+        div 32    %319 = imul %111, %92
+        div 32    %320 = iadd %304, %319
+        div 32    %321 = imul %111, %94
+        div 32    %322 = iadd %306, %321
+        div 32    %323 = imul %113, %114
+        div 32    %324 = iadd %308, %323
+        div 32    %325 = imul %113, %116
+        div 32    %326 = iadd %310, %325
+        div 32    %327 = imul %113, %118
+        div 32    %328 = iadd %312, %327
+        div 32    %329 = imul %113, %120
+        div 32    %330 = iadd %314, %329
+        div 32    %331 = imul %113, %90
+        div 32    %332 = iadd %316, %331
+        div 32    %333 = imul %113, %92
+        div 32    %334 = iadd %318, %333
+        div 32    %335 = imul %113, %94
+        div 32    %336 = iadd %320, %335
+        div 32    %337 = imul %113, %96
+        div 32    %338 = iadd %322, %337
+        div 32    %339 = imul %115, %116
+        div 32    %340 = iadd %324, %339
+        div 32    %341 = imul %115, %118
+        div 32    %342 = iadd %326, %341
+        div 32    %343 = imul %115, %120
+        div 32    %344 = iadd %328, %343
+        div 32    %345 = imul %115, %90
+        div 32    %346 = iadd %330, %345
+        div 32    %347 = imul %115, %92
+        div 32    %348 = iadd %332, %347
+        div 32    %349 = imul %115, %94
+        div 32    %350 = iadd %334, %349
+        div 32    %351 = imul %115, %96
+        div 32    %352 = iadd %336, %351
+        div 32    %353 = imul %115, %98
+        div 32    %354 = iadd %338, %353
+        div 32    %355 = imul %117, %118
+        div 32    %356 = iadd %340, %355
+        div 32    %357 = imul %117, %120
+        div 32    %358 = iadd %342, %357
+        div 32    %359 = imul %117, %90
+        div 32    %360 = iadd %344, %359
+        div 32    %361 = imul %117, %92
+        div 32    %362 = iadd %346, %361
+        div 32    %363 = imul %117, %94
+        div 32    %364 = iadd %348, %363
+        div 32    %365 = imul %117, %96
+        div 32    %366 = iadd %350, %365
+        div 32    %367 = imul %117, %98
+        div 32    %368 = iadd %352, %367
+        div 32    %369 = imul %117, %100
+        div 32    %370 = iadd %354, %369
+        div 32    %371 = imul %119, %120
+        div 32    %372 = iadd %356, %371
+        div 32    %373 = imul %119, %90
+        div 32    %374 = iadd %358, %373
+        div 32    %375 = imul %119, %92
+        div 32    %376 = iadd %360, %375
+        div 32    %377 = imul %119, %94
+        div 32    %378 = iadd %362, %377
+        div 32    %379 = imul %119, %96
+        div 32    %380 = iadd %364, %379
+        div 32    %381 = imul %119, %98
+        div 32    %382 = iadd %366, %381
+        div 32    %383 = imul %119, %100
+        div 32    %384 = iadd %368, %383
+        div 32    %385 = imul %119, %102
+        div 32    %386 = iadd %370, %385
+        con 32    %387 = iadd %129, %16 (0x1)
+                         // succs: b1
+    }
+    con block b5:        // preds: b2
+    div 32    %388 = phi b2: %121
+    div 32    %389 = phi b2: %122
+    div 32    %390 = phi b2: %123
+    div 32    %391 = phi b2: %124
+    div 32    %392 = phi b2: %125
+    div 32    %393 = phi b2: %126
+    div 32    %394 = phi b2: %127
+    div 32    %395 = phi b2: %128
+    div 32    %396 = ixor %395, %394
+    div 32    %397 = ixor %396, %393
+    div 32    %398 = ixor %397, %392
+    div 32    %399 = ixor %398, %391
+    div 32    %400 = ixor %399, %390
+    div 32    %401 = ixor %400, %389
+    div 32    %402 = ixor %401, %388
+    con 32x4  %403 = @load_global_amd (%7, %8 (0x0)) (base=16, access=readonly|reorderable|smem-amd, align_mul=4, align_offset=0)
+    div 32    %404 = ishl %4, %13 (0x2)
+                     @store_ssbo (%402, %403, %404) (wrmask=x, access=writeonly, align_mul=4, align_offset=0, offset_shift=0)
+                     // succs: b6
+    block b6:
+}
+
+
+--- ACO IR: The ACO IR after some optimizations
+After Spilling:
+ACO shader stage: SW (CS), HW (COMPUTE_SHADER)
+BB0
+/* logical preds: / linear preds: / kind: uniform, top-level, loop-preheader, */
+	 s1: %406:s[0],  s1: %407:s[1],  s1: %408:s[2],  v1: %409:v[0] = p_startpgm
+	p_logical_start
+	 v1: %5 = v_lshl_add_u32 (kill)%408, 8, (kill)%409
+	 s2: %8 = p_create_vector (kill)%406, 0xffff8000
+	 s4: %10 = s_load_dwordx4 %8, 0 storage:buffer semantics:private,reorder
+	 v1: %12 = v_lshlrev_b32 4, %5
+	 v1: %13 = p_extract %12, 0, 16, 0
+	 v1: %15 = v_lshlrev_b32 2, (is16bit)(kill)%13
+	 v1: %16 = buffer_load_dword %10, (kill)%15, 0 offen storage:buffer semantics:private,reorder
+	 v1: %18 = v_add_u32 1, %12
+	 v1: %19 = p_extract (kill)%18, 0, 16, 0
+	 v1: %20 = v_lshlrev_b32 2, (is16bit)(kill)%19
+	 v1: %21 = buffer_load_dword %10, (kill)%20, 0 offen storage:buffer semantics:private,reorder
+	 v1: %22 = v_add_u32 2, %12
+	 v1: %23 = p_extract (kill)%22, 0, 16, 0
+	 v1: %24 = v_lshlrev_b32 2, (is16bit)(kill)%23
+	 v1: %25 = buffer_load_dword %10, (kill)%24, 0 offen storage:buffer semantics:private,reorder
+	 v1: %27 = v_add_u32 3, %12
+	 v1: %28 = p_extract (kill)%27, 0, 16, 0
+	 v1: %29 = v_lshlrev_b32 2, (is16bit)(kill)%28
+	 v1: %30 = buffer_load_dword %10, (kill)%29, 0 offen storage:buffer semantics:private,reorder
+	 v1: %31 = v_add_u32 4, %12
+	 v1: %32 = p_extract (kill)%31, 0, 16, 0
+	 v1: %33 = v_lshlrev_b32 2, (is16bit)(kill)%32
+	 v1: %34 = buffer_load_dword %10, (kill)%33, 0 offen storage:buffer semantics:private,reorder
+	 v1: %36 = v_add_u32 5, %12
+	 v1: %37 = p_extract (kill)%36, 0, 16, 0
+	 v1: %38 = v_lshlrev_b32 2, (is16bit)(kill)%37
+	 v1: %39 = buffer_load_dword %10, (kill)%38, 0 offen storage:buffer semantics:private,reorder
+	 v1: %41 = v_add_u32 6, %12
+	 v1: %42 = p_extract (kill)%41, 0, 16, 0
+	 v1: %43 = v_lshlrev_b32 2, (is16bit)(kill)%42
+	 v1: %44 = buffer_load_dword %10, (kill)%43, 0 offen storage:buffer semantics:private,reorder
+	 v1: %46 = v_add_u32 7, %12
+	 v1: %47 = p_extract (kill)%46, 0, 16, 0
+	 v1: %48 = v_lshlrev_b32 2, (is16bit)(kill)%47
+	 v1: %49 = buffer_load_dword %10, (kill)%48, 0 offen storage:buffer semantics:private,reorder
+	 v1: %50 = v_add_u32 8, %12
+	 v1: %51 = p_extract (kill)%50, 0, 16, 0
+	 v1: %52 = v_lshlrev_b32 2, (is16bit)(kill)%51
+	 v1: %53 = buffer_load_dword %10, (kill)%52, 0 offen storage:buffer semantics:private,reorder
+	 v1: %55 = v_add_u32 9, %12
+	 v1: %56 = p_extract (kill)%55, 0, 16, 0
+	 v1: %57 = v_lshlrev_b32 2, (is16bit)(kill)%56
+	 v1: %58 = buffer_load_dword %10, (kill)%57, 0 offen storage:buffer semantics:private,reorder
+	 v1: %60 = v_add_u32 10, %12
+	 v1: %61 = p_extract (kill)%60, 0, 16, 0
+	 v1: %62 = v_lshlrev_b32 2, (is16bit)(kill)%61
+	 v1: %63 = buffer_load_dword %10, (kill)%62, 0 offen storage:buffer semantics:private,reorder
+	 v1: %65 = v_add_u32 11, %12
+	 v1: %66 = p_extract (kill)%65, 0, 16, 0
+	 v1: %67 = v_lshlrev_b32 2, (is16bit)(kill)%66
+	 v1: %68 = buffer_load_dword %10, (kill)%67, 0 offen storage:buffer semantics:private,reorder
+	 v1: %70 = v_add_u32 12, %12
+	 v1: %71 = p_extract (kill)%70, 0, 16, 0
+	 v1: %72 = v_lshlrev_b32 2, (is16bit)(kill)%71
+	 v1: %73 = buffer_load_dword %10, (kill)%72, 0 offen storage:buffer semantics:private,reorder
+	 v1: %75 = v_add_u32 13, %12
+	 v1: %76 = p_extract (kill)%75, 0, 16, 0
+	 v1: %77 = v_lshlrev_b32 2, (is16bit)(kill)%76
+	 v1: %78 = buffer_load_dword %10, (kill)%77, 0 offen storage:buffer semantics:private,reorder
+	 v1: %80 = v_add_u32 14, %12
+	 v1: %81 = p_extract (kill)%80, 0, 16, 0
+	 v1: %82 = v_lshlrev_b32 2, (is16bit)(kill)%81
+	 v1: %83 = buffer_load_dword %10, (kill)%82, 0 offen storage:buffer semantics:private,reorder
+	 v1: %85 = v_add_u32 15, (kill)%12
+	 v1: %86 = p_extract (kill)%85, 0, 16, 0
+	 v1: %87 = v_lshlrev_b32 2, (is16bit)(kill)%86
+	 v1: %88 = buffer_load_dword (kill)%10, (kill)%87, 0 offen storage:buffer semantics:private,reorder
+	 v1: %90 = p_extract %16, 0, 8, 1
+	 v1: %91 = p_extract (kill)%16, 1, 8, 1
+	 v1: %92 = p_extract %21, 0, 8, 1
+	 v1: %93 = p_extract (kill)%21, 1, 8, 1
+	 v1: %94 = p_extract %25, 0, 8, 1
+	 v1: %95 = p_extract (kill)%25, 1, 8, 1
+	 v1: %96 = p_extract %30, 0, 8, 1
+	 v1: %97 = p_extract (kill)%30, 1, 8, 1
+	 v1: %98 = p_extract %34, 0, 8, 1
+	 v1: %99 = p_extract (kill)%34, 1, 8, 1
+	 v1: %100 = p_extract %39, 0, 8, 1
+	 v1: %101 = p_extract (kill)%39, 1, 8, 1
+	 v1: %102 = p_extract %44, 0, 8, 1
+	 v1: %103 = p_extract (kill)%44, 1, 8, 1
+	 v1: %104 = p_extract %49, 0, 8, 1
+	 v1: %105 = p_extract (kill)%49, 1, 8, 1
+	 v1: %106 = p_extract %53, 0, 8, 1
+	 v1: %107 = p_extract (kill)%53, 1, 8, 1
+	 v1: %108 = p_extract %58, 0, 8, 1
+	 v1: %109 = p_extract (kill)%58, 1, 8, 1
+	 v1: %110 = p_extract %63, 0, 8, 1
+	 v1: %111 = p_extract (kill)%63, 1, 8, 1
+	 v1: %112 = p_extract %68, 0, 8, 1
+	 v1: %113 = p_extract (kill)%68, 1, 8, 1
+	 v1: %114 = p_extract %73, 0, 8, 1
+	 v1: %115 = p_extract (kill)%73, 1, 8, 1
+	 v1: %116 = p_extract %78, 0, 8, 1
+	 v1: %117 = p_extract (kill)%78, 1, 8, 1
+	 v1: %118 = p_extract %83, 0, 8, 1
+	 v1: %119 = p_extract (kill)%83, 1, 8, 1
+	 v1: %120 = p_extract %88, 0, 8, 1
+	 v1: %121 = p_extract (kill)%88, 1, 8, 1
+	p_logical_end
+	p_branch BB1
+BB1
+/* logical preds: BB0, BB3, / linear preds: BB0, BB3, / kind: uniform, loop-header, */
+	 s1: %130 = p_linear_phi 0, (kill)%388
+	 v1: %129 = p_phi 0, (kill)%373
+	 v1: %128 = p_phi 0, (kill)%375
+	 v1: %127 = p_phi 0, (kill)%377
+	 v1: %126 = p_phi 0, (kill)%379
+	 v1: %125 = p_phi 0, (kill)%381
+	 v1: %124 = p_phi 0, (kill)%383
+	 v1: %123 = p_phi 0, (kill)%385
+	 v1: %122 = p_phi 0, (kill)%387
+	p_logical_start
+	 s1: %415:scc = s_cmp_ge_u32 %130, %407
+	p_logical_end
+	p_cbranch_z (kill)%415:scc BB3, BB2
+BB2
+/* logical preds: BB1, / linear preds: BB1, / kind: uniform, break, */
+	p_logical_start
+	p_logical_end
+	p_branch BB4
+BB3
+/* logical preds: BB1, / linear preds: BB1, / kind: uniform, */
+	p_logical_start
+	 v1: %132 = v_mul_lo_u32 %90, %91
+	 v1: %134 = v_mul_lo_u32 %90, %93
+	 v1: %136 = v_mul_lo_u32 %90, %95
+	 v1: %138 = v_mul_lo_u32 %90, %97
+	 v1: %140 = v_mul_lo_u32 %90, %99
+	 v1: %142 = v_mul_lo_u32 %90, %101
+	 v1: %144 = v_mul_lo_u32 %90, %103
+	 v1: %146 = v_mul_lo_u32 %90, %105
+	 v1: %148 = v_mul_lo_u32 %92, %93
+	 v1: %149 = v_add3_u32 (kill)%148, (kill)%129, (kill)%132
+	 v1: %150 = v_mul_lo_u32 %92, %95
+	 v1: %151 = v_add3_u32 (kill)%150, (kill)%128, (kill)%134
+	 v1: %152 = v_mul_lo_u32 %92, %97
+	 v1: %153 = v_add3_u32 (kill)%152, (kill)%127, (kill)%136
+	 v1: %154 = v_mul_lo_u32 %92, %99
+	 v1: %155 = v_add3_u32 (kill)%154, (kill)%126, (kill)%138
+	 v1: %156 = v_mul_lo_u32 %92, %101
+	 v1: %157 = v_add3_u32 (kill)%156, (kill)%125, (kill)%140
+	 v1: %158 = v_mul_lo_u32 %92, %103
+	 v1: %159 = v_add3_u32 (kill)%158, (kill)%124, (kill)%142
+	 v1: %160 = v_mul_lo_u32 %92, %105
+	 v1: %161 = v_add3_u32 (kill)%160, (kill)%123, (kill)%144
+	 v1: %162 = v_mul_lo_u32 %92, %107
+	 v1: %163 = v_add3_u32 (kill)%162, (kill)%122, (kill)%146
+	 v1: %164 = v_mul_lo_u32 %94, %95
+	 v1: %166 = v_mul_lo_u32 %94, %97
+	 v1: %168 = v_mul_lo_u32 %94, %99
+	 v1: %170 = v_mul_lo_u32 %94, %101
+	 v1: %172 = v_mul_lo_u32 %94, %103
+	 v1: %174 = v_mul_lo_u32 %94, %105
+	 v1: %176 = v_mul_lo_u32 %94, %107
+	 v1: %178 = v_mul_lo_u32 %94, %109
+	 v1: %180 = v_mul_lo_u32 %96, %97
+	 v1: %181 = v_add3_u32 (kill)%180, (kill)%149, (kill)%164
+	 v1: %182 = v_mul_lo_u32 %96, %99
+	 v1: %183 = v_add3_u32 (kill)%182, (kill)%151, (kill)%166
+	 v1: %184 = v_mul_lo_u32 %96, %101
+	 v1: %185 = v_add3_u32 (kill)%184, (kill)%153, (kill)%168
+	 v1: %186 = v_mul_lo_u32 %96, %103
+	 v1: %187 = v_add3_u32 (kill)%186, (kill)%155, (kill)%170
+	 v1: %188 = v_mul_lo_u32 %96, %105
+	 v1: %189 = v_add3_u32 (kill)%188, (kill)%157, (kill)%172
+	 v1: %190 = v_mul_lo_u32 %96, %107
+	 v1: %191 = v_add3_u32 (kill)%190, (kill)%159, (kill)%174
+	 v1: %192 = v_mul_lo_u32 %96, %109
+	 v1: %193 = v_add3_u32 (kill)%192, (kill)%161, (kill)%176
+	 v1: %194 = v_mul_lo_u32 %96, %111
+	 v1: %195 = v_add3_u32 (kill)%194, (kill)%163, (kill)%178
+	 v1: %196 = v_mul_lo_u32 %98, %99
+	 v1: %198 = v_mul_lo_u32 %98, %101
+	 v1: %200 = v_mul_lo_u32 %98, %103
+	 v1: %202 = v_mul_lo_u32 %98, %105
+	 v1: %204 = v_mul_lo_u32 %98, %107
+	 v1: %206 = v_mul_lo_u32 %98, %109
+	 v1: %208 = v_mul_lo_u32 %98, %111
+	 v1: %210 = v_mul_lo_u32 %98, %113
+	 v1: %212 = v_mul_lo_u32 %100, %101
+	 v1: %213 = v_add3_u32 (kill)%212, (kill)%181, (kill)%196
+	 v1: %214 = v_mul_lo_u32 %100, %103
+	 v1: %215 = v_add3_u32 (kill)%214, (kill)%183, (kill)%198
+	 v1: %216 = v_mul_lo_u32 %100, %105
+	 v1: %217 = v_add3_u32 (kill)%216, (kill)%185, (kill)%200
+	 v1: %218 = v_mul_lo_u32 %100, %107
+	 v1: %219 = v_add3_u32 (kill)%218, (kill)%187, (kill)%202
+	 v1: %220 = v_mul_lo_u32 %100, %109
+	 v1: %221 = v_add3_u32 (kill)%220, (kill)%189, (kill)%204
+	 v1: %222 = v_mul_lo_u32 %100, %111
+	 v1: %223 = v_add3_u32 (kill)%222, (kill)%191, (kill)%206
+	 v1: %224 = v_mul_lo_u32 %100, %113
+	 v1: %225 = v_add3_u32 (kill)%224, (kill)%193, (kill)%208
+	 v1: %226 = v_mul_lo_u32 %100, %115
+	 v1: %227 = v_add3_u32 (kill)%226, (kill)%195, (kill)%210
+	 v1: %228 = v_mul_lo_u32 %102, %103
+	 v1: %230 = v_mul_lo_u32 %102, %105
+	 v1: %232 = v_mul_lo_u32 %102, %107
+	 v1: %234 = v_mul_lo_u32 %102, %109
+	 v1: %236 = v_mul_lo_u32 %102, %111
+	 v1: %238 = v_mul_lo_u32 %102, %113
+	 v1: %240 = v_mul_lo_u32 %102, %115
+	 v1: %242 = v_mul_lo_u32 %102, %117
+	 v1: %244 = v_mul_lo_u32 %104, %105
+	 v1: %245 = v_add3_u32 (kill)%244, (kill)%213, (kill)%228
+	 v1: %246 = v_mul_lo_u32 %104, %107
+	 v1: %247 = v_add3_u32 (kill)%246, (kill)%215, (kill)%230
+	 v1: %248 = v_mul_lo_u32 %104, %109
+	 v1: %249 = v_add3_u32 (kill)%248, (kill)%217, (kill)%232
+	 v1: %250 = v_mul_lo_u32 %104, %111
+	 v1: %251 = v_add3_u32 (kill)%250, (kill)%219, (kill)%234
+	 v1: %252 = v_mul_lo_u32 %104, %113
+	 v1: %253 = v_add3_u32 (kill)%252, (kill)%221, (kill)%236
+	 v1: %254 = v_mul_lo_u32 %104, %115
+	 v1: %255 = v_add3_u32 (kill)%254, (kill)%223, (kill)%238
+	 v1: %256 = v_mul_lo_u32 %104, %117
+	 v1: %257 = v_add3_u32 (kill)%256, (kill)%225, (kill)%240
+	 v1: %258 = v_mul_lo_u32 %104, %119
+	 v1: %259 = v_add3_u32 (kill)%258, (kill)%227, (kill)%242
+	 v1: %260 = v_mul_lo_u32 %106, %107
+	 v1: %262 = v_mul_lo_u32 %106, %109
+	 v1: %264 = v_mul_lo_u32 %106, %111
+	 v1: %266 = v_mul_lo_u32 %106, %113
+	 v1: %268 = v_mul_lo_u32 %106, %115
+	 v1: %270 = v_mul_lo_u32 %106, %117
+	 v1: %272 = v_mul_lo_u32 %106, %119
+	 v1: %274 = v_mul_lo_u32 %106, %121
+	 v1: %276 = v_mul_lo_u32 %108, %109
+	 v1: %277 = v_add3_u32 (kill)%276, (kill)%245, (kill)%260
+	 v1: %278 = v_mul_lo_u32 %108, %111
+	 v1: %279 = v_add3_u32 (kill)%278, (kill)%247, (kill)%262
+	 v1: %280 = v_mul_lo_u32 %108, %113
+	 v1: %281 = v_add3_u32 (kill)%280, (kill)%249, (kill)%264
+	 v1: %282 = v_mul_lo_u32 %108, %115
+	 v1: %283 = v_add3_u32 (kill)%282, (kill)%251, (kill)%266
+	 v1: %284 = v_mul_lo_u32 %108, %117
+	 v1: %285 = v_add3_u32 (kill)%284, (kill)%253, (kill)%268
+	 v1: %286 = v_mul_lo_u32 %108, %119
+	 v1: %287 = v_add3_u32 (kill)%286, (kill)%255, (kill)%270
+	 v1: %288 = v_mul_lo_u32 %108, %121
+	 v1: %289 = v_add3_u32 (kill)%288, (kill)%257, (kill)%272
+	 v1: %290 = v_mul_lo_u32 %108, %91
+	 v1: %291 = v_add3_u32 (kill)%290, (kill)%259, (kill)%274
+	 v1: %292 = v_mul_lo_u32 %110, %111
+	 v1: %294 = v_mul_lo_u32 %110, %113
+	 v1: %296 = v_mul_lo_u32 %110, %115
+	 v1: %298 = v_mul_lo_u32 %110, %117
+	 v1: %300 = v_mul_lo_u32 %110, %119
+	 v1: %302 = v_mul_lo_u32 %110, %121
+	 v1: %304 = v_mul_lo_u32 %110, %91
+	 v1: %306 = v_mul_lo_u32 %110, %93
+	 v1: %308 = v_mul_lo_u32 %112, %113
+	 v1: %309 = v_add3_u32 (kill)%308, (kill)%277, (kill)%292
+	 v1: %310 = v_mul_lo_u32 %112, %115
+	 v1: %311 = v_add3_u32 (kill)%310, (kill)%279, (kill)%294
+	 v1: %312 = v_mul_lo_u32 %112, %117
+	 v1: %313 = v_add3_u32 (kill)%312, (kill)%281, (kill)%296
+	 v1: %314 = v_mul_lo_u32 %112, %119
+	 v1: %315 = v_add3_u32 (kill)%314, (kill)%283, (kill)%298
+	 v1: %316 = v_mul_lo_u32 %112, %121
+	 v1: %317 = v_add3_u32 (kill)%316, (kill)%285, (kill)%300
+	 v1: %318 = v_mul_lo_u32 %112, %91
+	 v1: %319 = v_add3_u32 (kill)%318, (kill)%287, (kill)%302
+	 v1: %320 = v_mul_lo_u32 %112, %93
+	 v1: %321 = v_add3_u32 (kill)%320, (kill)%289, (kill)%304
+	 v1: %322 = v_mul_lo_u32 %112, %95
+	 v1: %323 = v_add3_u32 (kill)%322, (kill)%291, (kill)%306
+	 v1: %324 = v_mul_lo_u32 %114, %115
+	 v1: %326 = v_mul_lo_u32 %114, %117
+	 v1: %328 = v_mul_lo_u32 %114, %119
+	 v1: %330 = v_mul_lo_u32 %114, %121
+	 v1: %332 = v_mul_lo_u32 %114, %91
+	 v1: %334 = v_mul_lo_u32 %114, %93
+	 v1: %336 = v_mul_lo_u32 %114, %95
+	 v1: %338 = v_mul_lo_u32 %114, %97
+	 v1: %340 = v_mul_lo_u32 %116, %117
+	 v1: %341 = v_add3_u32 (kill)%340, (kill)%309, (kill)%324
+	 v1: %342 = v_mul_lo_u32 %116, %119
+	 v1: %343 = v_add3_u32 (kill)%342, (kill)%311, (kill)%326
+	 v1: %344 = v_mul_lo_u32 %116, %121
+	 v1: %345 = v_add3_u32 (kill)%344, (kill)%313, (kill)%328
+	 v1: %346 = v_mul_lo_u32 %116, %91
+	 v1: %347 = v_add3_u32 (kill)%346, (kill)%315, (kill)%330
+	 v1: %348 = v_mul_lo_u32 %116, %93
+	 v1: %349 = v_add3_u32 (kill)%348, (kill)%317, (kill)%332
+	 v1: %350 = v_mul_lo_u32 %116, %95
+	 v1: %351 = v_add3_u32 (kill)%350, (kill)%319, (kill)%334
+	 v1: %352 = v_mul_lo_u32 %116, %97
+	 v1: %353 = v_add3_u32 (kill)%352, (kill)%321, (kill)%336
+	 v1: %354 = v_mul_lo_u32 %116, %99
+	 v1: %355 = v_add3_u32 (kill)%354, (kill)%323, (kill)%338
+	 v1: %356 = v_mul_lo_u32 %118, %119
+	 v1: %358 = v_mul_lo_u32 %118, %121
+	 v1: %360 = v_mul_lo_u32 %118, %91
+	 v1: %362 = v_mul_lo_u32 %118, %93
+	 v1: %364 = v_mul_lo_u32 %118, %95
+	 v1: %366 = v_mul_lo_u32 %118, %97
+	 v1: %368 = v_mul_lo_u32 %118, %99
+	 v1: %370 = v_mul_lo_u32 %118, %101
+	 v1: %372 = v_mul_lo_u32 %120, %121
+	 v1: %373 = v_add3_u32 (kill)%372, (kill)%341, (kill)%356
+	 v1: %374 = v_mul_lo_u32 %120, %91
+	 v1: %375 = v_add3_u32 (kill)%374, (kill)%343, (kill)%358
+	 v1: %376 = v_mul_lo_u32 %120, %93
+	 v1: %377 = v_add3_u32 (kill)%376, (kill)%345, (kill)%360
+	 v1: %378 = v_mul_lo_u32 %120, %95
+	 v1: %379 = v_add3_u32 (kill)%378, (kill)%347, (kill)%362
+	 v1: %380 = v_mul_lo_u32 %120, %97
+	 v1: %381 = v_add3_u32 (kill)%380, (kill)%349, (kill)%364
+	 v1: %382 = v_mul_lo_u32 %120, %99
+	 v1: %383 = v_add3_u32 (kill)%382, (kill)%351, (kill)%366
+	 v1: %384 = v_mul_lo_u32 %120, %101
+	 v1: %385 = v_add3_u32 (kill)%384, (kill)%353, (kill)%368
+	 v1: %386 = v_mul_lo_u32 %120, %103
+	 v1: %387 = v_add3_u32 (kill)%386, (kill)%355, (kill)%370
+	 s1: %388,  s1: (kill)%418:scc = s_add_u32 (kill)%130, 1
+	p_logical_end
+	p_branch BB1
+BB4
+/* logical preds: BB2, / linear preds: BB2, / kind: uniform, top-level, loop-exit, */
+	 v1: %396 = p_phi (kill)%129
+	 v1: %395 = p_phi (kill)%128
+	 v1: %394 = p_phi (kill)%127
+	 v1: %393 = p_phi (kill)%126
+	 v1: %392 = p_phi (kill)%125
+	 v1: %391 = p_phi (kill)%124
+	 v1: %390 = p_phi (kill)%123
+	 v1: %389 = p_phi (kill)%122
+	p_logical_start
+	 v1: %398 = v_xor3_b32 (kill)%394, (kill)%396, (kill)%395
+	 v1: %400 = v_xor3_b32 (kill)%392, (kill)%398, (kill)%393
+	 v1: %402 = v_xor3_b32 (kill)%390, (kill)%400, (kill)%391
+	 v1: %403 = v_xor_b32 (kill)%402, (kill)%389
+	 s4: %404 = s_load_dwordx4 (kill)%8, 16 storage:buffer semantics:private,reorder
+	 v1: %405 = v_lshlrev_b32 2, (kill)%5
+	buffer_store_dword (kill)%404, (kill)%405, 0, (kill)%403 offen storage:buffer
+	p_logical_end
+	s_endpgm
+
+
+--- Assembly: Final Assembly
+BB0:
+	s_mov_b32 s3, s1                                            ; be830001
+	s_movk_i32 s1, 0x8000                                       ; b0018000
+	s_load_b128 s[4:7], s[0:1], null                            ; f4080100 f8000000
+	v_lshl_add_u32 v0, s2, 8, v0                                ; d6460000 04011002
+	s_delay_alu instid0(VALU_DEP_1) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870091
+	v_lshlrev_b32_e32 v1, 4, v0                                 ; 30020084
+	v_add_nc_u32_e32 v7, 5, v1                                  ; 4a0e0285
+	v_cvt_u32_u16_e32 v2, v1.l                                  ; 7e04d701
+	v_add_nc_u32_e32 v3, 1, v1                                  ; 4a060281
+	v_add_nc_u32_e32 v4, 2, v1                                  ; 4a080282
+	v_add_nc_u32_e32 v5, 3, v1                                  ; 4a0a0283
+	v_add_nc_u32_e32 v6, 4, v1                                  ; 4a0c0284
+	v_add_nc_u32_e32 v8, 6, v1                                  ; 4a100286
+	v_add_nc_u32_e32 v9, 7, v1                                  ; 4a120287
+	v_cvt_u32_u16_e32 v7, v7.l                                  ; 7e0ed707
+	v_add_nc_u32_e32 v10, 8, v1                                 ; 4a140288
+	v_lshlrev_b32_e32 v2, 2, v2                                 ; 30040482
+	v_cvt_u32_u16_e32 v3, v3.l                                  ; 7e06d703
+	v_cvt_u32_u16_e32 v4, v4.l                                  ; 7e08d704
+	v_add_nc_u32_e32 v11, 9, v1                                 ; 4a160289
+	v_cvt_u32_u16_e32 v5, v5.l                                  ; 7e0ad705
+	v_cvt_u32_u16_e32 v6, v6.l                                  ; 7e0cd706
+	v_cvt_u32_u16_e32 v8, v8.l                                  ; 7e10d708
+	v_add_nc_u32_e32 v12, 10, v1                                ; 4a18028a
+	v_cvt_u32_u16_e32 v9, v9.l                                  ; 7e12d709
+	v_lshlrev_b32_e32 v7, 2, v7                                 ; 300e0e82
+	v_cvt_u32_u16_e32 v10, v10.l                                ; 7e14d70a
+	v_add_nc_u32_e32 v13, 11, v1                                ; 4a1a028b
+	v_lshlrev_b32_e32 v3, 2, v3                                 ; 30060682
+	v_lshlrev_b32_e32 v4, 2, v4                                 ; 30080882
+	v_cvt_u32_u16_e32 v11, v11.l                                ; 7e16d70b
+	v_add_nc_u32_e32 v14, 12, v1                                ; 4a1c028c
+	v_lshlrev_b32_e32 v5, 2, v5                                 ; 300a0a82
+	v_lshlrev_b32_e32 v6, 2, v6                                 ; 300c0c82
+	v_add_nc_u32_e32 v15, 13, v1                                ; 4a1e028d
+	v_lshlrev_b32_e32 v8, 2, v8                                 ; 30101082
+	v_cvt_u32_u16_e32 v12, v12.l                                ; 7e18d70c
+	v_lshlrev_b32_e32 v9, 2, v9                                 ; 30121282
+	v_add_nc_u32_e32 v16, 14, v1                                ; 4a20028e
+	v_lshlrev_b32_e32 v10, 2, v10                               ; 30141482
+	v_cvt_u32_u16_e32 v13, v13.l                                ; 7e1ad70d
+	v_add_nc_u32_e32 v1, 15, v1                                 ; 4a02028f
+	v_lshlrev_b32_e32 v11, 2, v11                               ; 30161682
+	v_cvt_u32_u16_e32 v14, v14.l                                ; 7e1cd70e
+	v_cvt_u32_u16_e32 v15, v15.l                                ; 7e1ed70f
+	v_lshlrev_b32_e32 v12, 2, v12                               ; 30181882
+	v_cvt_u32_u16_e32 v16, v16.l                                ; 7e20d710
+	v_lshlrev_b32_e32 v13, 2, v13                               ; 301a1a82
+	v_cvt_u32_u16_e32 v1, v1.l                                  ; 7e02d701
+	v_lshlrev_b32_e32 v14, 2, v14                               ; 301c1c82
+	v_lshlrev_b32_e32 v15, 2, v15                               ; 301e1e82
+	v_lshlrev_b32_e32 v16, 2, v16                               ; 30202082
+	s_delay_alu instid0(VALU_DEP_4)                             ; bf870004
+	v_lshlrev_b32_e32 v1, 2, v1                                 ; 30020282
+	s_waitcnt lgkmcnt(0)                                        ; bf89fc07
+	s_clause 0xf                                                ; bf85000f
+	buffer_load_b32 v2, v2, s[4:7], 0 offen                     ; e0500000 80410202
+	buffer_load_b32 v3, v3, s[4:7], 0 offen                     ; e0500000 80410303
+	buffer_load_b32 v4, v4, s[4:7], 0 offen                     ; e0500000 80410404
+	buffer_load_b32 v5, v5, s[4:7], 0 offen                     ; e0500000 80410505
+	buffer_load_b32 v6, v6, s[4:7], 0 offen                     ; e0500000 80410606
+	buffer_load_b32 v7, v7, s[4:7], 0 offen                     ; e0500000 80410707
+	buffer_load_b32 v8, v8, s[4:7], 0 offen                     ; e0500000 80410808
+	buffer_load_b32 v9, v9, s[4:7], 0 offen                     ; e0500000 80410909
+	buffer_load_b32 v10, v10, s[4:7], 0 offen                   ; e0500000 80410a0a
+	buffer_load_b32 v11, v11, s[4:7], 0 offen                   ; e0500000 80410b0b
+	buffer_load_b32 v12, v12, s[4:7], 0 offen                   ; e0500000 80410c0c
+	buffer_load_b32 v13, v13, s[4:7], 0 offen                   ; e0500000 80410d0d
+	buffer_load_b32 v14, v14, s[4:7], 0 offen                   ; e0500000 80410e0e
+	buffer_load_b32 v15, v15, s[4:7], 0 offen                   ; e0500000 80410f0f
+	buffer_load_b32 v16, v16, s[4:7], 0 offen                   ; e0500000 80411010
+	buffer_load_b32 v1, v1, s[4:7], 0 offen                     ; e0500000 80410101
+	v_dual_mov_b32 v34, 0 :: v_dual_mov_b32 v33, 0              ; ca100080 22200080
+	v_dual_mov_b32 v36, 0 :: v_dual_mov_b32 v35, 0              ; ca100080 24220080
+	v_dual_mov_b32 v38, 0 :: v_dual_mov_b32 v37, 0              ; ca100080 26240080
+	v_dual_mov_b32 v40, 0 :: v_dual_mov_b32 v39, 0              ; ca100080 28260080
+	s_waitcnt vmcnt(15)                                         ; bf893ff7
+	v_bfe_i32 v17, v2, 0, 8                                     ; d6110011 02210102
+	v_bfe_i32 v2, v2, 8, 8                                      ; d6110002 02211102
+	s_waitcnt vmcnt(14)                                         ; bf893bf7
+	v_bfe_i32 v18, v3, 0, 8                                     ; d6110012 02210103
+	v_bfe_i32 v3, v3, 8, 8                                      ; d6110003 02211103
+	s_waitcnt vmcnt(13)                                         ; bf8937f7
+	v_bfe_i32 v19, v4, 0, 8                                     ; d6110013 02210104
+	v_bfe_i32 v4, v4, 8, 8                                      ; d6110004 02211104
+	s_waitcnt vmcnt(12)                                         ; bf8933f7
+	v_bfe_i32 v20, v5, 0, 8                                     ; d6110014 02210105
+	v_bfe_i32 v5, v5, 8, 8                                      ; d6110005 02211105
+	s_waitcnt vmcnt(11)                                         ; bf892ff7
+	v_bfe_i32 v21, v6, 0, 8                                     ; d6110015 02210106
+	v_bfe_i32 v6, v6, 8, 8                                      ; d6110006 02211106
+	s_waitcnt vmcnt(10)                                         ; bf892bf7
+	v_bfe_i32 v22, v7, 0, 8                                     ; d6110016 02210107
+	v_bfe_i32 v7, v7, 8, 8                                      ; d6110007 02211107
+	s_waitcnt vmcnt(9)                                          ; bf8927f7
+	v_bfe_i32 v23, v8, 0, 8                                     ; d6110017 02210108
+	v_bfe_i32 v8, v8, 8, 8                                      ; d6110008 02211108
+	s_waitcnt vmcnt(8)                                          ; bf8923f7
+	v_bfe_i32 v24, v9, 0, 8                                     ; d6110018 02210109
+	v_bfe_i32 v9, v9, 8, 8                                      ; d6110009 02211109
+	s_waitcnt vmcnt(7)                                          ; bf891ff7
+	v_bfe_i32 v25, v10, 0, 8                                    ; d6110019 0221010a
+	v_bfe_i32 v10, v10, 8, 8                                    ; d611000a 0221110a
+	s_waitcnt vmcnt(6)                                          ; bf891bf7
+	v_bfe_i32 v26, v11, 0, 8                                    ; d611001a 0221010b
+	v_bfe_i32 v11, v11, 8, 8                                    ; d611000b 0221110b
+	s_waitcnt vmcnt(5)                                          ; bf8917f7
+	v_bfe_i32 v27, v12, 0, 8                                    ; d611001b 0221010c
+	v_bfe_i32 v12, v12, 8, 8                                    ; d611000c 0221110c
+	s_waitcnt vmcnt(4)                                          ; bf8913f7
+	v_bfe_i32 v28, v13, 0, 8                                    ; d611001c 0221010d
+	v_bfe_i32 v13, v13, 8, 8                                    ; d611000d 0221110d
+	s_waitcnt vmcnt(3)                                          ; bf890ff7
+	v_bfe_i32 v29, v14, 0, 8                                    ; d611001d 0221010e
+	v_bfe_i32 v14, v14, 8, 8                                    ; d611000e 0221110e
+	s_waitcnt vmcnt(2)                                          ; bf890bf7
+	v_bfe_i32 v30, v15, 0, 8                                    ; d611001e 0221010f
+	v_bfe_i32 v15, v15, 8, 8                                    ; d611000f 0221110f
+	s_waitcnt vmcnt(1)                                          ; bf8907f7
+	v_bfe_i32 v31, v16, 0, 8                                    ; d611001f 02210110
+	v_bfe_i32 v16, v16, 8, 8                                    ; d6110010 02211110
+	s_waitcnt vmcnt(0)                                          ; bf8903f7
+	v_bfe_i32 v32, v1, 0, 8                                     ; d6110020 02210101
+	v_bfe_i32 v1, v1, 8, 8                                      ; d6110001 02211101
+	s_mov_b32 s2, 0                                             ; be820080
+	s_branch BB1                                                ; bfa0018a
+BB3:
+	v_mul_lo_u32 v41, v17, v2                                   ; d72c0029 02020511
+	v_mul_lo_u32 v42, v17, v3                                   ; d72c002a 02020711
+	v_mul_lo_u32 v43, v17, v4                                   ; d72c002b 02020911
+	v_mul_lo_u32 v44, v17, v5                                   ; d72c002c 02020b11
+	v_mul_lo_u32 v45, v17, v6                                   ; d72c002d 02020d11
+	v_mul_lo_u32 v46, v17, v7                                   ; d72c002e 02020f11
+	v_mul_lo_u32 v47, v17, v8                                   ; d72c002f 02021111
+	v_mul_lo_u32 v48, v17, v9                                   ; d72c0030 02021311
+	v_mul_lo_u32 v49, v18, v3                                   ; d72c0031 02020712
+	v_mul_lo_u32 v50, v18, v4                                   ; d72c0032 02020912
+	v_mul_lo_u32 v51, v18, v5                                   ; d72c0033 02020b12
+	v_mul_lo_u32 v52, v18, v6                                   ; d72c0034 02020d12
+	v_mul_lo_u32 v53, v18, v7                                   ; d72c0035 02020f12
+	v_mul_lo_u32 v54, v18, v8                                   ; d72c0036 02021112
+	v_mul_lo_u32 v55, v18, v9                                   ; d72c0037 02021312
+	v_mul_lo_u32 v56, v18, v10                                  ; d72c0038 02021512
+	v_mul_lo_u32 v57, v19, v4                                   ; d72c0039 02020913
+	v_mul_lo_u32 v58, v19, v5                                   ; d72c003a 02020b13
+	v_add3_u32 v49, v49, v33, v41                               ; d6550031 04a64331
+	v_mul_lo_u32 v59, v19, v6                                   ; d72c003b 02020d13
+	v_add3_u32 v50, v50, v34, v42                               ; d6550032 04aa4532
+	v_mul_lo_u32 v60, v19, v7                                   ; d72c003c 02020f13
+	v_mul_lo_u32 v61, v19, v8                                   ; d72c003d 02021113
+	v_add3_u32 v51, v51, v35, v43                               ; d6550033 04ae4733
+	v_mul_lo_u32 v62, v19, v9                                   ; d72c003e 02021313
+	v_add3_u32 v52, v52, v36, v44                               ; d6550034 04b24934
+	v_add3_u32 v53, v53, v37, v45                               ; d6550035 04b64b35
+	v_mul_lo_u32 v63, v19, v10                                  ; d72c003f 02021513
+	v_add3_u32 v54, v54, v38, v46                               ; d6550036 04ba4d36
+	v_mul_lo_u32 v64, v19, v11                                  ; d72c0040 02021713
+	v_add3_u32 v55, v55, v39, v47                               ; d6550037 04be4f37
+	v_mul_lo_u32 v65, v20, v5                                   ; d72c0041 02020b14
+	v_add3_u32 v56, v56, v40, v48                               ; d6550038 04c25138
+	v_mul_lo_u32 v66, v20, v6                                   ; d72c0042 02020d14
+	v_mul_lo_u32 v67, v20, v7                                   ; d72c0043 02020f14
+	v_mul_lo_u32 v68, v20, v8                                   ; d72c0044 02021114
+	v_mul_lo_u32 v69, v20, v9                                   ; d72c0045 02021314
+	v_mul_lo_u32 v70, v20, v10                                  ; d72c0046 02021514
+	v_mul_lo_u32 v71, v20, v11                                  ; d72c0047 02021714
+	v_mul_lo_u32 v72, v20, v12                                  ; d72c0048 02021914
+	v_mul_lo_u32 v73, v21, v6                                   ; d72c0049 02020d15
+	v_mul_lo_u32 v74, v21, v7                                   ; d72c004a 02020f15
+	v_add3_u32 v65, v65, v49, v57                               ; d6550041 04e66341
+	v_mul_lo_u32 v75, v21, v8                                   ; d72c004b 02021115
+	v_mul_lo_u32 v76, v21, v9                                   ; d72c004c 02021315
+	v_add3_u32 v66, v66, v50, v58                               ; d6550042 04ea6542
+	v_mul_lo_u32 v77, v21, v10                                  ; d72c004d 02021515
+	v_add3_u32 v67, v67, v51, v59                               ; d6550043 04ee6743
+	v_mul_lo_u32 v78, v21, v11                                  ; d72c004e 02021715
+	v_add3_u32 v68, v68, v52, v60                               ; d6550044 04f26944
+	v_mul_lo_u32 v79, v21, v12                                  ; d72c004f 02021915
+	v_add3_u32 v69, v69, v53, v61                               ; d6550045 04f66b45
+	v_add3_u32 v70, v70, v54, v62                               ; d6550046 04fa6d46
+	v_mul_lo_u32 v80, v21, v13                                  ; d72c0050 02021b15
+	v_add3_u32 v71, v71, v55, v63                               ; d6550047 04fe6f47
+	v_mul_lo_u32 v81, v22, v7                                   ; d72c0051 02020f16
+	v_add3_u32 v72, v72, v56, v64                               ; d6550048 05027148
+	v_mul_lo_u32 v82, v22, v8                                   ; d72c0052 02021116
+	v_mul_lo_u32 v83, v22, v9                                   ; d72c0053 02021316
+	v_mul_lo_u32 v84, v22, v10                                  ; d72c0054 02021516
+	v_mul_lo_u32 v85, v22, v11                                  ; d72c0055 02021716
+	v_mul_lo_u32 v86, v22, v12                                  ; d72c0056 02021916
+	v_mul_lo_u32 v87, v22, v13                                  ; d72c0057 02021b16
+	v_mul_lo_u32 v88, v22, v14                                  ; d72c0058 02021d16
+	v_mul_lo_u32 v89, v23, v8                                   ; d72c0059 02021117
+	v_mul_lo_u32 v90, v23, v9                                   ; d72c005a 02021317
+	v_add3_u32 v81, v81, v65, v73                               ; d6550051 05268351
+	v_mul_lo_u32 v91, v23, v10                                  ; d72c005b 02021517
+	v_mul_lo_u32 v92, v23, v11                                  ; d72c005c 02021717
+	v_add3_u32 v82, v82, v66, v74                               ; d6550052 052a8552
+	v_mul_lo_u32 v93, v23, v12                                  ; d72c005d 02021917
+	v_add3_u32 v83, v83, v67, v75                               ; d6550053 052e8753
+	v_mul_lo_u32 v94, v23, v13                                  ; d72c005e 02021b17
+	v_add3_u32 v84, v84, v68, v76                               ; d6550054 05328954
+	v_mul_lo_u32 v95, v23, v14                                  ; d72c005f 02021d17
+	v_add3_u32 v85, v85, v69, v77                               ; d6550055 05368b55
+	v_mul_lo_u32 v33, v23, v15                                  ; d72c0021 02021f17
+	v_add3_u32 v86, v86, v70, v78                               ; d6550056 053a8d56
+	v_add3_u32 v87, v87, v71, v79                               ; d6550057 053e8f57
+	v_mul_lo_u32 v34, v24, v9                                   ; d72c0022 02021318
+	v_add3_u32 v88, v88, v72, v80                               ; d6550058 05429158
+	v_mul_lo_u32 v35, v24, v10                                  ; d72c0023 02021518
+	v_mul_lo_u32 v36, v24, v11                                  ; d72c0024 02021718
+	v_mul_lo_u32 v37, v24, v12                                  ; d72c0025 02021918
+	v_mul_lo_u32 v38, v24, v13                                  ; d72c0026 02021b18
+	v_mul_lo_u32 v39, v24, v14                                  ; d72c0027 02021d18
+	v_mul_lo_u32 v40, v24, v15                                  ; d72c0028 02021f18
+	v_mul_lo_u32 v41, v24, v16                                  ; d72c0029 02022118
+	v_mul_lo_u32 v42, v25, v10                                  ; d72c002a 02021519
+	v_mul_lo_u32 v43, v25, v11                                  ; d72c002b 02021719
+	v_add3_u32 v34, v34, v81, v89                               ; d6550022 0566a322
+	v_mul_lo_u32 v44, v25, v12                                  ; d72c002c 02021919
+	v_add3_u32 v35, v35, v82, v90                               ; d6550023 056aa523
+	v_mul_lo_u32 v45, v25, v13                                  ; d72c002d 02021b19
+	v_mul_lo_u32 v46, v25, v14                                  ; d72c002e 02021d19
+	v_add3_u32 v36, v36, v83, v91                               ; d6550024 056ea724
+	v_mul_lo_u32 v47, v25, v15                                  ; d72c002f 02021f19
+	v_add3_u32 v37, v37, v84, v92                               ; d6550025 0572a925
+	v_mul_lo_u32 v48, v25, v16                                  ; d72c0030 02022119
+	v_add3_u32 v38, v38, v85, v93                               ; d6550026 0576ab26
+	v_mul_lo_u32 v49, v25, v1                                   ; d72c0031 02020319
+	v_add3_u32 v39, v39, v86, v94                               ; d6550027 057aad27
+	v_mul_lo_u32 v50, v26, v11                                  ; d72c0032 0202171a
+	v_add3_u32 v40, v40, v87, v95                               ; d6550028 057eaf28
+	v_add3_u32 v41, v41, v88, v33                               ; d6550029 0486b129
+	v_mul_lo_u32 v51, v26, v12                                  ; d72c0033 0202191a
+	v_mul_lo_u32 v52, v26, v13                                  ; d72c0034 02021b1a
+	v_mul_lo_u32 v53, v26, v14                                  ; d72c0035 02021d1a
+	v_mul_lo_u32 v54, v26, v15                                  ; d72c0036 02021f1a
+	v_mul_lo_u32 v55, v26, v16                                  ; d72c0037 0202211a
+	v_mul_lo_u32 v56, v26, v1                                   ; d72c0038 0202031a
+	v_mul_lo_u32 v57, v26, v2                                   ; d72c0039 0202051a
+	v_mul_lo_u32 v58, v27, v12                                  ; d72c003a 0202191b
+	v_mul_lo_u32 v59, v27, v13                                  ; d72c003b 02021b1b
+	v_add3_u32 v50, v50, v34, v42                               ; d6550032 04aa4532
+	v_mul_lo_u32 v60, v27, v14                                  ; d72c003c 02021d1b
+	v_add3_u32 v51, v51, v35, v43                               ; d6550033 04ae4733
+	v_mul_lo_u32 v61, v27, v15                                  ; d72c003d 02021f1b
+	v_add3_u32 v52, v52, v36, v44                               ; d6550034 04b24934
+	v_mul_lo_u32 v62, v27, v16                                  ; d72c003e 0202211b
+	v_mul_lo_u32 v63, v27, v1                                   ; d72c003f 0202031b
+	v_add3_u32 v53, v53, v37, v45                               ; d6550035 04b64b35
+	v_mul_lo_u32 v64, v27, v2                                   ; d72c0040 0202051b
+	v_add3_u32 v54, v54, v38, v46                               ; d6550036 04ba4d36
+	v_mul_lo_u32 v65, v27, v3                                   ; d72c0041 0202071b
+	v_add3_u32 v55, v55, v39, v47                               ; d6550037 04be4f37
+	v_mul_lo_u32 v66, v28, v13                                  ; d72c0042 02021b1c
+	v_add3_u32 v56, v56, v40, v48                               ; d6550038 04c25138
+	v_add3_u32 v57, v57, v41, v49                               ; d6550039 04c65339
+	v_mul_lo_u32 v67, v28, v14                                  ; d72c0043 02021d1c
+	v_mul_lo_u32 v68, v28, v15                                  ; d72c0044 02021f1c
+	v_mul_lo_u32 v69, v28, v16                                  ; d72c0045 0202211c
+	v_mul_lo_u32 v70, v28, v1                                   ; d72c0046 0202031c
+	v_mul_lo_u32 v71, v28, v2                                   ; d72c0047 0202051c
+	v_mul_lo_u32 v72, v28, v3                                   ; d72c0048 0202071c
+	v_mul_lo_u32 v73, v28, v4                                   ; d72c0049 0202091c
+	v_mul_lo_u32 v74, v29, v14                                  ; d72c004a 02021d1d
+	v_mul_lo_u32 v75, v29, v15                                  ; d72c004b 02021f1d
+	v_add3_u32 v66, v66, v50, v58                               ; d6550042 04ea6542
+	v_mul_lo_u32 v76, v29, v16                                  ; d72c004c 0202211d
+	v_add3_u32 v67, v67, v51, v59                               ; d6550043 04ee6743
+	v_mul_lo_u32 v77, v29, v1                                   ; d72c004d 0202031d
+	v_add3_u32 v68, v68, v52, v60                               ; d6550044 04f26944
+	v_mul_lo_u32 v78, v29, v2                                   ; d72c004e 0202051d
+	v_add3_u32 v69, v69, v53, v61                               ; d6550045 04f66b45
+	v_mul_lo_u32 v79, v29, v3                                   ; d72c004f 0202071d
+	v_mul_lo_u32 v80, v29, v4                                   ; d72c0050 0202091d
+	v_add3_u32 v70, v70, v54, v62                               ; d6550046 04fa6d46
+	v_mul_lo_u32 v81, v29, v5                                   ; d72c0051 02020b1d
+	v_add3_u32 v71, v71, v55, v63                               ; d6550047 04fe6f47
+	v_add3_u32 v72, v72, v56, v64                               ; d6550048 05027148
+	v_mul_lo_u32 v82, v30, v15                                  ; d72c0052 02021f1e
+	v_add3_u32 v73, v73, v57, v65                               ; d6550049 05067349
+	v_mul_lo_u32 v83, v30, v16                                  ; d72c0053 0202211e
+	v_mul_lo_u32 v84, v30, v1                                   ; d72c0054 0202031e
+	v_mul_lo_u32 v85, v30, v2                                   ; d72c0055 0202051e
+	v_mul_lo_u32 v86, v30, v3                                   ; d72c0056 0202071e
+	v_mul_lo_u32 v87, v30, v4                                   ; d72c0057 0202091e
+	v_mul_lo_u32 v88, v30, v5                                   ; d72c0058 02020b1e
+	v_mul_lo_u32 v89, v30, v6                                   ; d72c0059 02020d1e
+	v_mul_lo_u32 v90, v31, v16                                  ; d72c005a 0202211f
+	v_mul_lo_u32 v91, v31, v1                                   ; d72c005b 0202031f
+	v_add3_u32 v82, v82, v66, v74                               ; d6550052 052a8552
+	v_mul_lo_u32 v33, v31, v6                                   ; d72c0021 02020d1f
+	v_add3_u32 v83, v83, v67, v75                               ; d6550053 052e8753
+	v_mul_lo_u32 v34, v31, v7                                   ; d72c0022 02020f1f
+	v_add3_u32 v84, v84, v68, v76                               ; d6550054 05328954
+	v_mul_lo_u32 v35, v32, v1                                   ; d72c0023 02020320
+	v_add3_u32 v85, v85, v69, v77                               ; d6550055 05368b55
+	v_add3_u32 v86, v86, v70, v78                               ; d6550056 053a8d56
+	v_mul_lo_u32 v36, v32, v2                                   ; d72c0024 02020520
+	v_add3_u32 v87, v87, v71, v79                               ; d6550057 053e8f57
+	v_add3_u32 v88, v88, v72, v80                               ; d6550058 05429158
+	v_mul_lo_u32 v41, v32, v7                                   ; d72c0029 02020f20
+	v_add3_u32 v89, v89, v73, v81                               ; d6550059 05469359
+	v_mul_lo_u32 v42, v32, v8                                   ; d72c002a 02021120
+	v_mul_lo_u32 v92, v31, v2                                   ; d72c005c 0202051f
+	v_mul_lo_u32 v93, v31, v3                                   ; d72c005d 0202071f
+	v_mul_lo_u32 v94, v31, v4                                   ; d72c005e 0202091f
+	v_mul_lo_u32 v95, v31, v5                                   ; d72c005f 02020b1f
+	v_mul_lo_u32 v37, v32, v3                                   ; d72c0025 02020720
+	v_mul_lo_u32 v38, v32, v4                                   ; d72c0026 02020920
+	v_add3_u32 v35, v35, v82, v90                               ; d6550023 056aa523
+	v_mul_lo_u32 v39, v32, v5                                   ; d72c0027 02020b20
+	v_add3_u32 v36, v36, v83, v91                               ; d6550024 056ea724
+	v_add3_u32 v41, v41, v88, v33                               ; d6550029 0486b129
+	v_mul_lo_u32 v40, v32, v6                                   ; d72c0028 02020d20
+	v_add3_u32 v42, v42, v89, v34                               ; d655002a 048ab32a
+	s_add_u32 s2, s2, 1                                         ; 80028102
+	v_add3_u32 v37, v37, v84, v92                               ; d6550025 0572a925
+	v_add3_u32 v38, v38, v85, v93                               ; d6550026 0576ab26
+	v_dual_mov_b32 v34, v36 :: v_dual_mov_b32 v33, v35          ; ca100124 22200123
+	v_add3_u32 v39, v39, v86, v94                               ; d6550027 057aad27
+	v_add3_u32 v40, v40, v87, v95                               ; d6550028 057eaf28
+	s_delay_alu instid0(VALU_DEP_4) | instskip(NEXT) | instid1(VALU_DEP_2) ; bf870114
+	v_dual_mov_b32 v36, v38 :: v_dual_mov_b32 v35, v37          ; ca100126 24220125
+	v_dual_mov_b32 v38, v40 :: v_dual_mov_b32 v37, v39          ; ca100128 26240127
+	v_dual_mov_b32 v40, v42 :: v_dual_mov_b32 v39, v41          ; ca10012a 28260129
+BB1:
+	s_cmp_ge_u32 s2, s3                                         ; bf090302
+	s_cbranch_scc0 BB3                                          ; bfa1fe74
+BB4:
+	s_load_b128 s[0:3], s[0:1], 0x10                            ; f4080000 f8000010
+	v_lshlrev_b32_e32 v0, 2, v0                                 ; 30000082
+	v_xor3_b32 v35, v35, v33, v34                               ; d6400023 048a4323
+	s_delay_alu instid0(VALU_DEP_1) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870091
+	v_xor3_b32 v37, v37, v35, v36                               ; d6400025 04924725
+	v_xor3_b32 v39, v39, v37, v38                               ; d6400027 049a4b27
+	s_delay_alu instid0(VALU_DEP_1)                             ; bf870001
+	v_xor_b32_e32 v39, v39, v40                                 ; 3a4e5127
+	s_waitcnt lgkmcnt(0)                                        ; bf89fc07
+	buffer_store_b32 v39, v0, s[0:3], 0 offen                   ; e0680000 80402700
+	s_endpgm                                                    ; bfb00000
+MEM_ORDERED = 0
+

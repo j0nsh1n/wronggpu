@@ -1,0 +1,39 @@
+# kernel B_RQ_MAGIC wgs 1344 iters 2048 before: sclk=53Mhz mclk=1249Mhz busy=0%
+subgroup_size 32
+stat Driver pipeline hash: 17346352878893107393
+stat SGPRs: 108
+stat VGPRs: 48
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 1644
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 3347454006
+stat Instructions: 239
+stat Copies: 7
+stat Branches: 2
+stat Latency: 2377
+stat Inverse Throughput: 2352
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 9
+stat Pre-Sched VGPRs: 19
+stat VALU: 182
+stat SALU: 12
+stat VMEM: 10
+stat SMEM: 2
+stat VOPD: 30
+rep 0 gpu_ns 8705520
+rep 1 gpu_ns 8031640
+rep 2 gpu_ns 8364800
+rep 3 gpu_ns 8184680
+rep 4 gpu_ns 8259400
+rep 5 gpu_ns 8055920
+rep 6 gpu_ns 8271160
+rep 7 gpu_ns 8148600
+rep 8 gpu_ns 7936120
+rep 9 gpu_ns 8102120
+# after: sclk=2459Mhz mclk=1249Mhz busy=95%

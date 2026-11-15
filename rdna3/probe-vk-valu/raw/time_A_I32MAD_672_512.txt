@@ -1,0 +1,39 @@
+# kernel A_I32MAD wgs 672 iters 512 before: sclk=149Mhz mclk=1249Mhz busy=4%
+subgroup_size 32
+stat Driver pipeline hash: 5028395857994087117
+stat SGPRs: 108
+stat VGPRs: 96
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 2188
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 403045792
+stat Instructions: 323
+stat Copies: 20
+stat Branches: 2
+stat Latency: 5462
+stat Inverse Throughput: 9428
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 7
+stat Pre-Sched VGPRs: 50
+stat VALU: 270
+stat SALU: 6
+stat VMEM: 17
+stat SMEM: 2
+stat VOPD: 8
+rep 0 gpu_ns 6326400
+rep 1 gpu_ns 6234080
+rep 2 gpu_ns 4159120
+rep 3 gpu_ns 3445840
+rep 4 gpu_ns 3466920
+rep 5 gpu_ns 3851840
+rep 6 gpu_ns 3901680
+rep 7 gpu_ns 3804000
+rep 8 gpu_ns 3755080
+rep 9 gpu_ns 3746480
+# after: sclk=2589Mhz mclk=1249Mhz busy=6%

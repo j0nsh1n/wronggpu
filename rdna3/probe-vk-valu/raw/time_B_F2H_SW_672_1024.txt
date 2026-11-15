@@ -1,0 +1,39 @@
+# kernel B_F2H_SW wgs 672 iters 1024 before: sclk=1803Mhz mclk=1249Mhz busy=0%
+subgroup_size 32
+stat Driver pipeline hash: 10856334678684202024
+stat SGPRs: 108
+stat VGPRs: 96
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 3440
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 990261211
+stat Instructions: 654
+stat Copies: 17
+stat Branches: 2
+stat Latency: 6267
+stat Inverse Throughput: 8662
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 15
+stat Pre-Sched VGPRs: 25
+stat VALU: 572
+stat SALU: 15
+stat VMEM: 9
+stat SMEM: 2
+stat VOPD: 38
+rep 0 gpu_ns 6483880
+rep 1 gpu_ns 7455160
+rep 2 gpu_ns 7017160
+rep 3 gpu_ns 7110680
+rep 4 gpu_ns 7150760
+rep 5 gpu_ns 7080480
+rep 6 gpu_ns 7136760
+rep 7 gpu_ns 7000080
+rep 8 gpu_ns 7008840
+rep 9 gpu_ns 6935640
+# after: sclk=2516Mhz mclk=1249Mhz busy=60%

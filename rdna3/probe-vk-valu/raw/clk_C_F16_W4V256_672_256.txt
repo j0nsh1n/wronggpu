@@ -1,0 +1,4 @@
+clk 39000000 busy 0
+clk 131000000 busy 5
+clk 141000000 busy 8
+clk 1499000000 busy 73

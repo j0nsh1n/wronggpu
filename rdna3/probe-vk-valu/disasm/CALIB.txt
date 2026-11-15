@@ -1,0 +1,1080 @@
+=== executable 0: compute (Vulkan Compute Shader), subgroup size 32
+--- NIR Shader(s): The optimized NIR shader(s)
+shader: MESA_SHADER_COMPUTE
+source_blake3: {0x55e6c7b5, 0x1e6ffd9d, 0x3aecf7a0, 0x92b52221, 0x0d31e381, 0xac19bd7e, 0x738bf905, 0x611181e5}
+name: 
+workgroup_size: 256, 1, 1
+num_ssbos: 3
+system_values_read: 0x00000000'00000000'00008400'00000000
+api_subgroup_size: 32
+max_subgroup_size: 32
+min_subgroup_size: 32
+bit_sizes_float: 0x20
+bit_sizes_int: 0x21
+separate_shader: true
+flrp_lowered: true
+writes_memory: true
+uniforms: 4
+decl_var push_const INTERP_MODE_NONE none PC pc
+decl_var ssbo INTERP_MODE_NONE restrict readonly BI #0 (~0, 0, 0)
+decl_var ssbo INTERP_MODE_NONE restrict writeonly BO #1 (~0, 0, 1)
+decl_var ssbo INTERP_MODE_NONE restrict readonly writeonly BX #2 (~0, 0, 2)
+decl_function main () (entrypoint)
+
+impl main {
+    con block b0:        // preds:
+    con 32      %0 = @load_scalar_arg_amd (base=2)
+    div 32      %1 = @load_vector_arg_amd (base=3, arg_upper_bound_u32_amd=255)
+    con 32      %2 = load_const (0x00000008)
+    con 32      %3 = ishl %0, %2 (0x8)
+    div 32      %4 = iadd %3, %1
+    con 32      %5 = @load_scalar_arg_amd (base=0, arg_num_lsb_zero=2)
+    con 32      %6 = load_const (0xffff8000 = -32768 = 4294934528)
+    con 64      %7 = pack_64_2x32_split %5, %6 (0xffff8000)
+    con 32      %8 = load_const (0x00000000)
+    con 32x4    %9 = @load_global_amd (%7, %8 (0x0)) (base=0, access=readonly|reorderable|smem-amd, align_mul=4, align_offset=0)
+    con 32     %10 = load_const (0x00000004)
+    div 32     %11 = ishl %4, %10 (0x4)
+    con 32     %12 = load_const (0x00000001)
+    div 32     %13 = iadd %11, %12 (0x1)
+    div 32     %14 = extract_u16 %13, %8 (0x0)
+    con 32     %15 = load_const (0x00000002)
+    div 32     %16 = ishl %14, %15 (0x2)
+    div 32     %17 = @load_ssbo (%9, %16) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    div 32     %18 = iadd %11, %15 (0x2)
+    div 32     %19 = extract_u16 %18, %8 (0x0)
+    div 32     %20 = ishl %19, %15 (0x2)
+    div 32     %21 = @load_ssbo (%9, %20) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    div 32     %22 = extract_u16 %11, %8 (0x0)
+    div 32     %23 = ishl %22, %15 (0x2)
+    div 32     %24 = @load_ssbo (%9, %23) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %25 = load_const (0x00000003)
+    div 32     %26 = iadd %11, %25 (0x3)
+    div 32     %27 = extract_u16 %26, %8 (0x0)
+    div 32     %28 = ishl %27, %15 (0x2)
+    div 32     %29 = @load_ssbo (%9, %28) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    div 32     %30 = iadd %11, %10 (0x4)
+    div 32     %31 = extract_u16 %30, %8 (0x0)
+    div 32     %32 = ishl %31, %15 (0x2)
+    div 32     %33 = @load_ssbo (%9, %32) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %34 = load_const (0x00000005)
+    div 32     %35 = iadd %11, %34 (0x5)
+    div 32     %36 = extract_u16 %35, %8 (0x0)
+    div 32     %37 = ishl %36, %15 (0x2)
+    div 32     %38 = @load_ssbo (%9, %37) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %39 = load_const (0x00000006)
+    div 32     %40 = iadd %11, %39 (0x6)
+    div 32     %41 = extract_u16 %40, %8 (0x0)
+    div 32     %42 = ishl %41, %15 (0x2)
+    div 32     %43 = @load_ssbo (%9, %42) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %44 = load_const (0x00000007)
+    div 32     %45 = iadd %11, %44 (0x7)
+    div 32     %46 = extract_u16 %45, %8 (0x0)
+    div 32     %47 = ishl %46, %15 (0x2)
+    div 32     %48 = @load_ssbo (%9, %47) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    div 32     %49 = iadd %11, %2 (0x8)
+    div 32     %50 = extract_u16 %49, %8 (0x0)
+    div 32     %51 = ishl %50, %15 (0x2)
+    div 32     %52 = @load_ssbo (%9, %51) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %53 = load_const (0x00000009)
+    div 32     %54 = iadd %11, %53 (0x9)
+    div 32     %55 = extract_u16 %54, %8 (0x0)
+    div 32     %56 = ishl %55, %15 (0x2)
+    div 32     %57 = @load_ssbo (%9, %56) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %58 = load_const (0x0000000a = 10)
+    div 32     %59 = iadd %11, %58 (0xa)
+    div 32     %60 = extract_u16 %59, %8 (0x0)
+    div 32     %61 = ishl %60, %15 (0x2)
+    div 32     %62 = @load_ssbo (%9, %61) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %63 = load_const (0x0000000b = 11)
+    div 32     %64 = iadd %11, %63 (0xb)
+    div 32     %65 = extract_u16 %64, %8 (0x0)
+    div 32     %66 = ishl %65, %15 (0x2)
+    div 32     %67 = @load_ssbo (%9, %66) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %68 = load_const (0x0000000c = 12)
+    div 32     %69 = iadd %11, %68 (0xc)
+    div 32     %70 = extract_u16 %69, %8 (0x0)
+    div 32     %71 = ishl %70, %15 (0x2)
+    div 32     %72 = @load_ssbo (%9, %71) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %73 = load_const (0x0000000d = 13)
+    div 32     %74 = iadd %11, %73 (0xd)
+    div 32     %75 = extract_u16 %74, %8 (0x0)
+    div 32     %76 = ishl %75, %15 (0x2)
+    div 32     %77 = @load_ssbo (%9, %76) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %78 = load_const (0x0000000e = 14)
+    div 32     %79 = iadd %11, %78 (0xe)
+    div 32     %80 = extract_u16 %79, %8 (0x0)
+    div 32     %81 = ishl %80, %15 (0x2)
+    div 32     %82 = @load_ssbo (%9, %81) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %83 = load_const (0x0000000f = 15)
+    div 32     %84 = iadd %11, %83 (0xf)
+    div 32     %85 = extract_u16 %84, %8 (0x0)
+    div 32     %86 = ishl %85, %15 (0x2)
+    div 32     %87 = @load_ssbo (%9, %86) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32     %88 = @load_scalar_arg_amd (base=1)
+    div 32     %89 = i2f32 %17
+    con 32     %90 = load_const (0x2b8cbccc = 0.000000)
+    div 32     %91 = fmul %89, %90 (0.000000)
+    con 32     %92 = load_const (0x3f7fbe77 = 0.999000)
+    div 32     %93 = fadd %91, %92 (0.999000)
+    div 32     %94 = i2f32 %21
+    div 32     %95 = fmul %94, %90 (0.000000)
+    div 32     %96 = i2f32 %24
+    con 32     %97 = load_const (0x3089705f = 0.000000)
+    div 32     %98 = fmul %96, %97 (0.000000)
+    div 32     %99 = fmul %89, %97 (0.000000)
+    div 32    %100 = fmul %94, %97 (0.000000)
+    div 32    %101 = i2f32 %29
+    div 32    %102 = fmul %101, %97 (0.000000)
+    div 32    %103 = i2f32 %33
+    div 32    %104 = fmul %103, %97 (0.000000)
+    div 32    %105 = i2f32 %38
+    div 32    %106 = fmul %105, %97 (0.000000)
+    div 32    %107 = i2f32 %43
+    div 32    %108 = fmul %107, %97 (0.000000)
+    div 32    %109 = i2f32 %48
+    div 32    %110 = fmul %109, %97 (0.000000)
+    div 32    %111 = i2f32 %52
+    div 32    %112 = fmul %111, %97 (0.000000)
+    div 32    %113 = i2f32 %57
+    div 32    %114 = fmul %113, %97 (0.000000)
+    div 32    %115 = i2f32 %62
+    div 32    %116 = fmul %115, %97 (0.000000)
+    div 32    %117 = i2f32 %67
+    div 32    %118 = fmul %117, %97 (0.000000)
+    div 32    %119 = i2f32 %72
+    div 32    %120 = fmul %119, %97 (0.000000)
+    div 32    %121 = i2f32 %77
+    div 32    %122 = fmul %121, %97 (0.000000)
+    div 32    %123 = i2f32 %82
+    div 32    %124 = fmul %123, %97 (0.000000)
+    div 32    %125 = i2f32 %87
+    div 32    %126 = fmul %125, %97 (0.000000)
+                     // succs: b1
+    con loop {
+        con block b1:        // preds: b0 b4
+        div 32    %127 = phi b0: %126, b4: %400
+        div 32    %128 = phi b0: %124, b4: %398
+        div 32    %129 = phi b0: %122, b4: %396
+        div 32    %130 = phi b0: %120, b4: %394
+        div 32    %131 = phi b0: %118, b4: %392
+        div 32    %132 = phi b0: %116, b4: %390
+        div 32    %133 = phi b0: %114, b4: %388
+        div 32    %134 = phi b0: %112, b4: %386
+        div 32    %135 = phi b0: %110, b4: %384
+        div 32    %136 = phi b0: %108, b4: %382
+        div 32    %137 = phi b0: %106, b4: %380
+        div 32    %138 = phi b0: %104, b4: %378
+        div 32    %139 = phi b0: %102, b4: %376
+        div 32    %140 = phi b0: %100, b4: %374
+        div 32    %141 = phi b0: %99, b4: %372
+        div 32    %142 = phi b0: %98, b4: %370
+        con 32    %143 = phi b0: %8 (0x0), b4: %401
+        con 1     %144 = uge %143, %88
+                         // succs: b2 b3
+        if %144 {
+            con block b2:// preds: b1
+            break
+            // succs: b5
+        } else {
+            con block b3:  // preds: b1, succs: b4
+        }
+        con block b4:        // preds: b3
+        div 32    %145 = fmul %142, %93
+        div 32    %146 = fadd %145, %95
+        div 32    %147 = fmul %141, %93
+        div 32    %148 = fadd %147, %95
+        div 32    %149 = fmul %140, %93
+        div 32    %150 = fadd %149, %95
+        div 32    %151 = fmul %139, %93
+        div 32    %152 = fadd %151, %95
+        div 32    %153 = fmul %138, %93
+        div 32    %154 = fadd %153, %95
+        div 32    %155 = fmul %137, %93
+        div 32    %156 = fadd %155, %95
+        div 32    %157 = fmul %136, %93
+        div 32    %158 = fadd %157, %95
+        div 32    %159 = fmul %135, %93
+        div 32    %160 = fadd %159, %95
+        div 32    %161 = fmul %134, %93
+        div 32    %162 = fadd %161, %95
+        div 32    %163 = fmul %133, %93
+        div 32    %164 = fadd %163, %95
+        div 32    %165 = fmul %132, %93
+        div 32    %166 = fadd %165, %95
+        div 32    %167 = fmul %131, %93
+        div 32    %168 = fadd %167, %95
+        div 32    %169 = fmul %130, %93
+        div 32    %170 = fadd %169, %95
+        div 32    %171 = fmul %129, %93
+        div 32    %172 = fadd %171, %95
+        div 32    %173 = fmul %128, %93
+        div 32    %174 = fadd %173, %95
+        div 32    %175 = fmul %127, %93
+        div 32    %176 = fadd %175, %95
+        div 32    %177 = fmul %146, %93
+        div 32    %178 = fadd %177, %95
+        div 32    %179 = fmul %148, %93
+        div 32    %180 = fadd %179, %95
+        div 32    %181 = fmul %150, %93
+        div 32    %182 = fadd %181, %95
+        div 32    %183 = fmul %152, %93
+        div 32    %184 = fadd %183, %95
+        div 32    %185 = fmul %154, %93
+        div 32    %186 = fadd %185, %95
+        div 32    %187 = fmul %156, %93
+        div 32    %188 = fadd %187, %95
+        div 32    %189 = fmul %158, %93
+        div 32    %190 = fadd %189, %95
+        div 32    %191 = fmul %160, %93
+        div 32    %192 = fadd %191, %95
+        div 32    %193 = fmul %162, %93
+        div 32    %194 = fadd %193, %95
+        div 32    %195 = fmul %164, %93
+        div 32    %196 = fadd %195, %95
+        div 32    %197 = fmul %166, %93
+        div 32    %198 = fadd %197, %95
+        div 32    %199 = fmul %168, %93
+        div 32    %200 = fadd %199, %95
+        div 32    %201 = fmul %170, %93
+        div 32    %202 = fadd %201, %95
+        div 32    %203 = fmul %172, %93
+        div 32    %204 = fadd %203, %95
+        div 32    %205 = fmul %174, %93
+        div 32    %206 = fadd %205, %95
+        div 32    %207 = fmul %176, %93
+        div 32    %208 = fadd %207, %95
+        div 32    %209 = fmul %178, %93
+        div 32    %210 = fadd %209, %95
+        div 32    %211 = fmul %180, %93
+        div 32    %212 = fadd %211, %95
+        div 32    %213 = fmul %182, %93
+        div 32    %214 = fadd %213, %95
+        div 32    %215 = fmul %184, %93
+        div 32    %216 = fadd %215, %95
+        div 32    %217 = fmul %186, %93
+        div 32    %218 = fadd %217, %95
+        div 32    %219 = fmul %188, %93
+        div 32    %220 = fadd %219, %95
+        div 32    %221 = fmul %190, %93
+        div 32    %222 = fadd %221, %95
+        div 32    %223 = fmul %192, %93
+        div 32    %224 = fadd %223, %95
+        div 32    %225 = fmul %194, %93
+        div 32    %226 = fadd %225, %95
+        div 32    %227 = fmul %196, %93
+        div 32    %228 = fadd %227, %95
+        div 32    %229 = fmul %198, %93
+        div 32    %230 = fadd %229, %95
+        div 32    %231 = fmul %200, %93
+        div 32    %232 = fadd %231, %95
+        div 32    %233 = fmul %202, %93
+        div 32    %234 = fadd %233, %95
+        div 32    %235 = fmul %204, %93
+        div 32    %236 = fadd %235, %95
+        div 32    %237 = fmul %206, %93
+        div 32    %238 = fadd %237, %95
+        div 32    %239 = fmul %208, %93
+        div 32    %240 = fadd %239, %95
+        div 32    %241 = fmul %210, %93
+        div 32    %242 = fadd %241, %95
+        div 32    %243 = fmul %212, %93
+        div 32    %244 = fadd %243, %95
+        div 32    %245 = fmul %214, %93
+        div 32    %246 = fadd %245, %95
+        div 32    %247 = fmul %216, %93
+        div 32    %248 = fadd %247, %95
+        div 32    %249 = fmul %218, %93
+        div 32    %250 = fadd %249, %95
+        div 32    %251 = fmul %220, %93
+        div 32    %252 = fadd %251, %95
+        div 32    %253 = fmul %222, %93
+        div 32    %254 = fadd %253, %95
+        div 32    %255 = fmul %224, %93
+        div 32    %256 = fadd %255, %95
+        div 32    %257 = fmul %226, %93
+        div 32    %258 = fadd %257, %95
+        div 32    %259 = fmul %228, %93
+        div 32    %260 = fadd %259, %95
+        div 32    %261 = fmul %230, %93
+        div 32    %262 = fadd %261, %95
+        div 32    %263 = fmul %232, %93
+        div 32    %264 = fadd %263, %95
+        div 32    %265 = fmul %234, %93
+        div 32    %266 = fadd %265, %95
+        div 32    %267 = fmul %236, %93
+        div 32    %268 = fadd %267, %95
+        div 32    %269 = fmul %238, %93
+        div 32    %270 = fadd %269, %95
+        div 32    %271 = fmul %240, %93
+        div 32    %272 = fadd %271, %95
+        div 32    %273 = fmul %242, %93
+        div 32    %274 = fadd %273, %95
+        div 32    %275 = fmul %244, %93
+        div 32    %276 = fadd %275, %95
+        div 32    %277 = fmul %246, %93
+        div 32    %278 = fadd %277, %95
+        div 32    %279 = fmul %248, %93
+        div 32    %280 = fadd %279, %95
+        div 32    %281 = fmul %250, %93
+        div 32    %282 = fadd %281, %95
+        div 32    %283 = fmul %252, %93
+        div 32    %284 = fadd %283, %95
+        div 32    %285 = fmul %254, %93
+        div 32    %286 = fadd %285, %95
+        div 32    %287 = fmul %256, %93
+        div 32    %288 = fadd %287, %95
+        div 32    %289 = fmul %258, %93
+        div 32    %290 = fadd %289, %95
+        div 32    %291 = fmul %260, %93
+        div 32    %292 = fadd %291, %95
+        div 32    %293 = fmul %262, %93
+        div 32    %294 = fadd %293, %95
+        div 32    %295 = fmul %264, %93
+        div 32    %296 = fadd %295, %95
+        div 32    %297 = fmul %266, %93
+        div 32    %298 = fadd %297, %95
+        div 32    %299 = fmul %268, %93
+        div 32    %300 = fadd %299, %95
+        div 32    %301 = fmul %270, %93
+        div 32    %302 = fadd %301, %95
+        div 32    %303 = fmul %272, %93
+        div 32    %304 = fadd %303, %95
+        div 32    %305 = fmul %274, %93
+        div 32    %306 = fadd %305, %95
+        div 32    %307 = fmul %276, %93
+        div 32    %308 = fadd %307, %95
+        div 32    %309 = fmul %278, %93
+        div 32    %310 = fadd %309, %95
+        div 32    %311 = fmul %280, %93
+        div 32    %312 = fadd %311, %95
+        div 32    %313 = fmul %282, %93
+        div 32    %314 = fadd %313, %95
+        div 32    %315 = fmul %284, %93
+        div 32    %316 = fadd %315, %95
+        div 32    %317 = fmul %286, %93
+        div 32    %318 = fadd %317, %95
+        div 32    %319 = fmul %288, %93
+        div 32    %320 = fadd %319, %95
+        div 32    %321 = fmul %290, %93
+        div 32    %322 = fadd %321, %95
+        div 32    %323 = fmul %292, %93
+        div 32    %324 = fadd %323, %95
+        div 32    %325 = fmul %294, %93
+        div 32    %326 = fadd %325, %95
+        div 32    %327 = fmul %296, %93
+        div 32    %328 = fadd %327, %95
+        div 32    %329 = fmul %298, %93
+        div 32    %330 = fadd %329, %95
+        div 32    %331 = fmul %300, %93
+        div 32    %332 = fadd %331, %95
+        div 32    %333 = fmul %302, %93
+        div 32    %334 = fadd %333, %95
+        div 32    %335 = fmul %304, %93
+        div 32    %336 = fadd %335, %95
+        div 32    %337 = fmul %306, %93
+        div 32    %338 = fadd %337, %95
+        div 32    %339 = fmul %308, %93
+        div 32    %340 = fadd %339, %95
+        div 32    %341 = fmul %310, %93
+        div 32    %342 = fadd %341, %95
+        div 32    %343 = fmul %312, %93
+        div 32    %344 = fadd %343, %95
+        div 32    %345 = fmul %314, %93
+        div 32    %346 = fadd %345, %95
+        div 32    %347 = fmul %316, %93
+        div 32    %348 = fadd %347, %95
+        div 32    %349 = fmul %318, %93
+        div 32    %350 = fadd %349, %95
+        div 32    %351 = fmul %320, %93
+        div 32    %352 = fadd %351, %95
+        div 32    %353 = fmul %322, %93
+        div 32    %354 = fadd %353, %95
+        div 32    %355 = fmul %324, %93
+        div 32    %356 = fadd %355, %95
+        div 32    %357 = fmul %326, %93
+        div 32    %358 = fadd %357, %95
+        div 32    %359 = fmul %328, %93
+        div 32    %360 = fadd %359, %95
+        div 32    %361 = fmul %330, %93
+        div 32    %362 = fadd %361, %95
+        div 32    %363 = fmul %332, %93
+        div 32    %364 = fadd %363, %95
+        div 32    %365 = fmul %334, %93
+        div 32    %366 = fadd %365, %95
+        div 32    %367 = fmul %336, %93
+        div 32    %368 = fadd %367, %95
+        div 32    %369 = fmul %338, %93
+        div 32    %370 = fadd %369, %95
+        div 32    %371 = fmul %340, %93
+        div 32    %372 = fadd %371, %95
+        div 32    %373 = fmul %342, %93
+        div 32    %374 = fadd %373, %95
+        div 32    %375 = fmul %344, %93
+        div 32    %376 = fadd %375, %95
+        div 32    %377 = fmul %346, %93
+        div 32    %378 = fadd %377, %95
+        div 32    %379 = fmul %348, %93
+        div 32    %380 = fadd %379, %95
+        div 32    %381 = fmul %350, %93
+        div 32    %382 = fadd %381, %95
+        div 32    %383 = fmul %352, %93
+        div 32    %384 = fadd %383, %95
+        div 32    %385 = fmul %354, %93
+        div 32    %386 = fadd %385, %95
+        div 32    %387 = fmul %356, %93
+        div 32    %388 = fadd %387, %95
+        div 32    %389 = fmul %358, %93
+        div 32    %390 = fadd %389, %95
+        div 32    %391 = fmul %360, %93
+        div 32    %392 = fadd %391, %95
+        div 32    %393 = fmul %362, %93
+        div 32    %394 = fadd %393, %95
+        div 32    %395 = fmul %364, %93
+        div 32    %396 = fadd %395, %95
+        div 32    %397 = fmul %366, %93
+        div 32    %398 = fadd %397, %95
+        div 32    %399 = fmul %368, %93
+        div 32    %400 = fadd %399, %95
+        con 32    %401 = iadd %143, %12 (0x1)
+                         // succs: b1
+    }
+    con block b5:        // preds: b2
+    div 32    %402 = phi b2: %127
+    div 32    %403 = phi b2: %128
+    div 32    %404 = phi b2: %129
+    div 32    %405 = phi b2: %130
+    div 32    %406 = phi b2: %131
+    div 32    %407 = phi b2: %132
+    div 32    %408 = phi b2: %133
+    div 32    %409 = phi b2: %134
+    div 32    %410 = phi b2: %135
+    div 32    %411 = phi b2: %136
+    div 32    %412 = phi b2: %137
+    div 32    %413 = phi b2: %138
+    div 32    %414 = phi b2: %139
+    div 32    %415 = phi b2: %140
+    div 32    %416 = phi b2: %141
+    div 32    %417 = phi b2: %142
+    div 32    %418 = fadd %417, %416
+    div 32    %419 = fadd %418, %415
+    div 32    %420 = fadd %419, %414
+    div 32    %421 = fadd %420, %413
+    div 32    %422 = fadd %421, %412
+    div 32    %423 = fadd %422, %411
+    div 32    %424 = fadd %423, %410
+    div 32    %425 = fadd %424, %409
+    div 32    %426 = fadd %425, %408
+    div 32    %427 = fadd %426, %407
+    div 32    %428 = fadd %427, %406
+    div 32    %429 = fadd %428, %405
+    div 32    %430 = fadd %429, %404
+    div 32    %431 = fadd %430, %403
+    div 32    %432 = fadd %431, %402
+    con 32x4  %433 = @load_global_amd (%7, %8 (0x0)) (base=16, access=readonly|reorderable|smem-amd, align_mul=4, align_offset=0)
+    div 32    %434 = ishl %4, %15 (0x2)
+                     @store_ssbo (%432, %433, %434) (wrmask=x, access=writeonly, align_mul=4, align_offset=0, offset_shift=0)
+                     // succs: b6
+    block b6:
+}
+
+
+--- ACO IR: The ACO IR after some optimizations
+After Spilling:
+ACO shader stage: SW (CS), HW (COMPUTE_SHADER)
+BB0
+/* logical preds: / linear preds: / kind: uniform, top-level, loop-preheader, */
+	 s1: %436:s[0],  s1: %437:s[1],  s1: %438:s[2],  v1: %439:v[0] = p_startpgm
+	p_logical_start
+	 v1: %5 = v_lshl_add_u32 (kill)%438, 8, (kill)%439
+	 s2: %8 = p_create_vector (kill)%436, 0xffff8000
+	 s4: %10 = s_load_dwordx4 %8, 0 storage:buffer semantics:private,reorder
+	 v1: %12 = v_lshlrev_b32 4, %5
+	 v1: %14 = v_add_u32 1, %12
+	 v1: %15 = p_extract (kill)%14, 0, 16, 0
+	 v1: %17 = v_lshlrev_b32 2, (is16bit)(kill)%15
+	 v1: %18 = buffer_load_dword %10, (kill)%17, 0 offen storage:buffer semantics:private,reorder
+	 v1: %19 = v_add_u32 2, %12
+	 v1: %20 = p_extract (kill)%19, 0, 16, 0
+	 v1: %21 = v_lshlrev_b32 2, (is16bit)(kill)%20
+	 v1: %22 = buffer_load_dword %10, (kill)%21, 0 offen storage:buffer semantics:private,reorder
+	 v1: %23 = p_extract %12, 0, 16, 0
+	 v1: %24 = v_lshlrev_b32 2, (is16bit)(kill)%23
+	 v1: %25 = buffer_load_dword %10, (kill)%24, 0 offen storage:buffer semantics:private,reorder
+	 v1: %27 = v_add_u32 3, %12
+	 v1: %28 = p_extract (kill)%27, 0, 16, 0
+	 v1: %29 = v_lshlrev_b32 2, (is16bit)(kill)%28
+	 v1: %30 = buffer_load_dword %10, (kill)%29, 0 offen storage:buffer semantics:private,reorder
+	 v1: %31 = v_add_u32 4, %12
+	 v1: %32 = p_extract (kill)%31, 0, 16, 0
+	 v1: %33 = v_lshlrev_b32 2, (is16bit)(kill)%32
+	 v1: %34 = buffer_load_dword %10, (kill)%33, 0 offen storage:buffer semantics:private,reorder
+	 v1: %36 = v_add_u32 5, %12
+	 v1: %37 = p_extract (kill)%36, 0, 16, 0
+	 v1: %38 = v_lshlrev_b32 2, (is16bit)(kill)%37
+	 v1: %39 = buffer_load_dword %10, (kill)%38, 0 offen storage:buffer semantics:private,reorder
+	 v1: %41 = v_add_u32 6, %12
+	 v1: %42 = p_extract (kill)%41, 0, 16, 0
+	 v1: %43 = v_lshlrev_b32 2, (is16bit)(kill)%42
+	 v1: %44 = buffer_load_dword %10, (kill)%43, 0 offen storage:buffer semantics:private,reorder
+	 v1: %46 = v_add_u32 7, %12
+	 v1: %47 = p_extract (kill)%46, 0, 16, 0
+	 v1: %48 = v_lshlrev_b32 2, (is16bit)(kill)%47
+	 v1: %49 = buffer_load_dword %10, (kill)%48, 0 offen storage:buffer semantics:private,reorder
+	 v1: %50 = v_add_u32 8, %12
+	 v1: %51 = p_extract (kill)%50, 0, 16, 0
+	 v1: %52 = v_lshlrev_b32 2, (is16bit)(kill)%51
+	 v1: %53 = buffer_load_dword %10, (kill)%52, 0 offen storage:buffer semantics:private,reorder
+	 v1: %55 = v_add_u32 9, %12
+	 v1: %56 = p_extract (kill)%55, 0, 16, 0
+	 v1: %57 = v_lshlrev_b32 2, (is16bit)(kill)%56
+	 v1: %58 = buffer_load_dword %10, (kill)%57, 0 offen storage:buffer semantics:private,reorder
+	 v1: %60 = v_add_u32 10, %12
+	 v1: %61 = p_extract (kill)%60, 0, 16, 0
+	 v1: %62 = v_lshlrev_b32 2, (is16bit)(kill)%61
+	 v1: %63 = buffer_load_dword %10, (kill)%62, 0 offen storage:buffer semantics:private,reorder
+	 v1: %65 = v_add_u32 11, %12
+	 v1: %66 = p_extract (kill)%65, 0, 16, 0
+	 v1: %67 = v_lshlrev_b32 2, (is16bit)(kill)%66
+	 v1: %68 = buffer_load_dword %10, (kill)%67, 0 offen storage:buffer semantics:private,reorder
+	 v1: %70 = v_add_u32 12, %12
+	 v1: %71 = p_extract (kill)%70, 0, 16, 0
+	 v1: %72 = v_lshlrev_b32 2, (is16bit)(kill)%71
+	 v1: %73 = buffer_load_dword %10, (kill)%72, 0 offen storage:buffer semantics:private,reorder
+	 v1: %75 = v_add_u32 13, %12
+	 v1: %76 = p_extract (kill)%75, 0, 16, 0
+	 v1: %77 = v_lshlrev_b32 2, (is16bit)(kill)%76
+	 v1: %78 = buffer_load_dword %10, (kill)%77, 0 offen storage:buffer semantics:private,reorder
+	 v1: %80 = v_add_u32 14, %12
+	 v1: %81 = p_extract (kill)%80, 0, 16, 0
+	 v1: %82 = v_lshlrev_b32 2, (is16bit)(kill)%81
+	 v1: %83 = buffer_load_dword %10, (kill)%82, 0 offen storage:buffer semantics:private,reorder
+	 v1: %85 = v_add_u32 15, (kill)%12
+	 v1: %86 = p_extract (kill)%85, 0, 16, 0
+	 v1: %87 = v_lshlrev_b32 2, (is16bit)(kill)%86
+	 v1: %88 = buffer_load_dword (kill)%10, (kill)%87, 0 offen storage:buffer semantics:private,reorder
+	 v1: %90 = v_cvt_f32_i32 (kill)%18
+	 s1: %91 = p_parallelcopy 0x2b8cbccc
+	 v1: %94 = v_fmaak_f32 %91, %90, 0x3f7fbe77
+	 v1: %95 = v_cvt_f32_i32 (kill)%22
+	 v1: %96 = v_mul_f32 (kill)%91, %95
+	 v1: %97 = v_cvt_f32_i32 (kill)%25
+	 s1: %98 = p_parallelcopy 0x3089705f
+	 v1: %99 = v_mul_f32 %98, (kill)%97
+	 v1: %100 = v_mul_f32 %98, (kill)%90
+	 v1: %101 = v_mul_f32 %98, (kill)%95
+	 v1: %102 = v_cvt_f32_i32 (kill)%30
+	 v1: %103 = v_mul_f32 %98, (kill)%102
+	 v1: %104 = v_cvt_f32_i32 (kill)%34
+	 v1: %105 = v_mul_f32 %98, (kill)%104
+	 v1: %106 = v_cvt_f32_i32 (kill)%39
+	 v1: %107 = v_mul_f32 %98, (kill)%106
+	 v1: %108 = v_cvt_f32_i32 (kill)%44
+	 v1: %109 = v_mul_f32 %98, (kill)%108
+	 v1: %110 = v_cvt_f32_i32 (kill)%49
+	 v1: %111 = v_mul_f32 %98, (kill)%110
+	 v1: %112 = v_cvt_f32_i32 (kill)%53
+	 v1: %113 = v_mul_f32 %98, (kill)%112
+	 v1: %114 = v_cvt_f32_i32 (kill)%58
+	 v1: %115 = v_mul_f32 %98, (kill)%114
+	 v1: %116 = v_cvt_f32_i32 (kill)%63
+	 v1: %117 = v_mul_f32 %98, (kill)%116
+	 v1: %118 = v_cvt_f32_i32 (kill)%68
+	 v1: %119 = v_mul_f32 %98, (kill)%118
+	 v1: %120 = v_cvt_f32_i32 (kill)%73
+	 v1: %121 = v_mul_f32 %98, (kill)%120
+	 v1: %122 = v_cvt_f32_i32 (kill)%78
+	 v1: %123 = v_mul_f32 %98, (kill)%122
+	 v1: %124 = v_cvt_f32_i32 (kill)%83
+	 v1: %125 = v_mul_f32 %98, (kill)%124
+	 v1: %126 = v_cvt_f32_i32 (kill)%88
+	 v1: %127 = v_mul_f32 (kill)%98, (kill)%126
+	p_logical_end
+	p_branch BB1
+BB1
+/* logical preds: BB0, BB3, / linear preds: BB0, BB3, / kind: uniform, loop-header, */
+	 s1: %144 = p_linear_phi 0, (kill)%402
+	 v1: %143 = p_phi (kill)%99, (kill)%371
+	 v1: %142 = p_phi (kill)%100, (kill)%373
+	 v1: %141 = p_phi (kill)%101, (kill)%375
+	 v1: %140 = p_phi (kill)%103, (kill)%377
+	 v1: %139 = p_phi (kill)%105, (kill)%379
+	 v1: %138 = p_phi (kill)%107, (kill)%381
+	 v1: %137 = p_phi (kill)%109, (kill)%383
+	 v1: %136 = p_phi (kill)%111, (kill)%385
+	 v1: %135 = p_phi (kill)%113, (kill)%387
+	 v1: %134 = p_phi (kill)%115, (kill)%389
+	 v1: %133 = p_phi (kill)%117, (kill)%391
+	 v1: %132 = p_phi (kill)%119, (kill)%393
+	 v1: %131 = p_phi (kill)%121, (kill)%395
+	 v1: %130 = p_phi (kill)%123, (kill)%397
+	 v1: %129 = p_phi (kill)%125, (kill)%399
+	 v1: %128 = p_phi (kill)%127, (kill)%401
+	p_logical_start
+	 s1: %445:scc = s_cmp_ge_u32 %144, %437
+	p_logical_end
+	p_cbranch_z (kill)%445:scc BB3, BB2
+BB2
+/* logical preds: BB1, / linear preds: BB1, / kind: uniform, break, */
+	p_logical_start
+	p_logical_end
+	p_branch BB4
+BB3
+/* logical preds: BB1, / linear preds: BB1, / kind: uniform, */
+	p_logical_start
+	 v1: %147 = v_fma_f32 (kill)%143, %94, %96
+	 v1: %149 = v_fma_f32 (kill)%142, %94, %96
+	 v1: %151 = v_fma_f32 (kill)%141, %94, %96
+	 v1: %153 = v_fma_f32 (kill)%140, %94, %96
+	 v1: %155 = v_fma_f32 (kill)%139, %94, %96
+	 v1: %157 = v_fma_f32 (kill)%138, %94, %96
+	 v1: %159 = v_fma_f32 (kill)%137, %94, %96
+	 v1: %161 = v_fma_f32 (kill)%136, %94, %96
+	 v1: %163 = v_fma_f32 (kill)%135, %94, %96
+	 v1: %165 = v_fma_f32 (kill)%134, %94, %96
+	 v1: %167 = v_fma_f32 (kill)%133, %94, %96
+	 v1: %169 = v_fma_f32 (kill)%132, %94, %96
+	 v1: %171 = v_fma_f32 (kill)%131, %94, %96
+	 v1: %173 = v_fma_f32 (kill)%130, %94, %96
+	 v1: %175 = v_fma_f32 (kill)%129, %94, %96
+	 v1: %177 = v_fma_f32 (kill)%128, %94, %96
+	 v1: %179 = v_fma_f32 (kill)%147, %94, %96
+	 v1: %181 = v_fma_f32 (kill)%149, %94, %96
+	 v1: %183 = v_fma_f32 (kill)%151, %94, %96
+	 v1: %185 = v_fma_f32 (kill)%153, %94, %96
+	 v1: %187 = v_fma_f32 (kill)%155, %94, %96
+	 v1: %189 = v_fma_f32 (kill)%157, %94, %96
+	 v1: %191 = v_fma_f32 (kill)%159, %94, %96
+	 v1: %193 = v_fma_f32 (kill)%161, %94, %96
+	 v1: %195 = v_fma_f32 (kill)%163, %94, %96
+	 v1: %197 = v_fma_f32 (kill)%165, %94, %96
+	 v1: %199 = v_fma_f32 (kill)%167, %94, %96
+	 v1: %201 = v_fma_f32 (kill)%169, %94, %96
+	 v1: %203 = v_fma_f32 (kill)%171, %94, %96
+	 v1: %205 = v_fma_f32 (kill)%173, %94, %96
+	 v1: %207 = v_fma_f32 (kill)%175, %94, %96
+	 v1: %209 = v_fma_f32 (kill)%177, %94, %96
+	 v1: %211 = v_fma_f32 (kill)%179, %94, %96
+	 v1: %213 = v_fma_f32 (kill)%181, %94, %96
+	 v1: %215 = v_fma_f32 (kill)%183, %94, %96
+	 v1: %217 = v_fma_f32 (kill)%185, %94, %96
+	 v1: %219 = v_fma_f32 (kill)%187, %94, %96
+	 v1: %221 = v_fma_f32 (kill)%189, %94, %96
+	 v1: %223 = v_fma_f32 (kill)%191, %94, %96
+	 v1: %225 = v_fma_f32 (kill)%193, %94, %96
+	 v1: %227 = v_fma_f32 (kill)%195, %94, %96
+	 v1: %229 = v_fma_f32 (kill)%197, %94, %96
+	 v1: %231 = v_fma_f32 (kill)%199, %94, %96
+	 v1: %233 = v_fma_f32 (kill)%201, %94, %96
+	 v1: %235 = v_fma_f32 (kill)%203, %94, %96
+	 v1: %237 = v_fma_f32 (kill)%205, %94, %96
+	 v1: %239 = v_fma_f32 (kill)%207, %94, %96
+	 v1: %241 = v_fma_f32 (kill)%209, %94, %96
+	 v1: %243 = v_fma_f32 (kill)%211, %94, %96
+	 v1: %245 = v_fma_f32 (kill)%213, %94, %96
+	 v1: %247 = v_fma_f32 (kill)%215, %94, %96
+	 v1: %249 = v_fma_f32 (kill)%217, %94, %96
+	 v1: %251 = v_fma_f32 (kill)%219, %94, %96
+	 v1: %253 = v_fma_f32 (kill)%221, %94, %96
+	 v1: %255 = v_fma_f32 (kill)%223, %94, %96
+	 v1: %257 = v_fma_f32 (kill)%225, %94, %96
+	 v1: %259 = v_fma_f32 (kill)%227, %94, %96
+	 v1: %261 = v_fma_f32 (kill)%229, %94, %96
+	 v1: %263 = v_fma_f32 (kill)%231, %94, %96
+	 v1: %265 = v_fma_f32 (kill)%233, %94, %96
+	 v1: %267 = v_fma_f32 (kill)%235, %94, %96
+	 v1: %269 = v_fma_f32 (kill)%237, %94, %96
+	 v1: %271 = v_fma_f32 (kill)%239, %94, %96
+	 v1: %273 = v_fma_f32 (kill)%241, %94, %96
+	 v1: %275 = v_fma_f32 (kill)%243, %94, %96
+	 v1: %277 = v_fma_f32 (kill)%245, %94, %96
+	 v1: %279 = v_fma_f32 (kill)%247, %94, %96
+	 v1: %281 = v_fma_f32 (kill)%249, %94, %96
+	 v1: %283 = v_fma_f32 (kill)%251, %94, %96
+	 v1: %285 = v_fma_f32 (kill)%253, %94, %96
+	 v1: %287 = v_fma_f32 (kill)%255, %94, %96
+	 v1: %289 = v_fma_f32 (kill)%257, %94, %96
+	 v1: %291 = v_fma_f32 (kill)%259, %94, %96
+	 v1: %293 = v_fma_f32 (kill)%261, %94, %96
+	 v1: %295 = v_fma_f32 (kill)%263, %94, %96
+	 v1: %297 = v_fma_f32 (kill)%265, %94, %96
+	 v1: %299 = v_fma_f32 (kill)%267, %94, %96
+	 v1: %301 = v_fma_f32 (kill)%269, %94, %96
+	 v1: %303 = v_fma_f32 (kill)%271, %94, %96
+	 v1: %305 = v_fma_f32 (kill)%273, %94, %96
+	 v1: %307 = v_fma_f32 (kill)%275, %94, %96
+	 v1: %309 = v_fma_f32 (kill)%277, %94, %96
+	 v1: %311 = v_fma_f32 (kill)%279, %94, %96
+	 v1: %313 = v_fma_f32 (kill)%281, %94, %96
+	 v1: %315 = v_fma_f32 (kill)%283, %94, %96
+	 v1: %317 = v_fma_f32 (kill)%285, %94, %96
+	 v1: %319 = v_fma_f32 (kill)%287, %94, %96
+	 v1: %321 = v_fma_f32 (kill)%289, %94, %96
+	 v1: %323 = v_fma_f32 (kill)%291, %94, %96
+	 v1: %325 = v_fma_f32 (kill)%293, %94, %96
+	 v1: %327 = v_fma_f32 (kill)%295, %94, %96
+	 v1: %329 = v_fma_f32 (kill)%297, %94, %96
+	 v1: %331 = v_fma_f32 (kill)%299, %94, %96
+	 v1: %333 = v_fma_f32 (kill)%301, %94, %96
+	 v1: %335 = v_fma_f32 (kill)%303, %94, %96
+	 v1: %337 = v_fma_f32 (kill)%305, %94, %96
+	 v1: %339 = v_fma_f32 (kill)%307, %94, %96
+	 v1: %341 = v_fma_f32 (kill)%309, %94, %96
+	 v1: %343 = v_fma_f32 (kill)%311, %94, %96
+	 v1: %345 = v_fma_f32 (kill)%313, %94, %96
+	 v1: %347 = v_fma_f32 (kill)%315, %94, %96
+	 v1: %349 = v_fma_f32 (kill)%317, %94, %96
+	 v1: %351 = v_fma_f32 (kill)%319, %94, %96
+	 v1: %353 = v_fma_f32 (kill)%321, %94, %96
+	 v1: %355 = v_fma_f32 (kill)%323, %94, %96
+	 v1: %357 = v_fma_f32 (kill)%325, %94, %96
+	 v1: %359 = v_fma_f32 (kill)%327, %94, %96
+	 v1: %361 = v_fma_f32 (kill)%329, %94, %96
+	 v1: %363 = v_fma_f32 (kill)%331, %94, %96
+	 v1: %365 = v_fma_f32 (kill)%333, %94, %96
+	 v1: %367 = v_fma_f32 (kill)%335, %94, %96
+	 v1: %369 = v_fma_f32 (kill)%337, %94, %96
+	 v1: %371 = v_fma_f32 (kill)%339, %94, %96
+	 v1: %373 = v_fma_f32 (kill)%341, %94, %96
+	 v1: %375 = v_fma_f32 (kill)%343, %94, %96
+	 v1: %377 = v_fma_f32 (kill)%345, %94, %96
+	 v1: %379 = v_fma_f32 (kill)%347, %94, %96
+	 v1: %381 = v_fma_f32 (kill)%349, %94, %96
+	 v1: %383 = v_fma_f32 (kill)%351, %94, %96
+	 v1: %385 = v_fma_f32 (kill)%353, %94, %96
+	 v1: %387 = v_fma_f32 (kill)%355, %94, %96
+	 v1: %389 = v_fma_f32 (kill)%357, %94, %96
+	 v1: %391 = v_fma_f32 (kill)%359, %94, %96
+	 v1: %393 = v_fma_f32 (kill)%361, %94, %96
+	 v1: %395 = v_fma_f32 (kill)%363, %94, %96
+	 v1: %397 = v_fma_f32 (kill)%365, %94, %96
+	 v1: %399 = v_fma_f32 (kill)%367, %94, %96
+	 v1: %401 = v_fma_f32 (kill)%369, %94, %96
+	 s1: %402,  s1: (kill)%448:scc = s_add_u32 (kill)%144, 1
+	p_logical_end
+	p_branch BB1
+BB4
+/* logical preds: BB2, / linear preds: BB2, / kind: uniform, top-level, loop-exit, */
+	 v1: %418 = p_phi (kill)%143
+	 v1: %417 = p_phi (kill)%142
+	 v1: %416 = p_phi (kill)%141
+	 v1: %415 = p_phi (kill)%140
+	 v1: %414 = p_phi (kill)%139
+	 v1: %413 = p_phi (kill)%138
+	 v1: %412 = p_phi (kill)%137
+	 v1: %411 = p_phi (kill)%136
+	 v1: %410 = p_phi (kill)%135
+	 v1: %409 = p_phi (kill)%134
+	 v1: %408 = p_phi (kill)%133
+	 v1: %407 = p_phi (kill)%132
+	 v1: %406 = p_phi (kill)%131
+	 v1: %405 = p_phi (kill)%130
+	 v1: %404 = p_phi (kill)%129
+	 v1: %403 = p_phi (kill)%128
+	p_logical_start
+	 v1: %419 = v_add_f32 (kill)%418, (kill)%417
+	 v1: %420 = v_add_f32 (kill)%419, (kill)%416
+	 v1: %421 = v_add_f32 (kill)%420, (kill)%415
+	 v1: %422 = v_add_f32 (kill)%421, (kill)%414
+	 v1: %423 = v_add_f32 (kill)%422, (kill)%413
+	 v1: %424 = v_add_f32 (kill)%423, (kill)%412
+	 v1: %425 = v_add_f32 (kill)%424, (kill)%411
+	 v1: %426 = v_add_f32 (kill)%425, (kill)%410
+	 v1: %427 = v_add_f32 (kill)%426, (kill)%409
+	 v1: %428 = v_add_f32 (kill)%427, (kill)%408
+	 v1: %429 = v_add_f32 (kill)%428, (kill)%407
+	 v1: %430 = v_add_f32 (kill)%429, (kill)%406
+	 v1: %431 = v_add_f32 (kill)%430, (kill)%405
+	 v1: %432 = v_add_f32 (kill)%431, (kill)%404
+	 v1: %433 = v_add_f32 (kill)%432, (kill)%403
+	 s4: %434 = s_load_dwordx4 (kill)%8, 16 storage:buffer semantics:private,reorder
+	 v1: %435 = v_lshlrev_b32 2, (kill)%5
+	buffer_store_dword (kill)%434, (kill)%435, 0, (kill)%433 offen storage:buffer
+	p_logical_end
+	s_endpgm
+
+
+--- Assembly: Final Assembly
+BB0:
+	s_mov_b32 s3, s1                                            ; be830001
+	s_movk_i32 s1, 0x8000                                       ; b0018000
+	s_load_b128 s[4:7], s[0:1], null                            ; f4080100 f8000000
+	v_lshl_add_u32 v0, s2, 8, v0                                ; d6460000 04011002
+	s_delay_alu instid0(VALU_DEP_1) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870091
+	v_lshlrev_b32_e32 v1, 4, v0                                 ; 30020084
+	v_add_nc_u32_e32 v7, 5, v1                                  ; 4a0e0285
+	v_add_nc_u32_e32 v2, 1, v1                                  ; 4a040281
+	v_add_nc_u32_e32 v3, 2, v1                                  ; 4a060282
+	v_cvt_u32_u16_e32 v4, v1.l                                  ; 7e08d701
+	v_add_nc_u32_e32 v5, 3, v1                                  ; 4a0a0283
+	v_add_nc_u32_e32 v6, 4, v1                                  ; 4a0c0284
+	v_add_nc_u32_e32 v8, 6, v1                                  ; 4a100286
+	v_add_nc_u32_e32 v9, 7, v1                                  ; 4a120287
+	v_cvt_u32_u16_e32 v7, v7.l                                  ; 7e0ed707
+	v_add_nc_u32_e32 v10, 8, v1                                 ; 4a140288
+	v_cvt_u32_u16_e32 v2, v2.l                                  ; 7e04d702
+	v_cvt_u32_u16_e32 v3, v3.l                                  ; 7e06d703
+	v_lshlrev_b32_e32 v4, 2, v4                                 ; 30080882
+	v_add_nc_u32_e32 v11, 9, v1                                 ; 4a160289
+	v_cvt_u32_u16_e32 v5, v5.l                                  ; 7e0ad705
+	v_cvt_u32_u16_e32 v6, v6.l                                  ; 7e0cd706
+	v_cvt_u32_u16_e32 v8, v8.l                                  ; 7e10d708
+	v_add_nc_u32_e32 v12, 10, v1                                ; 4a18028a
+	v_cvt_u32_u16_e32 v9, v9.l                                  ; 7e12d709
+	v_lshlrev_b32_e32 v7, 2, v7                                 ; 300e0e82
+	v_cvt_u32_u16_e32 v10, v10.l                                ; 7e14d70a
+	v_add_nc_u32_e32 v13, 11, v1                                ; 4a1a028b
+	v_lshlrev_b32_e32 v2, 2, v2                                 ; 30040482
+	v_lshlrev_b32_e32 v3, 2, v3                                 ; 30060682
+	v_cvt_u32_u16_e32 v11, v11.l                                ; 7e16d70b
+	v_add_nc_u32_e32 v14, 12, v1                                ; 4a1c028c
+	v_lshlrev_b32_e32 v5, 2, v5                                 ; 300a0a82
+	v_lshlrev_b32_e32 v6, 2, v6                                 ; 300c0c82
+	v_add_nc_u32_e32 v15, 13, v1                                ; 4a1e028d
+	v_lshlrev_b32_e32 v8, 2, v8                                 ; 30101082
+	v_cvt_u32_u16_e32 v12, v12.l                                ; 7e18d70c
+	v_lshlrev_b32_e32 v9, 2, v9                                 ; 30121282
+	v_add_nc_u32_e32 v16, 14, v1                                ; 4a20028e
+	v_lshlrev_b32_e32 v10, 2, v10                               ; 30141482
+	v_cvt_u32_u16_e32 v13, v13.l                                ; 7e1ad70d
+	v_add_nc_u32_e32 v1, 15, v1                                 ; 4a02028f
+	v_lshlrev_b32_e32 v11, 2, v11                               ; 30161682
+	v_cvt_u32_u16_e32 v14, v14.l                                ; 7e1cd70e
+	v_cvt_u32_u16_e32 v15, v15.l                                ; 7e1ed70f
+	v_lshlrev_b32_e32 v12, 2, v12                               ; 30181882
+	v_cvt_u32_u16_e32 v16, v16.l                                ; 7e20d710
+	v_lshlrev_b32_e32 v13, 2, v13                               ; 301a1a82
+	v_cvt_u32_u16_e32 v1, v1.l                                  ; 7e02d701
+	v_lshlrev_b32_e32 v14, 2, v14                               ; 301c1c82
+	v_lshlrev_b32_e32 v15, 2, v15                               ; 301e1e82
+	v_lshlrev_b32_e32 v16, 2, v16                               ; 30202082
+	s_delay_alu instid0(VALU_DEP_4)                             ; bf870004
+	v_lshlrev_b32_e32 v1, 2, v1                                 ; 30020282
+	s_waitcnt lgkmcnt(0)                                        ; bf89fc07
+	s_clause 0xf                                                ; bf85000f
+	buffer_load_b32 v2, v2, s[4:7], 0 offen                     ; e0500000 80410202
+	buffer_load_b32 v3, v3, s[4:7], 0 offen                     ; e0500000 80410303
+	buffer_load_b32 v4, v4, s[4:7], 0 offen                     ; e0500000 80410404
+	buffer_load_b32 v5, v5, s[4:7], 0 offen                     ; e0500000 80410505
+	buffer_load_b32 v6, v6, s[4:7], 0 offen                     ; e0500000 80410606
+	buffer_load_b32 v7, v7, s[4:7], 0 offen                     ; e0500000 80410707
+	buffer_load_b32 v8, v8, s[4:7], 0 offen                     ; e0500000 80410808
+	buffer_load_b32 v9, v9, s[4:7], 0 offen                     ; e0500000 80410909
+	buffer_load_b32 v10, v10, s[4:7], 0 offen                   ; e0500000 80410a0a
+	buffer_load_b32 v11, v11, s[4:7], 0 offen                   ; e0500000 80410b0b
+	buffer_load_b32 v12, v12, s[4:7], 0 offen                   ; e0500000 80410c0c
+	buffer_load_b32 v13, v13, s[4:7], 0 offen                   ; e0500000 80410d0d
+	buffer_load_b32 v14, v14, s[4:7], 0 offen                   ; e0500000 80410e0e
+	buffer_load_b32 v15, v15, s[4:7], 0 offen                   ; e0500000 80410f0f
+	buffer_load_b32 v16, v16, s[4:7], 0 offen                   ; e0500000 80411010
+	buffer_load_b32 v1, v1, s[4:7], 0 offen                     ; e0500000 80410101
+	s_mov_b32 s4, 0x2b8cbccc                                    ; be8400ff 2b8cbccc
+	s_mov_b32 s5, 0x3089705f                                    ; be8500ff 3089705f
+	s_waitcnt vmcnt(15)                                         ; bf893ff7
+	v_cvt_f32_i32_e32 v2, v2                                    ; 7e040b02
+	s_waitcnt vmcnt(14)                                         ; bf893bf7
+	v_cvt_f32_i32_e32 v3, v3                                    ; 7e060b03
+	s_waitcnt vmcnt(13)                                         ; bf8937f7
+	v_cvt_f32_i32_e32 v4, v4                                    ; 7e080b04
+	s_waitcnt vmcnt(12)                                         ; bf8933f7
+	v_cvt_f32_i32_e32 v5, v5                                    ; 7e0a0b05
+	s_waitcnt vmcnt(11)                                         ; bf892ff7
+	v_cvt_f32_i32_e32 v6, v6                                    ; 7e0c0b06
+	s_waitcnt vmcnt(10)                                         ; bf892bf7
+	v_cvt_f32_i32_e32 v7, v7                                    ; 7e0e0b07
+	v_fmaak_f32 v17, s4, v2, 0x3f7fbe77                         ; 5a220404 3f7fbe77
+	s_waitcnt vmcnt(9)                                          ; bf8927f7
+	v_cvt_f32_i32_e32 v8, v8                                    ; 7e100b08
+	s_waitcnt vmcnt(8)                                          ; bf8923f7
+	v_cvt_f32_i32_e32 v9, v9                                    ; 7e120b09
+	v_mul_f32_e32 v18, s4, v3                                   ; 10240604
+	v_dual_mul_f32 v2, s5, v2 :: v_dual_mul_f32 v3, s5, v3      ; c8c60405 02020605
+	s_waitcnt vmcnt(7)                                          ; bf891ff7
+	v_cvt_f32_i32_e32 v10, v10                                  ; 7e140b0a
+	v_dual_mul_f32 v4, s5, v4 :: v_dual_mul_f32 v5, s5, v5      ; c8c60805 04040a05
+	s_waitcnt vmcnt(6)                                          ; bf891bf7
+	v_cvt_f32_i32_e32 v11, v11                                  ; 7e160b0b
+	s_waitcnt vmcnt(5)                                          ; bf8917f7
+	v_cvt_f32_i32_e32 v12, v12                                  ; 7e180b0c
+	s_mov_b32 s2, 0                                             ; be820080
+	v_dual_mul_f32 v6, s5, v6 :: v_dual_mul_f32 v7, s5, v7      ; c8c60c05 06060e05
+	s_waitcnt vmcnt(4)                                          ; bf8913f7
+	v_cvt_f32_i32_e32 v13, v13                                  ; 7e1a0b0d
+	s_waitcnt vmcnt(3)                                          ; bf890ff7
+	v_cvt_f32_i32_e32 v14, v14                                  ; 7e1c0b0e
+	s_waitcnt vmcnt(2)                                          ; bf890bf7
+	v_cvt_f32_i32_e32 v15, v15                                  ; 7e1e0b0f
+	v_dual_mul_f32 v8, s5, v8 :: v_dual_mul_f32 v9, s5, v9      ; c8c61005 08081205
+	s_waitcnt vmcnt(1)                                          ; bf8907f7
+	v_cvt_f32_i32_e32 v16, v16                                  ; 7e200b10
+	s_waitcnt vmcnt(0)                                          ; bf8903f7
+	v_cvt_f32_i32_e32 v1, v1                                    ; 7e020b01
+	v_dual_mul_f32 v11, s5, v11 :: v_dual_mul_f32 v10, s5, v10  ; c8c61605 0b0a1405
+	v_dual_mul_f32 v13, s5, v13 :: v_dual_mul_f32 v12, s5, v12  ; c8c61a05 0d0c1805
+	v_dual_mul_f32 v15, s5, v15 :: v_dual_mul_f32 v14, s5, v14  ; c8c61e05 0f0e1c05
+	s_delay_alu instid0(VALU_DEP_4)                             ; bf870004
+	v_dual_mul_f32 v1, s5, v1 :: v_dual_mul_f32 v16, s5, v16    ; c8c60205 01102005
+	s_branch BB1                                                ; bfa00101
+BB3:
+	v_fma_f32 v4, v4, v17, v18                                  ; d6130004 044a2304
+	v_fma_f32 v2, v2, v17, v18                                  ; d6130002 044a2302
+	v_fma_f32 v3, v3, v17, v18                                  ; d6130003 044a2303
+	v_fma_f32 v5, v5, v17, v18                                  ; d6130005 044a2305
+	v_fma_f32 v6, v6, v17, v18                                  ; d6130006 044a2306
+	v_fma_f32 v7, v7, v17, v18                                  ; d6130007 044a2307
+	v_fma_f32 v8, v8, v17, v18                                  ; d6130008 044a2308
+	v_fma_f32 v9, v9, v17, v18                                  ; d6130009 044a2309
+	v_fma_f32 v10, v10, v17, v18                                ; d613000a 044a230a
+	v_fma_f32 v11, v11, v17, v18                                ; d613000b 044a230b
+	v_fma_f32 v12, v12, v17, v18                                ; d613000c 044a230c
+	v_fma_f32 v13, v13, v17, v18                                ; d613000d 044a230d
+	v_fma_f32 v14, v14, v17, v18                                ; d613000e 044a230e
+	v_fma_f32 v15, v15, v17, v18                                ; d613000f 044a230f
+	v_fma_f32 v16, v16, v17, v18                                ; d6130010 044a2310
+	v_fma_f32 v1, v1, v17, v18                                  ; d6130001 044a2301
+	v_fma_f32 v4, v4, v17, v18                                  ; d6130004 044a2304
+	v_fma_f32 v2, v2, v17, v18                                  ; d6130002 044a2302
+	v_fma_f32 v3, v3, v17, v18                                  ; d6130003 044a2303
+	v_fma_f32 v5, v5, v17, v18                                  ; d6130005 044a2305
+	v_fma_f32 v6, v6, v17, v18                                  ; d6130006 044a2306
+	v_fma_f32 v7, v7, v17, v18                                  ; d6130007 044a2307
+	v_fma_f32 v8, v8, v17, v18                                  ; d6130008 044a2308
+	v_fma_f32 v9, v9, v17, v18                                  ; d6130009 044a2309
+	v_fma_f32 v10, v10, v17, v18                                ; d613000a 044a230a
+	v_fma_f32 v11, v11, v17, v18                                ; d613000b 044a230b
+	v_fma_f32 v12, v12, v17, v18                                ; d613000c 044a230c
+	v_fma_f32 v13, v13, v17, v18                                ; d613000d 044a230d
+	v_fma_f32 v14, v14, v17, v18                                ; d613000e 044a230e
+	v_fma_f32 v15, v15, v17, v18                                ; d613000f 044a230f
+	v_fma_f32 v16, v16, v17, v18                                ; d6130010 044a2310
+	v_fma_f32 v1, v1, v17, v18                                  ; d6130001 044a2301
+	v_fma_f32 v4, v4, v17, v18                                  ; d6130004 044a2304
+	v_fma_f32 v2, v2, v17, v18                                  ; d6130002 044a2302
+	v_fma_f32 v3, v3, v17, v18                                  ; d6130003 044a2303
+	v_fma_f32 v5, v5, v17, v18                                  ; d6130005 044a2305
+	v_fma_f32 v6, v6, v17, v18                                  ; d6130006 044a2306
+	v_fma_f32 v7, v7, v17, v18                                  ; d6130007 044a2307
+	v_fma_f32 v8, v8, v17, v18                                  ; d6130008 044a2308
+	v_fma_f32 v9, v9, v17, v18                                  ; d6130009 044a2309
+	v_fma_f32 v10, v10, v17, v18                                ; d613000a 044a230a
+	v_fma_f32 v11, v11, v17, v18                                ; d613000b 044a230b
+	v_fma_f32 v12, v12, v17, v18                                ; d613000c 044a230c
+	v_fma_f32 v13, v13, v17, v18                                ; d613000d 044a230d
+	v_fma_f32 v14, v14, v17, v18                                ; d613000e 044a230e
+	v_fma_f32 v15, v15, v17, v18                                ; d613000f 044a230f
+	v_fma_f32 v16, v16, v17, v18                                ; d6130010 044a2310
+	v_fma_f32 v1, v1, v17, v18                                  ; d6130001 044a2301
+	v_fma_f32 v4, v4, v17, v18                                  ; d6130004 044a2304
+	v_fma_f32 v2, v2, v17, v18                                  ; d6130002 044a2302
+	v_fma_f32 v3, v3, v17, v18                                  ; d6130003 044a2303
+	v_fma_f32 v5, v5, v17, v18                                  ; d6130005 044a2305
+	v_fma_f32 v6, v6, v17, v18                                  ; d6130006 044a2306
+	v_fma_f32 v7, v7, v17, v18                                  ; d6130007 044a2307
+	v_fma_f32 v8, v8, v17, v18                                  ; d6130008 044a2308
+	v_fma_f32 v9, v9, v17, v18                                  ; d6130009 044a2309
+	v_fma_f32 v10, v10, v17, v18                                ; d613000a 044a230a
+	v_fma_f32 v11, v11, v17, v18                                ; d613000b 044a230b
+	v_fma_f32 v12, v12, v17, v18                                ; d613000c 044a230c
+	v_fma_f32 v13, v13, v17, v18                                ; d613000d 044a230d
+	v_fma_f32 v14, v14, v17, v18                                ; d613000e 044a230e
+	v_fma_f32 v15, v15, v17, v18                                ; d613000f 044a230f
+	v_fma_f32 v16, v16, v17, v18                                ; d6130010 044a2310
+	v_fma_f32 v1, v1, v17, v18                                  ; d6130001 044a2301
+	v_fma_f32 v4, v4, v17, v18                                  ; d6130004 044a2304
+	v_fma_f32 v2, v2, v17, v18                                  ; d6130002 044a2302
+	v_fma_f32 v3, v3, v17, v18                                  ; d6130003 044a2303
+	v_fma_f32 v5, v5, v17, v18                                  ; d6130005 044a2305
+	v_fma_f32 v6, v6, v17, v18                                  ; d6130006 044a2306
+	v_fma_f32 v7, v7, v17, v18                                  ; d6130007 044a2307
+	v_fma_f32 v8, v8, v17, v18                                  ; d6130008 044a2308
+	v_fma_f32 v9, v9, v17, v18                                  ; d6130009 044a2309
+	v_fma_f32 v10, v10, v17, v18                                ; d613000a 044a230a
+	v_fma_f32 v11, v11, v17, v18                                ; d613000b 044a230b
+	v_fma_f32 v12, v12, v17, v18                                ; d613000c 044a230c
+	v_fma_f32 v13, v13, v17, v18                                ; d613000d 044a230d
+	v_fma_f32 v14, v14, v17, v18                                ; d613000e 044a230e
+	v_fma_f32 v15, v15, v17, v18                                ; d613000f 044a230f
+	v_fma_f32 v16, v16, v17, v18                                ; d6130010 044a2310
+	v_fma_f32 v1, v1, v17, v18                                  ; d6130001 044a2301
+	v_fma_f32 v4, v4, v17, v18                                  ; d6130004 044a2304
+	v_fma_f32 v2, v2, v17, v18                                  ; d6130002 044a2302
+	v_fma_f32 v3, v3, v17, v18                                  ; d6130003 044a2303
+	v_fma_f32 v5, v5, v17, v18                                  ; d6130005 044a2305
+	v_fma_f32 v6, v6, v17, v18                                  ; d6130006 044a2306
+	v_fma_f32 v7, v7, v17, v18                                  ; d6130007 044a2307
+	v_fma_f32 v8, v8, v17, v18                                  ; d6130008 044a2308
+	v_fma_f32 v9, v9, v17, v18                                  ; d6130009 044a2309
+	v_fma_f32 v10, v10, v17, v18                                ; d613000a 044a230a
+	v_fma_f32 v11, v11, v17, v18                                ; d613000b 044a230b
+	v_fma_f32 v12, v12, v17, v18                                ; d613000c 044a230c
+	v_fma_f32 v13, v13, v17, v18                                ; d613000d 044a230d
+	v_fma_f32 v14, v14, v17, v18                                ; d613000e 044a230e
+	v_fma_f32 v15, v15, v17, v18                                ; d613000f 044a230f
+	v_fma_f32 v16, v16, v17, v18                                ; d6130010 044a2310
+	v_fma_f32 v1, v1, v17, v18                                  ; d6130001 044a2301
+	v_fma_f32 v4, v4, v17, v18                                  ; d6130004 044a2304
+	v_fma_f32 v2, v2, v17, v18                                  ; d6130002 044a2302
+	v_fma_f32 v3, v3, v17, v18                                  ; d6130003 044a2303
+	v_fma_f32 v5, v5, v17, v18                                  ; d6130005 044a2305
+	v_fma_f32 v6, v6, v17, v18                                  ; d6130006 044a2306
+	v_fma_f32 v7, v7, v17, v18                                  ; d6130007 044a2307
+	v_fma_f32 v8, v8, v17, v18                                  ; d6130008 044a2308
+	v_fma_f32 v9, v9, v17, v18                                  ; d6130009 044a2309
+	v_fma_f32 v10, v10, v17, v18                                ; d613000a 044a230a
+	v_fma_f32 v11, v11, v17, v18                                ; d613000b 044a230b
+	v_fma_f32 v12, v12, v17, v18                                ; d613000c 044a230c
+	v_fma_f32 v13, v13, v17, v18                                ; d613000d 044a230d
+	v_fma_f32 v14, v14, v17, v18                                ; d613000e 044a230e
+	v_fma_f32 v15, v15, v17, v18                                ; d613000f 044a230f
+	v_fma_f32 v16, v16, v17, v18                                ; d6130010 044a2310
+	v_fma_f32 v1, v1, v17, v18                                  ; d6130001 044a2301
+	v_fma_f32 v4, v4, v17, v18                                  ; d6130004 044a2304
+	v_fma_f32 v2, v2, v17, v18                                  ; d6130002 044a2302
+	v_fma_f32 v3, v3, v17, v18                                  ; d6130003 044a2303
+	v_fma_f32 v5, v5, v17, v18                                  ; d6130005 044a2305
+	v_fma_f32 v6, v6, v17, v18                                  ; d6130006 044a2306
+	v_fma_f32 v7, v7, v17, v18                                  ; d6130007 044a2307
+	v_fma_f32 v8, v8, v17, v18                                  ; d6130008 044a2308
+	v_fma_f32 v9, v9, v17, v18                                  ; d6130009 044a2309
+	v_fma_f32 v10, v10, v17, v18                                ; d613000a 044a230a
+	v_fma_f32 v11, v11, v17, v18                                ; d613000b 044a230b
+	v_fma_f32 v12, v12, v17, v18                                ; d613000c 044a230c
+	s_add_u32 s2, s2, 1                                         ; 80028102
+	v_fma_f32 v13, v13, v17, v18                                ; d613000d 044a230d
+	v_fma_f32 v14, v14, v17, v18                                ; d613000e 044a230e
+	v_fma_f32 v15, v15, v17, v18                                ; d613000f 044a230f
+	v_fma_f32 v16, v16, v17, v18                                ; d6130010 044a2310
+	v_fma_f32 v1, v1, v17, v18                                  ; d6130001 044a2301
+BB1:
+	s_cmp_ge_u32 s2, s3                                         ; bf090302
+	s_cbranch_scc0 BB3                                          ; bfa1fefd
+BB4:
+	s_load_b128 s[0:3], s[0:1], 0x10                            ; f4080000 f8000010
+	v_add_f32_e32 v4, v4, v2                                    ; 06080504
+	v_lshlrev_b32_e32 v0, 2, v0                                 ; 30000082
+	s_delay_alu instid0(VALU_DEP_2) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870092
+	v_add_f32_e32 v4, v4, v3                                    ; 06080704
+	v_add_f32_e32 v4, v4, v5                                    ; 06080b04
+	s_delay_alu instid0(VALU_DEP_1) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870091
+	v_add_f32_e32 v4, v4, v6                                    ; 06080d04
+	v_add_f32_e32 v4, v4, v7                                    ; 06080f04
+	s_delay_alu instid0(VALU_DEP_1) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870091
+	v_add_f32_e32 v4, v4, v8                                    ; 06081104
+	v_add_f32_e32 v4, v4, v9                                    ; 06081304
+	s_delay_alu instid0(VALU_DEP_1) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870091
+	v_add_f32_e32 v4, v4, v10                                   ; 06081504
+	v_add_f32_e32 v4, v4, v11                                   ; 06081704
+	s_delay_alu instid0(VALU_DEP_1) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870091
+	v_add_f32_e32 v4, v4, v12                                   ; 06081904
+	v_add_f32_e32 v4, v4, v13                                   ; 06081b04
+	s_delay_alu instid0(VALU_DEP_1) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870091
+	v_add_f32_e32 v4, v4, v14                                   ; 06081d04
+	v_add_f32_e32 v4, v4, v15                                   ; 06081f04
+	s_delay_alu instid0(VALU_DEP_1) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870091
+	v_add_f32_e32 v4, v4, v16                                   ; 06082104
+	v_add_f32_e32 v4, v4, v1                                    ; 06080304
+	s_waitcnt lgkmcnt(0)                                        ; bf89fc07
+	buffer_store_b32 v4, v0, s[0:3], 0 offen                    ; e0680000 80400400
+	s_endpgm                                                    ; bfb00000
+MEM_ORDERED = 0
+

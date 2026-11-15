@@ -1,0 +1,39 @@
+# kernel C_I8_W4V128 wgs 1344 iters 1024 before: sclk=53Mhz mclk=1249Mhz busy=14%
+subgroup_size 32
+stat Driver pipeline hash: 11907614325783295077
+stat SGPRs: 108
+stat VGPRs: 72
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 2312
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 804449667
+stat Instructions: 330
+stat Copies: 63
+stat Branches: 2
+stat Latency: 2966
+stat Inverse Throughput: 4384
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 7
+stat Pre-Sched VGPRs: 59
+stat VALU: 276
+stat SALU: 7
+stat VMEM: 17
+stat SMEM: 2
+stat VOPD: 23
+rep 0 gpu_ns 6277840
+rep 1 gpu_ns 6786480
+rep 2 gpu_ns 6863800
+rep 3 gpu_ns 6672040
+rep 4 gpu_ns 6784640
+rep 5 gpu_ns 6816960
+rep 6 gpu_ns 6707680
+rep 7 gpu_ns 6660080
+rep 8 gpu_ns 6624240
+rep 9 gpu_ns 6627960
+# after: sclk=2271Mhz mclk=1249Mhz busy=0%

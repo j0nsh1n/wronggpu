@@ -1,0 +1,39 @@
+# kernel B_XOR16 wgs 672 iters 256 before: sclk=249Mhz mclk=1249Mhz busy=0%
+subgroup_size 32
+stat Driver pipeline hash: 8525799792797511832
+stat SGPRs: 108
+stat VGPRs: 24
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 604
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 3210181433
+stat Instructions: 102
+stat Copies: 5
+stat Branches: 2
+stat Latency: 1069
+stat Inverse Throughput: 572
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 7
+stat Pre-Sched VGPRs: 9
+stat VALU: 62
+stat SALU: 7
+stat VMEM: 9
+stat SMEM: 2
+stat VOPD: 0
+rep 0 gpu_ns 342520
+rep 1 gpu_ns 342160
+rep 2 gpu_ns 342240
+rep 3 gpu_ns 342040
+rep 4 gpu_ns 342280
+rep 5 gpu_ns 342320
+rep 6 gpu_ns 342240
+rep 7 gpu_ns 341840
+rep 8 gpu_ns 341960
+rep 9 gpu_ns 342080
+# after: sclk=1509Mhz mclk=1249Mhz busy=0%

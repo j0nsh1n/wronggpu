@@ -1,0 +1,19 @@
+device: AMD Radeon RX 7900 XT (RADV NAVI31) (vendor 0x1002 device 0x744c) api 1.4.366
+driver: radv / Mesa 27.0.0-devel
+subgroup size range: 32..64; coopmat supported stages 0x20
+cooperative matrix properties: 14 entries
+  M  N  K  A    B    C    Result  saturatingAccumulation  scope
+  16 16 16 u8   u8   u32  u32     0                       subgroup
+  16 16 16 u8   u8   s32  s32     0                       subgroup
+  16 16 16 u8   u8   s32  s32     1                       subgroup
+  16 16 16 u8   s8   u32  u32     0                       subgroup
+  16 16 16 u8   s8   s32  s32     0                       subgroup
+  16 16 16 u8   s8   s32  s32     1                       subgroup
+  16 16 16 s8   u8   u32  u32     0                       subgroup
+  16 16 16 s8   u8   s32  s32     0                       subgroup
+  16 16 16 s8   u8   s32  s32     1                       subgroup
+  16 16 16 s8   s8   u32  u32     0                       subgroup
+  16 16 16 s8   s8   s32  s32     0                       subgroup
+  16 16 16 s8   s8   s32  s32     1                       subgroup
+  16 16 16 f16  f16  f16  f16     0                       subgroup
+  16 16 16 f16  f16  f32  f32     0                       subgroup

@@ -1,0 +1,149 @@
+=== executable 0: compute (Vulkan Compute Shader), subgroup size 32
+--- NIR Shader(s): The optimized NIR shader(s)
+shader: MESA_SHADER_COMPUTE
+source_blake3: {0xc492635d, 0xc40fcdf8, 0x21710907, 0x0cd43d8d, 0xc03d9bab, 0x3e470496, 0x0aa578bc, 0x216c6a22}
+name: 
+workgroup_size: 256, 1, 1
+num_ssbos: 3
+system_values_read: 0x00000000'00000000'00008400'00000000
+api_subgroup_size: 32
+max_subgroup_size: 32
+min_subgroup_size: 32
+bit_sizes_int: 0x21
+separate_shader: true
+flrp_lowered: true
+writes_memory: true
+uniforms: 4
+decl_var push_const INTERP_MODE_NONE none PC pc
+decl_var ssbo INTERP_MODE_NONE restrict readonly BI #0 (~0, 0, 0)
+decl_var ssbo INTERP_MODE_NONE restrict writeonly BO #1 (~0, 0, 1)
+decl_var ssbo INTERP_MODE_NONE restrict readonly writeonly BX #2 (~0, 0, 2)
+decl_function main () (entrypoint)
+
+impl main {
+    con block b0:       // preds:
+    con 32     %0 = @load_scalar_arg_amd (base=2)
+    div 32     %1 = @load_vector_arg_amd (base=3, arg_upper_bound_u32_amd=255)
+    con 32     %2 = load_const (0x00000008)
+    con 32     %3 = ishl %0, %2 (0x8)
+    div 32     %4 = iadd %3, %1
+    con 32     %5 = @load_scalar_arg_amd (base=0, arg_num_lsb_zero=2)
+    con 32     %6 = load_const (0xffff8000 = -32768 = 4294934528)
+    con 64     %7 = pack_64_2x32_split %5, %6 (0xffff8000)
+    con 32     %8 = load_const (0x00000000)
+    con 32x4   %9 = @load_global_amd (%7, %8 (0x0)) (base=0, access=readonly|reorderable|smem-amd, align_mul=4, align_offset=0)
+    con 32    %10 = load_const (0x00000004)
+    div 32    %11 = ishl %4, %10 (0x4)
+    div 32    %12 = extract_u16 %11, %8 (0x0)
+    con 32    %13 = load_const (0x00000002)
+    div 32    %14 = ishl %12, %13 (0x2)
+    div 32    %15 = @load_ssbo (%9, %14) (access=readonly|reorderable, align_mul=4, align_offset=0, offset_shift=0)
+    con 32    %16 = @load_scalar_arg_amd (base=1)
+                    // succs: b1
+    con loop {
+        con block b1:       // preds: b0 b4
+        con 32    %17 = phi b0: %8 (0x0), b4: %22
+        div 32    %18 = phi b0: %15, b4: %20
+        con 1     %19 = uge %17, %16
+                        // succs: b2 b3
+        if %19 {
+            con block b2:// preds: b1
+            break
+            // succs: b5
+        } else {
+            con block b3:  // preds: b1, succs: b4
+        }
+        con block b4:       // preds: b3
+        div 32    %20 = iadd %18, %17
+        con 32    %21 = load_const (0x00000001)
+        con 32    %22 = iadd %17, %21 (0x1)
+                        // succs: b1
+    }
+    con block b5:       // preds: b2
+    div 32    %23 = phi b2: %18
+    con 32x4  %24 = @load_global_amd (%7, %8 (0x0)) (base=16, access=readonly|reorderable|smem-amd, align_mul=4, align_offset=0)
+    div 32    %25 = ishl %4, %13 (0x2)
+                    @store_ssbo (%23, %24, %25) (wrmask=x, access=writeonly, align_mul=4, align_offset=0, offset_shift=0)
+                    // succs: b6
+    block b6:
+}
+
+
+--- ACO IR: The ACO IR after some optimizations
+After Spilling:
+ACO shader stage: SW (CS), HW (COMPUTE_SHADER)
+BB0
+/* logical preds: / linear preds: / kind: uniform, top-level, loop-preheader, */
+	 s1: %27:s[0],  s1: %28:s[1],  s1: %29:s[2],  v1: %30:v[0] = p_startpgm
+	p_logical_start
+	 v1: %5 = v_lshl_add_u32 (kill)%29, 8, (kill)%30
+	 s2: %8 = p_create_vector (kill)%27, 0xffff8000
+	 s4: %10 = s_load_dwordx4 %8, 0 storage:buffer semantics:private,reorder
+	 v1: %12 = v_lshlrev_b32 4, %5
+	 v1: %13 = p_extract (kill)%12, 0, 16, 0
+	 v1: %15 = v_lshlrev_b32 2, (is16bit)(kill)%13
+	 v1: %16 = buffer_load_dword (kill)%10, (kill)%15, 0 offen storage:buffer semantics:private,reorder
+	p_logical_end
+	p_branch BB1
+BB1
+/* logical preds: BB0, BB3, / linear preds: BB0, BB3, / kind: uniform, loop-header, */
+	 v1: %19 = p_phi (kill)%16, (kill)%21
+	 s1: %18 = p_linear_phi 0, (kill)%23
+	p_logical_start
+	 s1: %36:scc = s_cmp_ge_u32 %18, %28
+	p_logical_end
+	p_cbranch_z (kill)%36:scc BB3, BB2
+BB2
+/* logical preds: BB1, / linear preds: BB1, / kind: uniform, break, */
+	p_logical_start
+	p_logical_end
+	p_branch BB4
+BB3
+/* logical preds: BB1, / linear preds: BB1, / kind: uniform, */
+	p_logical_start
+	 v1: %21 = v_add_u32 %18, (kill)%19
+	 s1: %23,  s1: (kill)%39:scc = s_add_u32 (kill)%18, 1
+	p_logical_end
+	p_branch BB1
+BB4
+/* logical preds: BB2, / linear preds: BB2, / kind: uniform, top-level, loop-exit, */
+	 v1: %24 = p_phi (kill)%19
+	p_logical_start
+	 s4: %25 = s_load_dwordx4 (kill)%8, 16 storage:buffer semantics:private,reorder
+	 v1: %26 = v_lshlrev_b32 2, (kill)%5
+	buffer_store_dword (kill)%25, (kill)%26, 0, (kill)%24 offen storage:buffer
+	p_logical_end
+	s_endpgm
+
+
+--- Assembly: Final Assembly
+BB0:
+	s_mov_b32 s3, s1                                            ; be830001
+	s_movk_i32 s1, 0x8000                                       ; b0018000
+	s_load_b128 s[4:7], s[0:1], null                            ; f4080100 f8000000
+	v_lshl_add_u32 v0, s2, 8, v0                                ; d6460000 04011002
+	s_delay_alu instid0(VALU_DEP_1) | instskip(NEXT) | instid1(VALU_DEP_1) ; bf870091
+	v_lshlrev_b32_e32 v1, 4, v0                                 ; 30020084
+	v_cvt_u32_u16_e32 v1, v1.l                                  ; 7e02d701
+	s_delay_alu instid0(VALU_DEP_1)                             ; bf870001
+	v_lshlrev_b32_e32 v1, 2, v1                                 ; 30020282
+	s_waitcnt lgkmcnt(0)                                        ; bf89fc07
+	buffer_load_b32 v1, v1, s[4:7], 0 offen                     ; e0500000 80410101
+	s_mov_b32 s2, 0                                             ; be820080
+	s_branch BB1                                                ; bfa00003
+BB3:
+	s_waitcnt vmcnt(0)                                          ; bf8903f7
+	v_add_nc_u32_e32 v1, s2, v1                                 ; 4a020202
+	s_add_u32 s2, s2, 1                                         ; 80028102
+BB1:
+	s_delay_alu instid0(SALU_CYCLE_1)                           ; bf870009
+	s_cmp_ge_u32 s2, s3                                         ; bf090302
+	s_cbranch_scc0 BB3                                          ; bfa1fffa
+BB4:
+	s_load_b128 s[0:3], s[0:1], 0x10                            ; f4080000 f8000010
+	v_lshlrev_b32_e32 v0, 2, v0                                 ; 30000082
+	s_waitcnt vmcnt(0) lgkmcnt(0)                               ; bf890007
+	buffer_store_b32 v1, v0, s[0:3], 0 offen                    ; e0680000 80400100
+	s_endpgm                                                    ; bfb00000
+MEM_ORDERED = 0
+

@@ -1,0 +1,32 @@
+#version 450
+// One independent 16x16x16 problem per subgroup: D = A * B + C, all matrices row-major, 256 elements per problem.
+// TA = A/B element type, TC = accumulator type; chosen with glslc -D.
+#extension GL_KHR_cooperative_matrix : require
+#extension GL_KHR_memory_scope_semantics : require
+#extension GL_EXT_shader_explicit_arithmetic_types : require
+#extension GL_EXT_shader_16bit_storage : require
+#extension GL_EXT_shader_8bit_storage : require
+#extension GL_KHR_shader_subgroup_basic : require
+
+layout(local_size_x = 128) in;
+
+layout(std430, binding = 0) readonly buffer BA { TA a[]; };
+layout(std430, binding = 1) readonly buffer BB { TA b[]; };
+layout(std430, binding = 2) readonly buffer BC { TC c[]; };
+layout(std430, binding = 3) writeonly buffer BD { TC d[]; };
+
+void main() {
+    uint p = gl_WorkGroupID.x * gl_NumSubgroups + gl_SubgroupID;
+    coopmat<TA, gl_ScopeSubgroup, 16, 16, gl_MatrixUseA> ma;
+    coopmat<TA, gl_ScopeSubgroup, 16, 16, gl_MatrixUseB> mb;
+    coopmat<TC, gl_ScopeSubgroup, 16, 16, gl_MatrixUseAccumulator> mc;
+    coopMatLoad(ma, a, p * 256u, 16u, gl_CooperativeMatrixLayoutRowMajor);
+    coopMatLoad(mb, b, p * 256u, 16u, gl_CooperativeMatrixLayoutRowMajor);
+    coopMatLoad(mc, c, p * 256u, 16u, gl_CooperativeMatrixLayoutRowMajor);
+#ifdef SAT
+    mc = coopMatMulAdd(ma, mb, mc, gl_MatrixOperandsSaturatingAccumulation);
+#else
+    mc = coopMatMulAdd(ma, mb, mc);
+#endif
+    coopMatStore(mc, d, p * 256u, 16u, gl_CooperativeMatrixLayoutRowMajor);
+}

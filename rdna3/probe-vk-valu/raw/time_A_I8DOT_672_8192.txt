@@ -1,0 +1,39 @@
+# kernel A_I8DOT wgs 672 iters 8192 before: sclk=115Mhz mclk=1249Mhz busy=4%
+subgroup_size 32
+stat Driver pipeline hash: 10953889086243874725
+stat SGPRs: 108
+stat VGPRs: 24
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 796
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 4277179209
+stat Instructions: 136
+stat Copies: 3
+stat Branches: 2
+stat Latency: 1044
+stat Inverse Throughput: 636
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 7
+stat Pre-Sched VGPRs: 17
+stat VALU: 94
+stat SALU: 5
+stat VMEM: 17
+stat SMEM: 2
+stat VOPD: 0
+rep 0 gpu_ns 6508920
+rep 1 gpu_ns 6212200
+rep 2 gpu_ns 6763680
+rep 3 gpu_ns 6621280
+rep 4 gpu_ns 6608840
+rep 5 gpu_ns 6590200
+rep 6 gpu_ns 6561440
+rep 7 gpu_ns 6542120
+rep 8 gpu_ns 6504440
+rep 9 gpu_ns 6437760
+# after: sclk=2632Mhz mclk=1249Mhz busy=94%

@@ -1,0 +1,39 @@
+# kernel C_F16_V64 wgs 672 iters 8192 before: sclk=73Mhz mclk=1249Mhz busy=3%
+subgroup_size 32
+stat Driver pipeline hash: 10540863742896011138
+stat SGPRs: 108
+stat VGPRs: 24
+stat Spilled SGPRs: 0
+stat Spilled VGPRs: 0
+stat Code size: 1232
+stat LDS size: 0
+stat Scratch size: 0
+stat Subgroups per SIMD: 16
+stat Combined inputs: 0
+stat Combined outputs: 0
+stat Hash: 2054136150
+stat Instructions: 212
+stat Copies: 5
+stat Branches: 2
+stat Latency: 1364
+stat Inverse Throughput: 1204
+stat VMEM Clause: 2
+stat SMEM Clause: 2
+stat Pre-Sched SGPRs: 7
+stat Pre-Sched VGPRs: 19
+stat VALU: 154
+stat SALU: 7
+stat VMEM: 17
+stat SMEM: 2
+stat VOPD: 9
+rep 0 gpu_ns 6559600
+rep 1 gpu_ns 6422400
+rep 2 gpu_ns 6916480
+rep 3 gpu_ns 6749320
+rep 4 gpu_ns 6741960
+rep 5 gpu_ns 6757440
+rep 6 gpu_ns 6721880
+rep 7 gpu_ns 6713120
+rep 8 gpu_ns 6659720
+rep 9 gpu_ns 6646040
+# after: sclk=2576Mhz mclk=1249Mhz busy=94%
